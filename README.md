@@ -16,5 +16,6 @@ Tener listo
 - Sebas: Reserva de tours
 - Tomás: Gestion de reservas
 - Kev: Reseñas
+
 NOS REUNIMOS EL 29 DE ENERO PARA VER LOS AVANCES
 
