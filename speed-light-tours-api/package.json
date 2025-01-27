@@ -3,16 +3,21 @@
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/morgan": "^1.9.9",
     "sass": "^1.83.4",
     "typescript": "^5.7.3"
   },
   "scripts": {
     "build": "tsc",
     "start": "node build/server.js",
-    "dev": "ts-node src/server.ts",
-    "build-start": "npm run build && npm run start"
+    "dev": "npm run build && npm run start"
   },
   "dependencies": {
-    "dotenv": "^16.4.7"
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "morgan": "^1.10.0"
   }
 }
