@@ -20,12 +20,12 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ isOpen, onClose }) =>
           <div className="input-section">
             <div className="input-group-row">
               <div className="input-group">
-                <label htmlFor="arrival">Llegada</label>
+                <label htmlFor="departure">Salida</label>
                 <input type="date" id="arrival" />
               </div>
 
               <div className="input-group">
-                <label htmlFor="departure">Salida</label>
+                <label htmlFor="arrival">Regreso</label>
                 <input type="date" id="departure" />
               </div>
             </div>
@@ -33,9 +33,12 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ isOpen, onClose }) =>
             <div className="input-group">
               <label htmlFor="guests">Huéspedes</label>
               <input type="number" id="guests" placeholder="# de huéspedes" />
-            </div>
+            </div>            
 
             <div className="price-section">
+              <div className="price-title">
+                <h3>Precio</h3>
+              </div>
               <div className="price-item">
                 <p>Precio / noche x días</p>
                 <p>$111.11</p>
