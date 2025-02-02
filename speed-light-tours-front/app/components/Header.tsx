@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "./Button";
-import '../app.css'; // Import the CSS file
+import '../app.css';
 
 // Header Component
 const Header: React.FC = () => (
