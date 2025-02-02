@@ -5,9 +5,10 @@ interface ButtonProps {
   children: React.ReactNode;
   variant: "outline" | "destructive";
   className?: string;
+  onClick?: () => void;
 }
 
-const Button: React.FC<ButtonProps> = ({ children, variant, className }) => {
+const Button: React.FC<ButtonProps> = ({ children, variant, className, onClick }) => {
   const baseStyle = "button";
   const variantStyles = {
     outline: "outline",
@@ -15,7 +16,10 @@ const Button: React.FC<ButtonProps> = ({ children, variant, className }) => {
   };
 
   return (
-    <button className={`${baseStyle} ${variantStyles[variant]} ${className || ''}`}>
+    <button
+      className={`${baseStyle} ${variantStyles[variant]} ${className || ''}`}
+      onClick={onClick}
+    >
       {children}
     </button>
   );
