@@ -282,3 +282,52 @@ body.dark-mode .logo-placeholder {
 body.dark-mode .reservation-list-title {
   color: #f7fafc;
 }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.modal-body {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.modal-inputs, .modal-prices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-button:hover {
+  background-color: #45a049;
+}
