@@ -50,7 +50,7 @@ const ReservationCard: React.FC<ReservationCardProps> = ({
 
             <div className="reservation-info">
                 <p>Ubicación: {location}</p>
-                <p>Fechas: {dates}</p>
+                <p>Fechas: <br />{dates}</p>
                 <p>Cantidad de personas: {people}</p>
             </div>
 
