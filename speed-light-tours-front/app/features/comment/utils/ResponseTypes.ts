@@ -8,7 +8,7 @@ export interface Response {
 
 
 export interface ResponsePayload {
-    userId: string;
-    commentId: string;
-    text: string;
+  userId: string;
+  commentId: string;
+  text: string;
 }
