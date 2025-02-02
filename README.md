@@ -3,7 +3,7 @@
 ## FRONT | REACT | ARC: SCREAM
 ### Estructura del proyecto
 
-### /src
+### /app
 ####   /features
 - **Módulo: orders**
   - `/components`
