@@ -186,6 +186,7 @@ button.outline:hover {
 button.destructive {
   background-color: #c53030;
   color: white;
+  border: 1px solid #cbd5e0;
 }
 
 button.destructive:hover {
@@ -213,7 +214,7 @@ button.destructive:hover {
 
 .header-nav {
   display: flex;
-  gap: 24px;
+  gap: 8px;
 }
 
 .reservation-list {
@@ -221,10 +222,12 @@ button.destructive:hover {
 }
 
 .reservation-list-title {
-  font-size: 24px;
+  font-size: 200%;
   font-weight: 600;
-  margin-bottom: 16px;
+  margin-bottom: 1.5%;
   color: #2d3748;
+  margin-left: 1%;
+  margin-top: -0.5%;
 }
 
 .modal-overlay {
@@ -359,7 +362,7 @@ input {
   }
 
   button.outline {
-    border-color: #4a5568;
+    border-color: #cbd5e0;
     color: #e2e8f0;
   }
 
