@@ -1,6 +1,9 @@
 import React from "react";
 import ReservationCard from "./ReservationCard";
 import '../app.css';
+import sunImage from '../assets/sun.jpg';
+import worldImage from '../assets/world.jpg';
+import brainImage from '../assets/brain.jpg';
 
 const ReservationList: React.FC = () => (
   <div className="reservation-list">
@@ -15,7 +18,7 @@ const ReservationList: React.FC = () => (
         countDown="3 días"
         timeLimitModify="3 días antes"
         timeLimitCancel="1 semana antes"
-        imageSrc=""
+        imageSrc={sunImage}
     />
     <ReservationCard
         service="Servicio 2"
@@ -27,7 +30,7 @@ const ReservationList: React.FC = () => (
         countDown="3 días"
         timeLimitModify="3 días antes"
         timeLimitCancel="1 semana antes"
-        imageSrc=""
+        imageSrc={worldImage}
     />
     <ReservationCard
         service="Servicio 3"
@@ -39,7 +42,7 @@ const ReservationList: React.FC = () => (
         countDown="3 días"
         timeLimitModify="3 días antes"
         timeLimitCancel="1 semana antes"
-        imageSrc=""
+        imageSrc={brainImage}
     />
   </div>
 );
