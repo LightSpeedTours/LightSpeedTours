@@ -53,8 +53,8 @@ const ReservationCard: React.FC<ReservationCardProps> = ({
                 Modificar reserva
             </Button>
             <Button variant="destructive">Cancelar</Button>
-            <p className="time-limit">Válido hasta {timeLimitModify}</p>
-            <p className="time-limit">Válido hasta {timeLimitCancel}</p>
+            <br /><p className="time-limit">Válido hasta: <br />{timeLimitModify}</p>
+            <p className="time-limit">Válido hasta: <br />{timeLimitCancel}</p>                   
         </div>
     </Card>
 );
