@@ -5,11 +5,6 @@ body {
   color: #333;
 }
 
-body.dark-mode {
-  background-color: #1a202c;
-  color: #e2e8f0;
-}
-
 .card {
   display: flex;
   justify-content: space-between;
@@ -18,10 +13,6 @@ body.dark-mode {
   border-radius: 16px;
   background-color: #f7fafc;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-body.dark-mode .card {
-  background-color: #2d3748;
 }
 
 .card .left {
@@ -63,11 +54,6 @@ body.dark-mode .card {
   color: #4a5568;
 }
 
-body.dark-mode .card .left .details p,
-body.dark-mode .card .left .details .price {
-  color: #cbd5e0;
-}
-
 .card .right {
   text-align: right;
   width: 33%;
@@ -84,10 +70,6 @@ body.dark-mode .card .left .details .price {
   margin-top: 8px;
 }
 
-body.dark-mode .card .right .time-info {
-  color: #a0aec0;
-}
-
 .reservation-card {
   display: flex;
   justify-content: space-between;
@@ -98,28 +80,21 @@ body.dark-mode .card .right .time-info {
   margin-bottom: 16px;
 }
 
-body.dark-mode .reservation-card {
-  background-color: #2d3748;
-}
-
 .reservation-card-left {
   display: flex;
   width: 66.6%;
 }
 
 .service-info {
-  width: 33.3%;
+  width: 40%;
 }
 
 .service-title {
   font-size: 1.125rem;
   font-weight: 600;
   color: #2d3748;
-  margin-bottom: 8px;
-}
-
-body.dark-mode .service-title {
-  color: #e2e8f0;
+  margin-bottom: 5%;
+  margin-top: 1%;
 }
 
 .service-image {
@@ -127,12 +102,16 @@ body.dark-mode .service-title {
   height: 128px;
   object-fit: cover;
   border-radius: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 1%;
 }
 
 .price-description {
   padding-left: 16px;
-  width: 66.6%;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .price {
@@ -147,32 +126,30 @@ body.dark-mode .service-title {
   color: #718096;
 }
 
-body.dark-mode .price,
-body.dark-mode .description {
-  color: #e2e8f0;
-}
-
 .reservation-info {
   font-size: 0.875rem;
   color: #718096;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  text-align: center;
 }
 
-body.dark-mode .reservation-info {
-  color: #e2e8f0;
+.reservation-info p {
+  text-align: left;
+  width: 100%;
 }
 
 .reservation-card-right {
-  width: 33.3%;
+  width: 40%;
   text-align: right;
 }
 
 .countdown {
   font-weight: 600;
   color: #2d3748;
-}
-
-body.dark-mode .countdown {
-  color: #e2e8f0;
 }
 
 .modify-button,
@@ -185,10 +162,6 @@ body.dark-mode .countdown {
   color: #a0aec0;
   display: inline-block;
   margin-left: 12%;
-}
-
-body.dark-mode .time-limit {
-  color: #cbd5e0;
 }
 
 button {
@@ -210,30 +183,13 @@ button.outline:hover {
   background-color: #edf2f7;
 }
 
-body.dark-mode button.outline {
-  border-color: #4a5568;
-  color: #e2e8f0;
-}
-
-body.dark-mode button.outline:hover {
-  background-color: #4a5568;
-}
-
 button.destructive {
-  background-color: #e53e3e;
+  background-color: #c53030;
   color: white;
 }
 
 button.destructive:hover {
-  background-color: #c53030;
-}
-
-body.dark-mode button.destructive {
-  background-color: #f56565;
-}
-
-body.dark-mode button.destructive:hover {
-  background-color: #c53030;
+  background-color: #e53e3e;
 }
 
 .header {
@@ -242,10 +198,6 @@ body.dark-mode button.destructive:hover {
   align-items: center;
   padding: 16px;
   background-color: #edf2f7;
-}
-
-body.dark-mode .header {
-  background-color: #4a5568;
 }
 
 .header-logo {
@@ -257,10 +209,6 @@ body.dark-mode .header {
   width: 40px;
   height: 40px;
   background-color: #a0aec0;
-}
-
-body.dark-mode .logo-placeholder {
-  background-color: #718096;
 }
 
 .header-nav {
@@ -277,10 +225,6 @@ body.dark-mode .logo-placeholder {
   font-weight: 600;
   margin-bottom: 16px;
   color: #2d3748;
-}
-
-body.dark-mode .reservation-list-title {
-  color: #f7fafc;
 }
 
 .modal-overlay {
@@ -326,7 +270,6 @@ body.dark-mode .reservation-list-title {
   flex-direction: column;
 }
 
-/* Group the two inputs (arrival and departure) on the same row */
 .input-group-row {
   display: flex;
   justify-content: space-between;
@@ -345,7 +288,6 @@ input {
   border-radius: 4px;
 }
 
-/* Price section */
 .price-section {
   margin-top: 20px;
 }
@@ -368,7 +310,7 @@ input {
 
 .reserve-button {
   padding: 10px 20px;
-  background-color: #4CAF50;
+  background-color: #45a049;
   color: white;
   border: none;
   border-radius: 5px;
@@ -376,5 +318,75 @@ input {
 }
 
 .reserve-button:hover {
-  background-color: #45a049;
-} 
+  background-color: #4caf50;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1a202c;
+    color: #e2e8f0;
+  }
+
+  .card {
+    background-color: #2d3748;
+  }
+
+  .card .left .details p,
+  .card .left .details .price {
+    color: #cbd5e0;
+  }
+
+  .card .right .time-info {
+    color: #a0aec0;
+  }
+
+  .reservation-card {
+    background-color: #2d3748;
+  }
+
+  .service-title {
+    color: #e2e8f0;
+  }
+
+  .price,
+  .description {
+    color: #e2e8f0;
+  }
+
+  .reservation-info {
+    color: #e2e8f0;
+  }
+
+  .countdown {
+    color: #e2e8f0;
+  }
+
+  .time-limit {
+    color: #cbd5e0;
+  }
+
+  button.outline {
+    border-color: #4a5568;
+    color: #e2e8f0;
+  }
+
+  button.outline:hover {
+    background-color: #4a5568;
+  }
+
+  .header {
+    background-color: #4a5568;
+  }
+
+  .logo-placeholder {
+    background-color: #718096;
+  }
+
+  .reservation-list-title {
+    color: #f7fafc;
+  }
+
+  .modal-content {
+    background-color: #2d3748;
+  }
+}
