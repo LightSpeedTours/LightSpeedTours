@@ -1,25 +1,19 @@
 import { Request, Response, NextFunction } from 'express';
-import { Comment } from '../interfaces/Comment';
-import { Response as CommentResponse } from '../interfaces/Response';
+import { body } from 'express-validator';
 
-export const validateComment = (req: Request, res: Response, next: NextFunction): void => {
-  const { text, userId, type, typeId, rating }: Partial<Comment> = req.body;
+export const validateComment = [
+  body('text').isString().notEmpty().withMessage('Text is required'),
+  body('userId').isString().notEmpty().withMessage('User ID is required'),
+  body('type').isIn(['tour', 'lodging']).withMessage('Type must be either "tour" or "lodging"'),
+  body('typeId').isString().notEmpty().withMessage('Type ID is required'),
+  body('rating')
+    .isFloat({ min: 0, max: 5 }).withMessage('Rating must be between 0 and 5')
+    .custom((value) => value % 0.5 === 0).withMessage('Rating must be in increments of 0.5'),
+];
 
-  if (!text || !userId || !type || !typeId || rating === undefined) {
-    res.status(400).json({ error: 'All fields (text, userId, type, typeId, and rating) are required' });
-  } else if (rating < 0 || rating > 5 || rating % 0.5 !== 0) {
-    res.status(400).json({ error: 'Rating must be between 0 and 5 in increments of 0.5' });
-  } else {
-    next();
-  }
-};
 
-export const validateResponse = (req: Request, res: Response, next: NextFunction): void => {
-  const { commentId, userId, text }: Partial<CommentResponse> = req.body;
-
-  if (!commentId || !userId || !text) {
-    res.status(400).json({ error: 'All fields (commentId, userId, and description) are required' });
-  } else {
-    next();
-  }
-};
+export const validateResponse = [
+  body('commentId').isInt({ min: 1 }).withMessage('Comment ID must be a positive integer'),
+  body('userId').isString().notEmpty().withMessage('User ID is required'),
+  body('text').isString().notEmpty().withMessage('Text is required'),
+];
