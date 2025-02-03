@@ -1,20 +1,25 @@
-import express from 'express';
 import dotenv from 'dotenv';
+import sequelize from './config/db';
+import app from './app'; 
 
 dotenv.config();
 
-const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(express.json());
+sequelize
+  .authenticate()
+  .then(async () => {
+    console.log('Database connection established successfully.');
 
-// Rutas básicas
-app.get('/', (req, res) => {
-  res.send('Server is running!');
-});
+    if (process.env.DB_SYNC === 'true') {
+      await sequelize.sync({ alter: true });
+      console.log('Database synchronized successfully.');
+    }
 
-// Inicia el servidor
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+    app.listen(PORT, () => {
+      console.log(`Server running on http://localhost:${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.error('Unable to connect to the database:', error);
+  });
