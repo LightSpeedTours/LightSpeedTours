@@ -16,6 +16,9 @@ export default function Home() {
       <nav>
         <Link to="/comentarios">Ir a Comentarios</Link>
       </nav>
+      <nav>
+        <Link to="/hotels">Ir a hospedajes</Link>
+      </nav>
     </div>
   );
 }
