@@ -27,8 +27,8 @@
 
 
 .entryDateSelector { left: 0px; }
-.leaveDateSelector { left: 160px; }  
-.rooms { left: 320px; }  
+.leaveDateSelector { left: 180px; }  
+.rooms { left: 350px; }  
 
 
 .calendarWrapper, .roomsDropdown {

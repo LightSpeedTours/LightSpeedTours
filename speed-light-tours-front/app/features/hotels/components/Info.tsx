@@ -22,12 +22,12 @@ export default function Info() {
           <p>Ubicación: Dirección del hospedaje</p>
           <h3>Servicios:</h3>
           <ul>
-            <li>Wi-Fi</li>
-            <li>Estacionamiento</li>
-            <li>Piscina</li>
+            <li>Servicio 1</li>
+            <li>Servicio 2</li>
+            <li>Servicio 3</li>
           </ul>
 
-          <h3>Puntuación</h3>
+          
           <StarRating rating={rating} />
         </div>
 
