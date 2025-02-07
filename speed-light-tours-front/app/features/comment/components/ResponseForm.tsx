@@ -4,7 +4,8 @@ import InputField from '../../../shared/components/InputField';
 import Button from '../../../shared/components/Button';
 import type { ResponsePayload } from '../utils/ResponseTypes';
 
-const ResponseForm = ({ commentId, onResponseAdded }: { commentId: string; onResponseAdded: () => void }) => {
+const ResponseForm = (
+  { commentId, onResponseAdded }: { commentId: string; onResponseAdded: () => void }) => {
   const [text, setText] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
