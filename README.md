@@ -3,7 +3,7 @@
 ## FRONT | REACT | ARC: SCREAM
 ### Estructura del proyecto
 
-### /src
+### /app
 ####   /features
 - **Módulo: orders**
   - `/components`
@@ -13,8 +13,6 @@
     - `useOrder.ts`: Hook personalizado para la lógica relacionada con pedidos.
   - `/services`
     - `ordersService.ts`: Servicio para interactuar con APIs relacionadas con pedidos.
-  - `/store`
-    - `ordersSlice.ts`: Estado global de pedidos gestionado con Redux o similar.
   - `/utils`
     - `orderHelpers.ts`: Funciones utilitarias específicas del módulo de pedidos.
 - **Módulo: users**
@@ -35,7 +33,7 @@
 
 ---
 
-### /pages
+### /routes
 - `/orders`
   - `OrdersPage.tsx`: Página principal para gestionar pedidos.
 - `/users`

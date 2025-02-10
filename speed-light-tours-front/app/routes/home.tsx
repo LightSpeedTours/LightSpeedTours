@@ -16,7 +16,13 @@ export default function Home() {
 
   return (
     <div>
-      <Welcome />
+      <Welcome />      
+      <nav>
+        <Link to="/comentarios">Ir a Comentarios</Link>        
+      </nav>
+      <nav>
+        <Link to="/landingPage">Ir a Landing Page</Link>
+      </nav>
       <nav>
         <Link to="/reservations">Ir a Reservas</Link>
       </nav>
