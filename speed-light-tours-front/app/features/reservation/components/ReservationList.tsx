@@ -1,9 +1,9 @@
 import React from "react";
 import ReservationCard from "./ReservationCard";
 import "../app.css";
-import sunImage from "../assets/sun.jpg";
-import worldImage from "../assets/world.jpg";
-import brainImage from "../assets/brain.jpg";
+import sunImage from "app/shared/assets/sun.jpg";
+import worldImage from "app/shared/assets/world.jpg";
+import brainImage from "app/shared/assets/brain.jpg";
 
 const ReservationList: React.FC = () => (
   <div className="reservation-list">
