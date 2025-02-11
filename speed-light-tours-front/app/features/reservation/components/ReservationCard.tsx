@@ -15,6 +15,7 @@ interface ReservationCardProps {
     timeLimitModify: string;
     timeLimitCancel: string;
     imageSrc: string;
+    onCancelClick: () => void;
 }
 
 const ReservationCard: React.FC<ReservationCardProps> = ({
@@ -28,6 +29,7 @@ const ReservationCard: React.FC<ReservationCardProps> = ({
     timeLimitModify,
     timeLimitCancel,
     imageSrc,
+    onCancelClick,
 }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const openModal = () => setIsModalOpen(true);
@@ -59,9 +61,9 @@ const ReservationCard: React.FC<ReservationCardProps> = ({
                 <Button className="modify-button" variant="outline" onClick={openModal}>
                     Modificar reserva
                 </Button>
-                <Button variant="destructive">
+                <Button variant="destructive" onClick={onCancelClick}>
                     Cancelar
-                </Button>
+                </Button >
                 <br /><p className="time-limit">Válido hasta: <br />{timeLimitModify}</p>
                 <p className="time-limit">Válido hasta: <br />{timeLimitCancel}</p>
             </div>

@@ -28,7 +28,7 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ isOpen, onClose }) =>
                 <label htmlFor="arrival">Regreso</label>
                 <input type="date" id="departure" />
               </div>
-            </div>
+            </div>  
 
             <div className="input-group">
               <label htmlFor="guests">Huéspedes</label>

@@ -256,7 +256,9 @@ button.destructive:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top:-5vh;
+  margin-top:-2vh;
+  margin-bottom: 2vh;
+  font-size: large;
 }
 
 .close-button {
@@ -284,9 +286,14 @@ button.destructive:hover {
 input {
   width: 100%;
   padding: 2%;
-  margin-top: 1%;
+  margin-top: 2%;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+.price-title{ 
+  margin-bottom: 1%;
+  font-size: large;
 }
 
 .price-item {
@@ -315,6 +322,31 @@ input {
 
 .reserve-button:hover {
   background-color: #4caf50;
+}
+
+.modal-content-cancel {
+  background-color: white;
+  padding: 7vh;
+  width: 85vh;
+  height: 50vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.return-button,
+.cancel-button {
+  background-color: #f44336;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;  
+  margin: 4vh;
+  margin-top: 8vh;
+  margin-bottom: -8vh;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -383,6 +415,9 @@ input {
   }
 
   .modal-content {
+    background-color: #2d3748;
+  }
+  .modal-content-cancel {
     background-color: #2d3748;
   }
 
