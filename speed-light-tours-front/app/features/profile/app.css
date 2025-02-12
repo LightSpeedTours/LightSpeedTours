@@ -39,6 +39,7 @@ body {
   grid-template-columns: 1fr;
   justify-content: center;
   align-items: center;
+  margin-left: 10vh;
 }
 
 button {
@@ -77,6 +78,14 @@ button {
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 10px;
+  margin-left: 4vh;
+}
+
+.account-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+  margin-left: 4vh;
 }
 
 .payment-card, .notifications div {

@@ -11,7 +11,7 @@ interface NotificationsProps {
 const Notifications: React.FC<NotificationsProps> = ({ emailNotifications, smsNotifications, onToggleEmail, onToggleSms }) => {
   return (
     <div className="notifications">
-      <h3>Notificaciones</h3>
+      <h3><strong>Notificaciones</strong></h3>
       <div>
         <span>Correo electrónico</span>
         <input type="checkbox" checked={emailNotifications} onChange={onToggleEmail} />
