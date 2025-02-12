@@ -1,0 +1,97 @@
+body {
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  background-color: #ffffff;
+  color: #333;
+}
+
+.profile-pic {
+  width: 50vh;
+  height: 50vh;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.edit-button {
+  background-color: #3182ce;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 3vh;
+  margin-left: 19vh;
+}
+
+.profile-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 10vh;
+  padding: 16px;
+}
+
+.profile-flex {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  align-items: center;
+}
+
+.personal-info {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.personal-details {
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-title {
+  font-size: 150%;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.personal-info, .account-details, .payment-methods, .notifications, .help-legal {
+  margin-bottom: 24px;
+  padding: 16px;
+  border-radius: 16px;
+  background-color: #f7fafc;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+}
+
+.payment-card, .notifications div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1a202c;
+    color: #e2e8f0;
+  }
+
+  .personal-info, .account-details, .payment-methods, .notifications, .help-legal {
+    background-color: #2d3748;
+  }
+
+  .profile-title {
+    background-color: #1a202c;
+  }
+}
