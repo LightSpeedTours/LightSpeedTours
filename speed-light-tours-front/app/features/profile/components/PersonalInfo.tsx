@@ -1,6 +1,7 @@
 import React from 'react';
 import '../app.css';
-import brainImage from 'app/shared/assets/brain.jpg';
+import DarthVader from 'app/shared/assets/Darth-Vader.png';
+import Button from 'app/features/reservation/components/Button';
 
 interface PersonalInfoProps {
   name: string;
@@ -12,26 +13,23 @@ interface PersonalInfoProps {
 
 const PersonalInfo: React.FC<PersonalInfoProps> = ({ name, id, dateOfBirth, gender, occupation }) => {
   return (
-    <div className="personal-info">
-      <div className="profile-title">
-        <h2>Perfil</h2>
-      </div>
-      <div className="profile-details">
-        <div className="profile-flex">
-          <div className="personal-details">
-            <img src={brainImage} alt="Profile" className="profile-pic" />
-          </div>
-          <div className="button">
-            <button className="edit-button">Editar</button>
-          </div> 
-        </div>       
-        <div className="details-grid">
-          <div><strong>Nombre:</strong> {name}</div>
-          <div><strong>Cédula:</strong> {id}</div>
-          <div><strong>DateOfBirth:</strong> {dateOfBirth}</div>
-          <div><strong>Género:</strong> {gender}</div>
-          <div><strong>Ocupación:</strong> {occupation}</div>
+    <div className="profile-details">
+      <div className="profile-grid">
+        <div className="personal-details">
+          <img src={DarthVader} alt="Profile" className="profile-pic" />
         </div>
+        <div className="button">
+          <Button className="edit-button" variant="outline">
+            Editar
+          </Button>
+        </div> 
+      </div>       
+      <div className="details-grid">
+        <div><strong>Nombre:</strong> {name}</div>
+        <div><strong>Cédula:</strong> {id}</div>
+        <div><strong>DateOfBirth:</strong> {dateOfBirth}</div>
+        <div><strong>Género:</strong> {gender}</div>
+        <div><strong>Ocupación:</strong> {occupation}</div>
       </div>
     </div>
   );
