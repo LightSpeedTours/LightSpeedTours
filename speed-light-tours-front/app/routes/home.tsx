@@ -26,6 +26,9 @@ export default function Home() {
       <nav>
         <Link to="/reservations">Ir a Reservas</Link>
       </nav>
+      <nav>
+        <Link to="/profile">Ir a Perfil</Link>
+      </nav>
     </div>
   );
 }
