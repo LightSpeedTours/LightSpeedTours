@@ -46,7 +46,7 @@ const ProfileSections: React.FC = () => {
   return (
     <div className="profile-sections">
       <div className='profile-title'>
-        <h2>Perfil</h2>
+        <h2> Mi Perfil</h2>
       </div>
       <div className='profile-info'>
         <PersonalInfo {...personalInfo} />
