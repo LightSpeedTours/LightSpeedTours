@@ -18,16 +18,12 @@ export default function Header() {
           <button className="text-[#FFE81F] p-2 rounded hover:bg-[#2C2C2C] transition-colors">
             <Bell className="h-5 w-5" />
           </button>
-
-          {/* Link for Mis Reservas */}
           <Link to="/reservations">
             <Button
               text="Mis reservas"
               className="bg-[#2E67F8] hover:bg-[#1E4FCC] text-white"
             />
           </Link>
-
-          {/* Link for Usuario */}
           <Link to="/profile">
             <Button
               text="Usuario"

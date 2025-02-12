@@ -8,11 +8,11 @@ import '../app.css';
 
 const ProfileSections: React.FC = () => {
   const personalInfo = {
-    name: "Juan Perez",
+    name: "Darth Vader",
     id: "123456789",
     dateOfBirth: "1990-01-01",
     gender: "Masculino",
-    occupation: "Ingeniero"
+    occupation: "Lord Sith and Galactic Executor Commander"
   };
 
   const accountDetails = {
@@ -45,11 +45,16 @@ const ProfileSections: React.FC = () => {
 
   return (
     <div className="profile-sections">
-      <PersonalInfo {...personalInfo} />
-      <AccountDetails {...accountDetails} />
-      <PaymentMethods {...paymentMethods} />
-      <Notifications {...notifications} />
-      <HelpAndLegal {...helpAndLegal} />
+      <div className='profile-title'>
+        <h2>Perfil</h2>
+      </div>
+      <div className='profile-info'>
+        <PersonalInfo {...personalInfo} />
+        <AccountDetails {...accountDetails} />
+        <PaymentMethods {...paymentMethods} />
+        <Notifications {...notifications} />
+        <HelpAndLegal {...helpAndLegal} />
+      </div>
     </div>
   );
 };
