@@ -193,30 +193,6 @@ button.destructive:hover {
   background-color: #e53e3e;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px;
-  background-color: #edf2f7;
-}
-
-.header-logo {
-  display: flex;
-  gap: 16px;
-}
-
-.logo-placeholder {
-  width: 40px;
-  height: 40px;
-  background-color: #a0aec0;
-}
-
-.header-nav {
-  display: flex;
-  gap: 8px;
-}
-
 .reservation-list {
   padding: 16px;
 }

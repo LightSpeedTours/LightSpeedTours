@@ -1,5 +1,6 @@
 import React from "react";
 import { Bell } from "lucide-react";
+import { Link } from "react-router-dom";
 import Button from "app/shared/components/Button";
 import "../app.css";
 
@@ -17,14 +18,22 @@ export default function Header() {
           <button className="text-[#FFE81F] p-2 rounded hover:bg-[#2C2C2C] transition-colors">
             <Bell className="h-5 w-5" />
           </button>
-          <Button
-            text="Mis reservas"
-            className="bg-[#2E67F8] hover:bg-[#1E4FCC] text-white"
-          />
-          <Button
-            text="Usuario"
-            className="bg-[#2E67F8] hover:bg-[#1E4FCC] text-white"
-          />
+
+          {/* Link for Mis Reservas */}
+          <Link to="/reservations">
+            <Button
+              text="Mis reservas"
+              className="bg-[#2E67F8] hover:bg-[#1E4FCC] text-white"
+            />
+          </Link>
+
+          {/* Link for Usuario */}
+          <Link to="/profile">
+            <Button
+              text="Usuario"
+              className="bg-[#2E67F8] hover:bg-[#1E4FCC] text-white"
+            />
+          </Link>
         </div>
       </div>
     </header>
