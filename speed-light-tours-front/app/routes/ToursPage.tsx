@@ -1,12 +1,12 @@
 import Header from "../shared/components/Header";
-import Search from "../features/hotels/components/Search";
-import Filters from "../features/hotels/components/Filters";
-import Info from "../features/hotels/components/Info";
-import styles from "../features/hotels/components/HotelsPage.module.css";
+import Search from "../features/tours/components/ToursSearch";
+import Filters from "../features/tours/components/ToursFilters";
+import Info from "../features/tours/components/ToursInfo";
+import styles from "../features/tours/components/ToursPage.module.css";
 
-export default function HotelsPage() {
+export default function ToursPage() {
   return (
-    <main className={styles.hotelsPage}>
+    <main className={styles.toursPage}>
       {/* Encabezado */}
       <div>
         <Header />
