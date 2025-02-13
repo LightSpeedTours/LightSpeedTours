@@ -39,7 +39,7 @@ body {
   grid-template-columns: 1fr;
   justify-content: center;
   align-items: center;
-  margin-left: 10vh;
+  margin-left: 5vw;
 }
 
 button {
@@ -78,7 +78,7 @@ button {
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 10px;
-  margin-left: 4vh;
+  margin-left: 2vw;
 }
 
 .account-grid {
@@ -88,7 +88,7 @@ button {
   margin-left: 4vh;
 }
 
-.payment-card, .notifications div {
+.notifications div {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -98,7 +98,7 @@ button {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
-  margin-left: 6vh;
+  margin-left: 3vw;
   margin-top: 2vh;
 }
 
@@ -107,51 +107,53 @@ button {
   margin-left: 1vh;
 }
 
-.payment-methods {
-  margin: 20px 0;
-}
-
-.payment-methods h3 {
-  margin-bottom: 20px;
-}
-
 .payment-card {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.add-card-button {
-  display: flex;
   align-items: center;
-  gap: 5px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
 }
 
-.add-card-button:hover {
-  background-color: #0056b3;
+.card-number {
+  margin-top: 2vh;
+  margin-left: 33vw;
+}
+
+.add-card {
+  margin-left: 6vh;
+  margin-top: 2vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;  
+}
+
+.icon {
+  cursor: pointer;
+  margin-left: 2vh;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal-content {
-  padding: 20px;
   background: white;
+  padding: 20px;
   border-radius: 4px;
   max-width: 500px;
-  margin: auto;
-}
-
-.modal-content h2 {
-  margin-top: 0;
+  width: 100%;
 }
 
 .modal-content form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
 }
 
 .modal-content form div {
