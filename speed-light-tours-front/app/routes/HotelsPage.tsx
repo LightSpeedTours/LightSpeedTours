@@ -1,3 +1,4 @@
+import Header from "../shared/components/Header";
 import Search from "../features/hotels/components/Search";
 import Filters from "../features/hotels/components/Filters";
 import Info from "../features/hotels/components/Info";
@@ -6,6 +7,10 @@ import styles from "../features/hotels/components/HotelsPage.module.css";
 export default function HotelsPage() {
   return (
     <main className={styles.hotelsPage}>
+      {/* Encabezado */}
+      <div>
+        <Header />
+      </div>
       {/* Sección de búsqueda */}
       <div className={styles.searchContainer}>
         <Search />

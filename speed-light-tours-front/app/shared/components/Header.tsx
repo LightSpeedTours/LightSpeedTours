@@ -5,9 +5,11 @@ import { Bell } from "lucide-react"
 import planetsImages from "../utils/planetsImagesLists"
 import InputField from "./InputField"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
-  const [searchValue, setSearchValue] = useState("")
+  const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate();
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setSearchValue(event.target.value)

@@ -20,7 +20,7 @@ export default function Home() {
       <Link to="/landingPage">Ir a Landing Page</Link>
       </nav>
       <nav>
-        <Link to="/hotels">Ir a hospedajes</Link>
+        <Link to="/hotels">Ir a Hospedajes</Link>
       </nav>
     </div>
   );
