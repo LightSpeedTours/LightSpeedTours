@@ -94,6 +94,19 @@ button {
   align-items: center;
 }
 
+.account-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-left: 6vh;
+  margin-top: 2vh;
+}
+
+.account-info {
+  text-align: left;
+  margin-left: 1vh;
+}
+
 @media (prefers-color-scheme: dark) {
   body {
     background-color: #1a202c;
