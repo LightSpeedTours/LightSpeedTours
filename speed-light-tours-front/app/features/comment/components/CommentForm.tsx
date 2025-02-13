@@ -45,7 +45,7 @@ const CommentForm = ({ onCommentAdded }: { onCommentAdded: () => void }) => {
     <form onSubmit={handleSubmit} className="flex flex-col gap-2 p-4 border rounded">
       <InputField 
         value={content} 
-        onChange={(e) => setContent(e.target.value)} 
+        onChange={(e) => setContent(e.target.value)}
         placeholder="Escribe tu comentario..." 
         minLength={3} 
         required 
