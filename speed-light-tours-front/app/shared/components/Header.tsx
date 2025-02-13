@@ -56,9 +56,9 @@ export default function Header() {
       {/* Bottom Navigation */}
       <div className="w-full bg-[#1A1A1A] px-4 py-4 flex justify-between items-center">
         <div className="flex gap-4">
-          <Button text="Inicio" className="bg-[#2E67F8] hover:bg-[#1E4FCC] text-white" />
-          <Button text="Hospedajes" className="bg-[#2E67F8] hover:bg-[#1E4FCC] text-white" />
-          <Button text="Tours" className="bg-[#2E67F8] hover:bg-[#1E4FCC] text-white" />
+          <Button onClick={() => navigate("/landingPage")}text="Inicio" className="bg-[#2E67F8] hover:bg-[#1E4FCC] text-white" />
+          <Button onClick={() => navigate("/hotels")} text="Hospedajes" className="bg-[#2E67F8] hover:bg-[#1E4FCC] text-white" />
+          <Button onClick={() => navigate("/tours")} text="Tours" className="bg-[#2E67F8] hover:bg-[#1E4FCC] text-white" />
         </div>
         <div className="flex items-center gap-4">
           <Button text="Buscar" className="bg-[#2E67F8] hover:bg-[#1E4FCC] text-white" />
