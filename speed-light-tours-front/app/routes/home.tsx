@@ -19,6 +19,9 @@ export default function Home() {
       <nav>
       <Link to="/landingPage">Ir a Landing Page</Link>
       </nav>
+      <nav>
+        <Link to="/hotels">Ir a hospedajes</Link>
+      </nav>
     </div>
   );
 }
