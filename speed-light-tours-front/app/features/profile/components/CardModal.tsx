@@ -40,7 +40,6 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ isOpen, onClose, onAddCard 
   return (
     <div className="modal">
       <div className="modal-content">
-        <h2>Añadir Tarjeta</h2>
         <form>
           <div>
             <label>Tipo de Tarjeta:</label>
@@ -65,8 +64,10 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ isOpen, onClose, onAddCard 
             <label>Código de seguridad:</label>
             <input type="text" name="security" value={newCard.security} onChange={handleInputChange} />
           </div>
-          <button type="button" onClick={handleAddCard}>Añadir</button>
-          <button type="button" onClick={onClose}>Cancelar</button>
+          <div className="modal-footer">           
+            <button type="button" onClick={handleAddCard}>Añadir</button>
+            <button type="button" onClick={onClose}>Cancelar</button>
+          </div>
         </form>
       </div>
     </div>
