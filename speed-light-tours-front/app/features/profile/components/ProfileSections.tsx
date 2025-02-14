@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PersonalInfo from '../components/PersonalInfo';
 import AccountDetails from '../components/AccountDetails';
 import PaymentMethods from '../components/PaymentMethods';
 import Notifications from '../components/Notifications';
 import HelpAndLegal from '../components/HelpAndLegal';
 import '../app.css';
+
+interface Card {
+  type: 'credit' | 'debit';
+  number: string;
+  holderName: string;
+  expiryDate: string;
+  security: string;
+}
 
 const ProfileSections: React.FC = () => {
   const personalInfo = {
@@ -22,9 +30,15 @@ const ProfileSections: React.FC = () => {
     phone: "123456789"
   };
 
+  const [cards, setCards] = useState<Card[]>([]);
+
+  const handleAddCard = (card: Card) => {
+    setCards([...cards, card]);
+  };
+
   const paymentMethods = {
-    cards: ["**** **** **** 6789"],
-    onAddCard: () => alert("Añadir tarjeta")
+    cards,
+    onAddCard: handleAddCard
   };
 
   const notifications = {

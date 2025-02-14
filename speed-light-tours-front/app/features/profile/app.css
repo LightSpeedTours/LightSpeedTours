@@ -114,7 +114,7 @@ button {
 
 .card-number {
   margin-top: 2vh;
-  margin-left: 33vw;
+  margin-left: 37vw;
 }
 
 .add-card {
@@ -143,17 +143,19 @@ button {
 }
 
 .modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 4px;
-  max-width: 500px;
-  width: 100%;
+  background-color: white;
+  padding: 7vh;
+  width: 80vh;
+  height: 80vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
 }
 
 .modal-content form {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 2px;
 }
 
 .modal-content form div {
@@ -162,7 +164,7 @@ button {
 }
 
 .modal-content form label {
-  margin-bottom: 5px;
+  margin-top: 0.5vh;
 }
 
 .modal-content form input,

@@ -288,6 +288,7 @@ input {
 }
 
 .reserve-button {
+  margin-top: 4vh;
   padding: 10px 20px;
   background-color: #45a049;
   color: white;

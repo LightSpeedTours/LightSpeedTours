@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { CgAdd } from "react-icons/cg";
 import '../app.css';
-import AddCardModal from '../components/CardModal';
+import AddCardModal from './CardModal';
 
 interface Card {
   type: 'credit' | 'debit';
   number: string;
   holderName: string;
   expiryDate: string;
+  security: string;
 }
 
 interface PaymentMethodsProps {
@@ -30,13 +31,13 @@ const PaymentMethods: React.FC<PaymentMethodsProps> = ({ cards, onAddCard }) => 
     <div className="payment-methods">
       <h3><strong>Mis medios de pago</strong></h3>
       <div className="payment-card">
-        <div className="add-card">
+        <div className="add-card" onClick={handleAddCardClick}>
           Añadir Tarjeta
-        <CgAdd className="icon" onClick={handleAddCardClick}/>
+          <CgAdd className="icon" />
         </div>
         {cards.map((card, index) => (
           <div key={index} className='card-number'>
-            <strong>{card.type === 'credit' ? 'Crédito' : 'Débito'}:</strong> {card.number}
+            <strong>{card.type === 'credit' ? 'Crédito' : 'Débito'}:</strong> **** **** **** {card.number.slice(-4)}
           </div>
         ))}
       </div>
