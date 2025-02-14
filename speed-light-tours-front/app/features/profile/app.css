@@ -142,6 +142,10 @@ button {
   align-items: center;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
 .modal-content form {
   display: flex;
   flex-direction: column;

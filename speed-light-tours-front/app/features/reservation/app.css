@@ -218,6 +218,10 @@ button.destructive:hover {
   align-items: center;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
 .modal-content {
   background-color: white;
   padding: 7vh;

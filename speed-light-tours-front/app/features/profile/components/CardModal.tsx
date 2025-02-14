@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../app.css';
 
 interface Card {
@@ -23,6 +23,14 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ isOpen, onClose, onAddCard 
     expiryDate: '',
     security: ''
   });
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
+  }, [isOpen]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -64,7 +72,7 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ isOpen, onClose, onAddCard 
             <label>Código de seguridad:</label>
             <input type="text" name="security" value={newCard.security} onChange={handleInputChange} />
           </div>
-          <div className="modal-footer">           
+          <div className="modal-footer">
             <button type="button" onClick={handleAddCard}>Añadir</button>
             <button type="button" onClick={onClose}>Cancelar</button>
           </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import '../app.css';
 
 interface ReservationFormProps {
@@ -7,7 +7,16 @@ interface ReservationFormProps {
 }
 
 const ReservationForm: React.FC<ReservationFormProps> = ({ isOpen, onClose }) => {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
+
   return (
     <div className="modal-overlay">
       <div className="modal-content">
