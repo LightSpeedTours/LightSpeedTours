@@ -4,7 +4,7 @@ export default [
   index("routes/home.tsx"),
   route("/comentarios","routes/CommentPage.tsx"),
   route("/landingPage","routes/LandingPage.tsx"),
-  route("/touReservation","routes/touReservation.tsx"),
+  route("/touReservation","routes/TourReservationPage.tsx"),
   route("/hotelReservation","routes/hotelReservation.tsx"),
 ] satisfies RouteConfig;
 

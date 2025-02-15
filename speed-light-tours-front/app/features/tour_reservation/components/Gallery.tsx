@@ -1,15 +1,18 @@
 import React from "react";
-import type {GalleryProps} from './types';
+import ImageGallery from 'react-image-gallery';
+import type { GalleryProps } from './types';
+import 'react-image-gallery/styles/css/image-gallery.css';
+
 
 const Gallery: React.FC<GalleryProps> = ({ images }) => {
+  const galleryImages = images.map((image) => ({
+    original: image,
+    thumbnail: image,
+  }));
+
   return (
     <div className="gallery">
-      <img src={images[0]} alt="Main" />
-      <div className="thumbnails">
-        {images.slice(1).map((img, index) => (
-          <img key={index} src={img} alt={`Thumbnail ${index}`} />
-        ))}
-      </div>
+      <ImageGallery items={galleryImages} showThumbnails={true} />
     </div>
   );
 };
