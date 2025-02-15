@@ -1,6 +1,4 @@
-interface ServicesListProps {
-    services: string[];
-  }
+import type { ServicesListProps } from './types';
   
   const ServicesList: React.FC<ServicesListProps> = ({ services }) => {
     return (

@@ -1,6 +1,4 @@
-interface RecommendationsSectionProps {
-    recommendations: string[];
-  }
+import type {RecommendationsSectionProps} from './types';
   
   const RecommendationsSection: React.FC<RecommendationsSectionProps> = ({ recommendations }) => {
     return (

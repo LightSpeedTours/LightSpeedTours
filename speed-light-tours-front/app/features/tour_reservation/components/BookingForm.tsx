@@ -1,9 +1,5 @@
 import { useState } from "react";
-
-interface BookingFormProps {
-  pricePerPerson: number;
-  onReserve: (guests: number) => void;
-}
+import type {BookingFormProps} from './types';
 
 const BookingForm: React.FC<BookingFormProps> = ({ pricePerPerson, onReserve }) => {
   const [guests, setGuests] = useState<number>(1);

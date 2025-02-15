@@ -1,8 +1,5 @@
 import React from "react";
-
-interface GalleryProps {
-  images: string[];
-}
+import type {GalleryProps} from './types';
 
 const Gallery: React.FC<GalleryProps> = ({ images }) => {
   return (

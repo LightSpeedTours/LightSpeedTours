@@ -1,12 +1,4 @@
-interface Review {
-    user: string;
-    rating: number;
-    comment: string;
-  }
-  
-  interface ReviewsSectionProps {
-    reviews: Review[];
-  }
+import type { ReviewsSectionProps } from './types';
   
   const ReviewsSection: React.FC<ReviewsSectionProps> = ({ reviews }) => {
     return (

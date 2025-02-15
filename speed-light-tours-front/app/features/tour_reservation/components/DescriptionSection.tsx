@@ -1,6 +1,4 @@
-interface DescriptionSectionProps {
-    description: string;
-  }
+import type {DescriptionSectionProps} from './types';
   
   const DescriptionSection: React.FC<DescriptionSectionProps> = ({ description }) => {
     return (
