@@ -2,8 +2,6 @@ import Tour from '../models/TourModel';
 import Service from '../models/ServiceModel';
 import { InferAttributes, Transaction } from 'sequelize';
 import { makeErrorResponse } from '../utils/ErrorHandler';
-import ServiceAssignment from '../models/ServiceAssignmentModel';
-import { ENTITY_TYPES } from '../utils/types/EnumTypes';
 
 /**
  * Obtener todos los tours con sus servicios asociados
@@ -38,8 +36,7 @@ export const createTour = async (
   return await Tour.sequelize!.transaction(async (transaction: Transaction) => {
     try {
       const existingTour = await Tour.findOne({ where: { name: tourData.name }, transaction });
-
-      if (existingTour) throw makeErrorResponse(409, `El tour con nombre "${tourData.name}"`);
+      if (existingTour) throw makeErrorResponse(409, `El tour con nombre "${tourData.name}" ya existe.`);
 
       const newTour = await Tour.create(tourData, { transaction });
 
@@ -57,18 +54,8 @@ export const createTour = async (
         }
 
         const allServices = [...existingServices, ...createdServices];
-        await Promise.all(
-          allServices.map(service =>
-            ServiceAssignment.create(
-              {
-                entityId: newTour.id,
-                entityType: ENTITY_TYPES.TOUR,
-                serviceId: service.id,
-              },
-              { transaction }
-            )
-          )
-        );      
+
+        await newTour.$add('services', allServices.map(service => service.id), { transaction });
       }
 
       return await Tour.findByPk(newTour.id, { include: [{ model: Service }], transaction }) as Tour;
@@ -77,6 +64,7 @@ export const createTour = async (
     }
   });
 };
+
 
 /**
  * Actualizar un tour existente y sus servicios
@@ -88,11 +76,11 @@ export const updateTour = async (
   return await Tour.sequelize!.transaction(async (transaction: Transaction) => {
     try {
       const tour = await Tour.findByPk(id, { include: [{ model: Service }], transaction });
-      if (!tour) throw makeErrorResponse(404, 'Tour');
+      if (!tour) throw makeErrorResponse(404, 'Tour no encontrado.');
 
       if (tourData.name && tourData.name !== tour.name) {
         const existingTour = await Tour.findOne({ where: { name: tourData.name }, transaction });
-        if (existingTour) throw makeErrorResponse(409, `El tour con nombre "${tourData.name}"`);
+        if (existingTour) throw makeErrorResponse(409, `El tour con nombre "${tourData.name}" ya existe.`);
       }
 
       await tour.update(tourData, { transaction });
@@ -111,20 +99,8 @@ export const updateTour = async (
         }
 
         const allServices = [...existingServices, ...createdServices];
-        await ServiceAssignment.destroy({ where: { entityId: id, entityType: 'tour' }, transaction });
 
-        await Promise.all(
-          allServices.map(service =>
-            ServiceAssignment.create(
-              {
-                entityId: tour.id,
-                entityType: 'tour',
-                serviceId: service.id,
-              },
-              { transaction }
-            )
-          )
-        );
+        await tour.$set('services', allServices.map(service => service.id), { transaction });
       }
 
       return await Tour.findByPk(id, { include: [{ model: Service }], transaction }) as Tour;
@@ -133,6 +109,7 @@ export const updateTour = async (
     }
   });
 };
+
 
 /**
  * Eliminar un tour y desasociar servicios

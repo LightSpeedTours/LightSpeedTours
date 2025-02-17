@@ -11,7 +11,7 @@ import {
 } from 'sequelize-typescript';
 import Service from './ServiceModel';
 import Comment from './CommentModel';
-import ServiceAssignment from './ServiceAssignmentModel';
+import TourService from './TourServiceModel';
 
 @Table({ tableName: 'tours', timestamps: false })
 export default class Tour extends Model {
@@ -48,7 +48,7 @@ export default class Tour extends Model {
   @Column(DataType.TEXT)
   declare recommendations: string;
 
-  @BelongsToMany(() => Service, () => ServiceAssignment)
+  @BelongsToMany(() => Service, () => TourService)
   declare services: Service[];
 
   @HasMany(() => Comment, {

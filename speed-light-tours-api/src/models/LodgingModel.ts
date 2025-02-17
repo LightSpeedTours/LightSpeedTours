@@ -11,7 +11,7 @@ import {
 } from 'sequelize-typescript';
 import Service from './ServiceModel';
 import Comment from './CommentModel';
-import ServiceAssignment from './ServiceAssignmentModel';
+import LodgingService from './LodgingServiceModel';
 
 @Table({ tableName: 'lodgings', timestamps: false })
 export default class Lodging extends Model {
@@ -42,8 +42,9 @@ export default class Lodging extends Model {
   @Column(DataType.FLOAT)
   declare cost: number;
 
-  @BelongsToMany(() => Service, () => ServiceAssignment)
+  @BelongsToMany(() => Service, () => LodgingService)
   declare services: Service[];
+
 
   @HasMany(() => Comment, {
     foreignKey: 'entityId',

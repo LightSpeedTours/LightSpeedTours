@@ -10,7 +10,8 @@ import {
 } from 'sequelize-typescript';
 import Lodging from './LodgingModel';
 import Tour from './TourModel';
-import ServiceAssignment from './ServiceAssignmentModel';
+import LodgingService from './LodgingServiceModel';
+import TourService from './TourServiceModel';
 
 @Table({ tableName: 'services', timestamps: false })
 export default class Service extends Model {
@@ -26,9 +27,10 @@ export default class Service extends Model {
   @Column({ type: DataType.TEXT, allowNull: false })
   declare description: string;
 
-  @BelongsToMany(() => Lodging, () => ServiceAssignment)
+  @BelongsToMany(() => Lodging, () => LodgingService)
   declare lodgings: Lodging[];
 
-  @BelongsToMany(() => Tour, () => ServiceAssignment)
+  @BelongsToMany(() => Tour, () => TourService)
   declare tours: Tour[];
+
 }

@@ -2,8 +2,6 @@ import Lodging from '../models/LodgingModel';
 import Service from '../models/ServiceModel';
 import { InferAttributes, Transaction } from 'sequelize';
 import { makeErrorResponse } from '../utils/ErrorHandler';
-import ServiceAssignment from '../models/ServiceAssignmentModel';
-import { ENTITY_TYPES } from '../utils/types/EnumTypes';
 
 /**
  * Obtener todos los hospedajes con sus servicios asociados
@@ -38,7 +36,7 @@ export const createLodging = async (
   return await Lodging.sequelize!.transaction(async (transaction: Transaction) => {
     try {
       const existingLodging = await Lodging.findOne({ where: { name: lodgingData.name }, transaction });
-      if (existingLodging) throw makeErrorResponse(409, `El hospedaje con nombre "${lodgingData.name}"`);
+      if (existingLodging) throw makeErrorResponse(409, `El hospedaje con nombre "${lodgingData.name}" ya existe.`);
 
       const newLodging = await Lodging.create(lodgingData, { transaction });
 
@@ -56,18 +54,10 @@ export const createLodging = async (
         }
 
         const allServices = [...existingServices, ...createdServices];
-        await Promise.all(
-                  allServices.map(service =>
-                    ServiceAssignment.create(
-                      {
-                        entityId: newLodging.id,
-                        entityType: ENTITY_TYPES.LODGING,
-                        serviceId: service.id,
-                      },
-                      { transaction }
-                    )
-                  )
-                );  
+
+
+        // ✅ Usar `addServices()` para insertar en `lodging_services`
+        await newLodging.$add('services', allServices.map(service => service.id), { transaction });
       }
 
       return await Lodging.findByPk(newLodging.id, { include: [{ model: Service }], transaction }) as Lodging;
@@ -76,6 +66,8 @@ export const createLodging = async (
     }
   });
 };
+
+
 
 /**
  * Actualizar un hospedaje existente y sus servicios
@@ -87,11 +79,11 @@ export const updateLodging = async (
   return await Lodging.sequelize!.transaction(async (transaction: Transaction) => {
     try {
       const lodging = await Lodging.findByPk(id, { include: [{ model: Service }], transaction });
-      if (!lodging) throw makeErrorResponse(404, 'Hospedaje');
+      if (!lodging) throw makeErrorResponse(404, 'Hospedaje no encontrado.');
 
       if (lodgingData.name && lodgingData.name !== lodging.name) {
         const existingLodging = await Lodging.findOne({ where: { name: lodgingData.name }, transaction });
-        if (existingLodging) throw makeErrorResponse(409, `El hospedaje con nombre "${lodgingData.name}"`);
+        if (existingLodging) throw makeErrorResponse(409, `El hospedaje con nombre "${lodgingData.name}" ya existe.`);
       }
 
       await lodging.update(lodgingData, { transaction });
@@ -110,20 +102,8 @@ export const updateLodging = async (
         }
 
         const allServices = [...existingServices, ...createdServices];
-        await ServiceAssignment.destroy({ where: { entityId: id, entityType: 'lodging' }, transaction });
 
-        await Promise.all(
-          allServices.map(service =>
-            ServiceAssignment.create(
-              {
-                entityId: lodging.id,
-                entityType: ENTITY_TYPES.LODGING,
-                serviceId: service.id,
-              },
-              { transaction }
-            )
-          )
-        );      
+        await lodging.$set('services', allServices.map(service => service.id), { transaction });
       }
 
       return await Lodging.findByPk(id, { include: [{ model: Service }], transaction }) as Lodging;
@@ -132,6 +112,7 @@ export const updateLodging = async (
     }
   });
 };
+
 
 /**
  * Eliminar un hospedaje y desasociar servicios
