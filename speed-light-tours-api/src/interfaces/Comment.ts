@@ -1,8 +1,8 @@
 export interface Comment {
   id: number;
   userId: string; 
-  type: 'tour' | 'lodging'; 
-  typeId: string; 
+  entityType: 'tour' | 'lodging'; 
+  entityId: number; 
   rating: number; 
   text: string; 
   publishedAt: Date; 

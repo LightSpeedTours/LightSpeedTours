@@ -3,18 +3,21 @@ import {
   getCommentController,
   setCommentController,
   getCommentListController,
-  setResponseController,
+  getCommentsByLodgingController,
+  getCommentsByTourController,
+  replyToCommentController,
 } from '../controllers/CommentController';
-import { validateComment, validateResponse } from '../middlewares/CommentMiddleware';
+import { validateComment,  } from '../middlewares/CommentMiddleware';
 
 const router = Router();
 
 router.get('/list', getCommentListController);
-
 router.get('/list/:id', getCommentController);
-
+router.get('/lodging/:lodgingId', getCommentsByLodgingController);
+router.get('/tour/:tourId', getCommentsByTourController);
 router.post('/', validateComment, setCommentController);
+router.post('/reply/:parentId', validateComment, replyToCommentController);
 
-router.post('/response', validateResponse, setResponseController);
+
 
 export default router;

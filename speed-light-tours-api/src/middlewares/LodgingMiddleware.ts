@@ -7,7 +7,6 @@ export const validateLodging = [
   body('capacity').isInt({ min: 1 }).withMessage('Capacity must be a positive integer'),
   body('rooms').isInt({ min: 1 }).withMessage('Rooms must be a positive integer'),
   body('cost').isFloat({ min: 0 }).withMessage('Cost must be a non-negative number'),
-  body('duration').isISO8601().toDate().withMessage('Duration must be a valid datetime'),
   body('services').isArray({min: 1}).withMessage('services must be almost 1'),
 
 ];

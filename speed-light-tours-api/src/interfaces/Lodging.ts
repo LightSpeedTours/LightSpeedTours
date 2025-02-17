@@ -8,6 +8,5 @@ export interface Lodging {
   rooms: number;
   rating: number | null;
   cost: number;
-  duration: Date;
   services: Service[];
 }

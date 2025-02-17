@@ -7,9 +7,11 @@ import {
   AutoIncrement,
   BelongsToMany,
   Unique,
+  HasMany
 } from 'sequelize-typescript';
 import Service from './ServiceModel';
-import TourService from './TourServiceModel';
+import Comment from './CommentModel';
+import ServiceAssignment from './ServiceAssignmentModel';
 
 @Table({ tableName: 'tours', timestamps: false })
 export default class Tour extends Model {
@@ -19,7 +21,7 @@ export default class Tour extends Model {
   declare id: number;
 
   @Column({ type: DataType.STRING, allowNull: false })
-  declare planet: String;
+  declare planet: string;
 
   @Unique
   @Column({ type: DataType.STRING, allowNull: false })
@@ -30,6 +32,9 @@ export default class Tour extends Model {
 
   @Column(DataType.FLOAT)
   declare duration: number;
+
+  @Column({ type: DataType.STRING, allowNull: false })
+  declare route: string;
 
   @Column(DataType.INTEGER)
   declare capacity: number;
@@ -43,6 +48,12 @@ export default class Tour extends Model {
   @Column(DataType.TEXT)
   declare recommendations: string;
 
-  @BelongsToMany(() => Service, { through: () => TourService })
+  @BelongsToMany(() => Service, () => ServiceAssignment)
   declare services: Service[];
+
+  @HasMany(() => Comment, {
+    foreignKey: 'entityId',
+    scope: { entityType: 'tour' },
+  })
+  declare comments: Comment[];
 }

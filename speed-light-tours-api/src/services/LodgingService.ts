@@ -1,133 +1,151 @@
 import Lodging from '../models/LodgingModel';
 import Service from '../models/ServiceModel';
-import { Transaction } from 'sequelize';
+import { InferAttributes, Transaction } from 'sequelize';
+import { makeErrorResponse } from '../utils/ErrorHandler';
+import ServiceAssignment from '../models/ServiceAssignmentModel';
+import { ENTITY_TYPES } from '../utils/types/EnumTypes';
 
 /**
  * Obtener todos los hospedajes con sus servicios asociados
  */
 export const getAllLodgings = async (): Promise<Lodging[]> => {
-  return await Lodging.findAll({
-    include: [{ model: Service }]
-  });
+  try {
+    return await Lodging.findAll({ include: [{ model: Service }] });
+  } catch (error) {
+    throw error;
+  }
 };
 
 /**
  * Obtener un hospedaje por ID, incluyendo sus servicios
  */
-export const getLodgingById = async (id: number): Promise<Lodging | null> => {
-  return await Lodging.findByPk(id, {
-    include: [{ model: Service }]
-  });
+export const getLodgingById = async (id: number): Promise<Lodging> => {
+  try {
+    const lodging = await Lodging.findByPk(id, { include: [{ model: Service }] });
+    if (!lodging) throw makeErrorResponse(404, 'Hospedaje');
+    return lodging;
+  } catch (error) {
+    throw error;
+  }
 };
 
 /**
- * Crear un nuevo hospedaje y asociar servicios opcionales (creando nuevos servicios si es necesario).
+ * Crear un nuevo hospedaje y asociar servicios opcionales
  */
-export const createLodging = async (lodgingData: Partial<Lodging> & { services?: Partial<Service>[] }): Promise<Lodging> => {
+export const createLodging = async (
+  lodgingData: Partial<Lodging> & { services?: Partial<Service>[] }
+): Promise<Lodging> => {
   return await Lodging.sequelize!.transaction(async (transaction: Transaction) => {
-
-    const existingLodging = await Lodging.findOne({ where: { name: lodgingData.name }, transaction });
-    if (existingLodging) {
-      throw new Error(`Lodging with name "${lodgingData.name}" already exists.`);
-    }
-
-    const newLodging = await Lodging.create(lodgingData, { transaction });
-
-    if (lodgingData.services && lodgingData.services.length > 0) {
-      const serviceNames = lodgingData.services.map(service => service.name);
-
-      const existingServices = await Service.findAll({ where: { name: serviceNames }, transaction });
-      const existingServiceNames = existingServices.map(service => service.name);
-      
-      const servicesToCreate = lodgingData.services
-        .filter(service => !existingServiceNames.includes(service.name))
-        .map(service => ({
-          name: service.name,
-          description: service.description
-        }));
-
-      let createdServices: Service[] = [];
-      if (servicesToCreate.length > 0) {
-        createdServices = await Service.bulkCreate(servicesToCreate as any, { transaction });
-      }
-
-      const allServiceIds = [...existingServices.map(service => service.id), ...createdServices.map(service => service.id)];
-
-      if (allServiceIds.length > 0) {
-        const servicesToAssociate = await Service.findAll({ where: { id: allServiceIds }, transaction });
-        await newLodging.$set('services', servicesToAssociate, { transaction });
-      }
-    }
-
-    return await Lodging.findByPk(newLodging.id, {
-      include: [{ model: Service }],
-      transaction
-    }) as Lodging;
-  });
-};
-
-/**
- * Actualizar un hospedaje existente y sus servicios (relación N:M)
- */
-export const updateLodging = async (id: number, lodgingData: Partial<Lodging> & { services?: Partial<Service>[] }): Promise<Lodging | null> => {
-  return await Lodging.sequelize!.transaction(async (transaction: Transaction) => {
-    const lodging = await Lodging.findByPk(id, { include: [{ model: Service }], transaction });
-    if (!lodging) throw new Error('Lodging not found');
-
-    if (lodgingData.name && lodgingData.name !== lodging.name) {
-      const existingLodging = await Lodging.findOne({ where: { name: lodgingData.name }, transaction });
-      if (existingLodging) {
-        throw new Error(`Lodging with name "${lodgingData.name}" already exists.`);
-      }
-    }
-
     try {
-      await lodging.update(lodgingData, { transaction });
+      const existingLodging = await Lodging.findOne({ where: { name: lodgingData.name }, transaction });
+      if (existingLodging) throw makeErrorResponse(409, `El hospedaje con nombre "${lodgingData.name}"`);
 
-      if (lodgingData.services && lodgingData.services.length > 0) {
-        const validServices = lodgingData.services.filter(service => service.name && service.description);
+      const newLodging = await Lodging.create(lodgingData, { transaction });
 
-        const serviceNames = validServices.map(service => service.name!);
+      if (lodgingData.services?.length) {
+        const serviceNames = lodgingData.services.map(service => service.name!);
         const existingServices = await Service.findAll({ where: { name: serviceNames }, transaction });
 
-        const existingServiceNames = existingServices.map(service => service.name);
-        const servicesToCreate = validServices
-          .filter(service => !existingServiceNames.includes(service.name!))
-          .map(service => ({
-            name: service.name!,
-            description: service.description!
-          }));
+        const servicesToCreate = lodgingData.services.filter(
+          service => !existingServices.some(existing => existing.name === service.name)
+        );
 
         let createdServices: Service[] = [];
-        if (servicesToCreate.length > 0) {
-          createdServices = await Service.bulkCreate(servicesToCreate as any, { transaction });
+        if (servicesToCreate.length) {
+          createdServices = await Service.bulkCreate(servicesToCreate as InferAttributes<Service>[], { transaction });
         }
 
-        const allServiceIds = [...existingServices.map(service => service.id), ...createdServices.map(service => service.id)];
+        const allServices = [...existingServices, ...createdServices];
+        await Promise.all(
+                  allServices.map(service =>
+                    ServiceAssignment.create(
+                      {
+                        entityId: newLodging.id,
+                        entityType: ENTITY_TYPES.LODGING,
+                        serviceId: service.id,
+                      },
+                      { transaction }
+                    )
+                  )
+                );  
+      }
 
-        if (allServiceIds.length > 0) {
-          const servicesToAssociate = await Service.findAll({ where: { id: allServiceIds }, transaction });
-          await lodging.$set('services', servicesToAssociate, { transaction });
+      return await Lodging.findByPk(newLodging.id, { include: [{ model: Service }], transaction }) as Lodging;
+    } catch (error) {
+      throw error;
+    }
+  });
+};
+
+/**
+ * Actualizar un hospedaje existente y sus servicios
+ */
+export const updateLodging = async (
+  id: number,
+  lodgingData: Partial<Lodging> & { services?: Partial<Service>[] }
+): Promise<Lodging> => {
+  return await Lodging.sequelize!.transaction(async (transaction: Transaction) => {
+    try {
+      const lodging = await Lodging.findByPk(id, { include: [{ model: Service }], transaction });
+      if (!lodging) throw makeErrorResponse(404, 'Hospedaje');
+
+      if (lodgingData.name && lodgingData.name !== lodging.name) {
+        const existingLodging = await Lodging.findOne({ where: { name: lodgingData.name }, transaction });
+        if (existingLodging) throw makeErrorResponse(409, `El hospedaje con nombre "${lodgingData.name}"`);
+      }
+
+      await lodging.update(lodgingData, { transaction });
+
+      if (lodgingData.services?.length) {
+        const serviceNames = lodgingData.services.map(service => service.name!);
+        const existingServices = await Service.findAll({ where: { name: serviceNames }, transaction });
+
+        const servicesToCreate = lodgingData.services.filter(
+          service => !existingServices.some(existing => existing.name === service.name)
+        );
+
+        let createdServices: Service[] = [];
+        if (servicesToCreate.length) {
+          createdServices = await Service.bulkCreate(servicesToCreate as InferAttributes<Service>[], { transaction });
         }
+
+        const allServices = [...existingServices, ...createdServices];
+        await ServiceAssignment.destroy({ where: { entityId: id, entityType: 'lodging' }, transaction });
+
+        await Promise.all(
+          allServices.map(service =>
+            ServiceAssignment.create(
+              {
+                entityId: lodging.id,
+                entityType: ENTITY_TYPES.LODGING,
+                serviceId: service.id,
+              },
+              { transaction }
+            )
+          )
+        );      
       }
 
       return await Lodging.findByPk(id, { include: [{ model: Service }], transaction }) as Lodging;
     } catch (error) {
-      throw new Error(`Failed to update lodging: ${(error as Error).message}`);
+      throw error;
     }
   });
 };
 
 /**
- * Eliminar un hospedaje y desasociar servicios (relación N:M)
+ * Eliminar un hospedaje y desasociar servicios
  */
 export const deleteLodging = async (id: number): Promise<void> => {
   return await Lodging.sequelize!.transaction(async (transaction: Transaction) => {
-    const lodging = await Lodging.findByPk(id, { transaction });
-    if (!lodging) throw new Error('Lodging not found');
+    try {
+      const lodging = await Lodging.findByPk(id, { transaction });
+      if (!lodging) throw makeErrorResponse(404, 'Hospedaje');
 
-    await lodging.$set('services', [], { transaction });
-
-    await lodging.destroy({ transaction });
+      await lodging.$set('services', [], { transaction });
+      await lodging.destroy({ transaction });
+    } catch (error) {
+      throw error;
+    }
   });
 };
