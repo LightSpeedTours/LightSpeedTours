@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import { validateTour } from '../middlewares/TourMiddleware';
 import {
-  getToursController,
-  getTourByIdController,
-  createTourController,
-  updateTourController,
-  deleteTourController
+    getToursController,
+    getTourByIdController,
+    createTourController,
+    updateTourController,
+    deleteTourController,
 } from '../controllers/TourController';
 
 const router = Router();

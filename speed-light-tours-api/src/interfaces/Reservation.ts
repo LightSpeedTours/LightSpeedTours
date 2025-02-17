@@ -1,11 +1,12 @@
 import { EntityType } from '../utils/types/EnumTypes';
 
-export interface Comment {
+export interface Reservation {
     id: number;
     userId: number;
     entityType: EntityType;
     entityId: number;
-    rating: number;
-    text: string;
-    publishedAt: Date;
+    quantity: number;
+    subtotal: number;
+    startDate: Date;
+    endDate: Date;
 }

@@ -1,8 +1,9 @@
+import { EntityType } from '../utils/types/EnumTypes';
+
 export interface Service {
     id: number;
     name: string;
     description: string;
-    entityType: 'lodging' | 'tour'; 
+    entityType: EntityType;
     entityId: number;
-  }
-  
+}

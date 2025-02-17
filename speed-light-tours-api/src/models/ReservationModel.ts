@@ -7,7 +7,6 @@ import {
     AutoIncrement,
     ForeignKey,
     BelongsTo,
-    HasMany,
     BeforeValidate,
 } from 'sequelize-typescript';
 import Lodging from './LodgingModel';
@@ -15,16 +14,16 @@ import Tour from './TourModel';
 import { ENTITY_TYPES, EntityType } from '../utils/types/EnumTypes';
 
 @Table({
-    tableName: 'comments',
+    tableName: 'reservations',
     timestamps: false,
 })
-export default class Comment extends Model {
+export default class Reservation extends Model {
     @PrimaryKey
     @AutoIncrement
     @Column(DataType.INTEGER)
     declare id: number;
 
-    @Column(DataType.INTEGER)
+    @Column({ type: DataType.INTEGER, allowNull: false })
     declare userId: number;
 
     @Column(DataType.ENUM(...Object.values(ENTITY_TYPES)))
@@ -41,30 +40,23 @@ export default class Comment extends Model {
     @BelongsTo(() => Tour, { foreignKey: 'entityId', constraints: false })
     declare tour?: Tour;
 
-    @Column(DataType.FLOAT)
-    declare rating: number;
+    @Column({ type: DataType.INTEGER, allowNull: false })
+    declare quantity: number;
 
-    @Column(DataType.TEXT)
-    declare text: string;
+    @Column({ type: DataType.FLOAT, allowNull: false })
+    declare subtotal: number;
 
-    @Column(DataType.DATE)
-    declare publishedAt: Date;
+    @Column({ type: DataType.DATE, allowNull: false })
+    declare startDate: Date;
 
-    @ForeignKey(() => Comment)
-    @Column(DataType.INTEGER)
-    declare parentId: number | null;
-
-    @BelongsTo(() => Comment, { foreignKey: 'parentId' })
-    declare parentComment?: Comment;
-
-    @HasMany(() => Comment, { foreignKey: 'parentId' })
-    declare replies?: Comment[];
+    @Column({ type: DataType.DATE, allowNull: false })
+    declare endDate: Date;
 
     /**
-     * Hook antes de la validación para asegurar que entityType y entityId sean coherentes.
+     * Hook antes de la validación para asegurar que `entityType` y `entityId` sean coherentes.
      */
     @BeforeValidate
-    static validateEntityAssignment(instance: Comment) {
+    static validateEntityAssignment(instance: Reservation) {
         if (!instance.entityId) {
             throw new Error('El campo entityId es obligatorio.');
         }

@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import { validateLodging } from '../middlewares/LodgingMiddleware';
 import {
-  getLodgingsController,
-  getLodgingByIdController,
-  createLodgingController,
-  updateLodgingController,
-  deleteLodgingController
+    getLodgingsController,
+    getLodgingByIdController,
+    createLodgingController,
+    updateLodgingController,
+    deleteLodgingController,
 } from '../controllers/LodgingController';
 
 const router = Router();
