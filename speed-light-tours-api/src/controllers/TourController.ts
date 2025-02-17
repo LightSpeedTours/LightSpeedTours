@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { getAllTours, getTourById, createTour, updateTour, deleteTour } from '../services/TourService';
-import { handleErrorResponse } from '../utils/ErrorHandler';
+import { handleErrorResponse, makeErrorResponse } from '../utils/ErrorHandler';
+import { validationResult } from 'express-validator';
 
 export const getToursController = async (_req: Request, res: Response): Promise<void> => {
   try {
@@ -27,6 +28,10 @@ export const getTourByIdController = async (req: Request, res: Response): Promis
 
 export const createTourController = async (req: Request, res: Response): Promise<void> => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return handleErrorResponse(res, makeErrorResponse(400, errors.array().map(err => err.msg).join('. ')));
+    }
     const newTour = await createTour(req.body);
     res.status(201).json({ message: 'Tour created successfully', tour: newTour });
   } catch (error: unknown) {
@@ -36,6 +41,10 @@ export const createTourController = async (req: Request, res: Response): Promise
 
 export const updateTourController = async (req: Request, res: Response): Promise<void> => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return handleErrorResponse(res, makeErrorResponse(400, errors.array().map(err => err.msg).join('. ')));
+    }
     const updatedTour = await updateTour(parseInt(req.params.id), req.body);
     res.status(200).json({ message: 'Tour updated successfully', tour: updatedTour });
   } catch (error: unknown) {

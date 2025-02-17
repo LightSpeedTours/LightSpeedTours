@@ -137,18 +137,18 @@ export const findCommentsByTour = async (tourId: number): Promise<CommentInterfa
  * Responder a un comentario existente sin afectar la calificación
  */
 export const replyToComment = async (
-  parentId: number,
+  commentId: number,
   replyData: Omit<CommentInterface, 'id' | 'publishedAt' | 'entityId' | 'entityType'>
 ): Promise<CommentInterface> => {
   try {
-    const parentComment = await Comment.findByPk(parentId);
+    const parentComment = await Comment.findByPk(commentId);
     if (!parentComment) {
       throw makeErrorResponse(404, 'Comentario padre');
     }
 
     const newReply = await Comment.create({
       ...replyData,
-      parentId,
+      parentId: commentId,
       entityId: parentComment.entityId,
       entityType: parentComment.entityType,
       publishedAt: new Date(),
@@ -159,3 +159,4 @@ export const replyToComment = async (
     throw error;
   }
 };
+

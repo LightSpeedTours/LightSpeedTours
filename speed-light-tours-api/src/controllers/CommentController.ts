@@ -7,7 +7,8 @@ import {
   findCommentsByTour, 
   replyToComment 
 } from '../services/CommentService';
-import { handleErrorResponse } from '../utils/ErrorHandler';
+import { handleErrorResponse, makeErrorResponse } from '../utils/ErrorHandler';
+import { validationResult } from 'express-validator';
 
 
 
@@ -22,6 +23,10 @@ export const getCommentController = async (req: Request, res: Response) => {
 
 export const setCommentController = async (req: Request, res: Response) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return handleErrorResponse(res, makeErrorResponse(400, errors.array().map(err => err.msg).join('. ')));
+    }
     const newComment = await saveComment(req.body);
     res.status(201).json({ message: 'Comment created successfully', comment: newComment });
   } catch (error) {
@@ -58,6 +63,10 @@ export const getCommentsByTourController = async (req: Request, res: Response) =
 
 export const replyToCommentController = async (req: Request, res: Response) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return handleErrorResponse(res, makeErrorResponse(400, errors.array().map(err => err.msg).join('. ')));
+    }
     const newReply = await replyToComment(parseInt(req.params.parentId), req.body);
     res.status(201).json({ message: 'Respuesta creada correctamente', reply: newReply });
   } catch (error) {

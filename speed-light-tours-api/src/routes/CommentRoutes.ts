@@ -7,7 +7,7 @@ import {
   getCommentsByTourController,
   replyToCommentController,
 } from '../controllers/CommentController';
-import { validateComment,  } from '../middlewares/CommentMiddleware';
+import { validateComment, validateReply,  } from '../middlewares/CommentMiddleware';
 
 const router = Router();
 
@@ -16,7 +16,7 @@ router.get('/list/:id', getCommentController);
 router.get('/lodging/:lodgingId', getCommentsByLodgingController);
 router.get('/tour/:tourId', getCommentsByTourController);
 router.post('/', validateComment, setCommentController);
-router.post('/reply/:parentId', validateComment, replyToCommentController);
+router.post('/reply/:parentId', validateReply, replyToCommentController);
 
 
 
