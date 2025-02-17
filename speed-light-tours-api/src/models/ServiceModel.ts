@@ -12,6 +12,7 @@ import Lodging from './LodgingModel';
 import Tour from './TourModel';
 import LodgingService from './LodgingServiceModel';
 import TourService from './TourServiceModel';
+import { STATUS } from '../utils/types/EnumTypes';
 
 @Table({ tableName: 'services', timestamps: false })
 export default class Service extends Model {
@@ -32,4 +33,11 @@ export default class Service extends Model {
 
     @BelongsToMany(() => Tour, () => TourService)
     declare tours: Tour[];
+
+    @Column({
+        type: DataType.ENUM(...Object.values(STATUS)),
+        allowNull: false,
+        defaultValue: STATUS.PENDING,
+    })
+    declare status: STATUS;
 }
