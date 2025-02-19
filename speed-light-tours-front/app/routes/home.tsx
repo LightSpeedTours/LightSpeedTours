@@ -12,7 +12,6 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
   return (
     <div>
-      <Welcome />
       <nav>
         <Link to="/comentarios">Ir a Comentarios</Link>        
       </nav>
@@ -24,6 +23,12 @@ export default function Home() {
       </nav>
       <nav>
         <Link to="/tours">Ir a Tours</Link>
+      </nav>
+      <nav>
+        <Link to="/login">Login Page</Link>
+      </nav>
+      <nav>
+        <Link to="/signup">SignUp Page</Link>
       </nav>
     </div>
   );
