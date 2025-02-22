@@ -20,6 +20,12 @@ export default function Home() {
       <Link to="/landingPage">Ir a Landing Page</Link>
       </nav>
       <nav>
+        <Link to="/hotels">Ir a Hospedajes</Link>
+      </nav>
+      <nav>
+        <Link to="/tours">Ir a Tours</Link>
+      </nav>
+      <nav>
       <Link to="/touReservation">Ir a reservar el tour</Link>
       </nav>
       <nav>

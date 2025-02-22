@@ -1,0 +1,68 @@
+.infoContainer {
+  padding: 0px;
+  position: absolute;
+  top: 350px;
+  right: 20px;
+  background-color: #1A1A1A;
+  border-radius: 8px;
+}
+
+/* Mantiene la estructura original en pantallas grandes */
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0px;
+  width: 100%;
+}
+
+.imageContainer {
+  border-radius: 8px;
+  border: 1px solid  #FFE81F;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.detailsContainer, .priceContainer {
+  border-radius: 8px;
+  border: 1px solid  #FFE81F;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  position: relative;
+  width: 100%;
+}
+
+.detailsContainer {
+  padding: 20px;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.priceContainer {
+  padding: 20px;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+ul {
+  list-style-type: disc;
+  padding: 10px;
+}
+
+/* 🔹 Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+  .gridContainer {
+      grid-template-columns: 1fr; /* Se convierte en una sola columna */
+  }
+
+  .infoContainer {
+      position: relative; /* Evita que se superponga en móviles */
+      top: auto;
+      right: auto;
+      padding: 10px;
+      width: 100%; /* Se adapta al ancho disponible */
+  }
+}

@@ -1,133 +1,166 @@
 import Tour from '../models/TourModel';
 import Service from '../models/ServiceModel';
-import { Transaction } from 'sequelize';
+import { InferAttributes, Transaction } from 'sequelize';
+import { makeErrorResponse } from '../utils/ErrorHandler';
 
 /**
  * Obtener todos los tours con sus servicios asociados
  */
 export const getAllTours = async (): Promise<Tour[]> => {
-  return await Tour.findAll({
-    include: [{ model: Service }]
-  });
+    try {
+        return await Tour.findAll({ include: [{ model: Service }] });
+    } catch (error) {
+        throw error;
+    }
 };
 
 /**
  * Obtener un tour por ID, incluyendo sus servicios
  */
-export const getTourById = async (id: number): Promise<Tour | null> => {
-  return await Tour.findByPk(id, {
-    include: [{ model: Service }]
-  });
+export const getTourById = async (id: number): Promise<Tour> => {
+    try {
+        const tour = await Tour.findByPk(id, { include: [{ model: Service }] });
+        if (!tour) throw makeErrorResponse(404, 'Tour');
+        return tour;
+    } catch (error) {
+        throw error;
+    }
 };
 
 /**
- * Crear un nuevo tour y asociar servicios opcionales (creando nuevos servicios si es necesario).
+ * Crear un nuevo tour y asociar servicios opcionales
  */
-export const createTour = async (tourData: Partial<Tour> & { services?: Partial<Service>[] }): Promise<Tour> => {
-  return await Tour.sequelize!.transaction(async (transaction: Transaction) => {
+export const createTour = async (
+    tourData: Partial<Tour> & { services?: Partial<Service>[] },
+): Promise<Tour> => {
+    return await Tour.sequelize!.transaction(async (transaction: Transaction) => {
+        try {
+            const existingTour = await Tour.findOne({
+                where: { name: tourData.name },
+                transaction,
+            });
+            if (existingTour)
+                throw makeErrorResponse(409, `El tour con nombre "${tourData.name}" ya existe.`);
 
-    const existingTour = await Tour.findOne({ where: { name: tourData.name }, transaction });
-    if (existingTour) {
-      throw new Error(`Tour with name "${tourData.name}" already exists.`);
-    }
+            const newTour = await Tour.create(tourData, { transaction });
 
-    const newTour = await Tour.create(tourData, { transaction });
+            if (tourData.services?.length) {
+                const serviceNames = tourData.services.map((service) => service.name!);
+                const existingServices = await Service.findAll({
+                    where: { name: serviceNames },
+                    transaction,
+                });
 
-    if (tourData.services && tourData.services.length > 0) {
-      const serviceNames = tourData.services.map(service => service.name);
+                const servicesToCreate = tourData.services.filter(
+                    (service) =>
+                        !existingServices.some((existing) => existing.name === service.name),
+                );
 
-      const existingServices = await Service.findAll({ where: { name: serviceNames }, transaction });
+                let createdServices: Service[] = [];
+                if (servicesToCreate.length) {
+                    createdServices = await Service.bulkCreate(
+                        servicesToCreate as InferAttributes<Service>[],
+                        { transaction },
+                    );
+                }
 
-      const existingServiceNames = existingServices.map(service => service.name);
-      const servicesToCreate = tourData.services
-        .filter(service => !existingServiceNames.includes(service.name))
-        .map(service => ({
-          name: service.name,
-          description: service.description
-        }));
+                const allServices = [...existingServices, ...createdServices];
 
-      let createdServices: Service[] = [];
-      if (servicesToCreate.length > 0) {
-        createdServices = await Service.bulkCreate(servicesToCreate as any, { transaction });
-      }
+                await newTour.$add(
+                    'services',
+                    allServices.map((service) => service.id),
+                    { transaction },
+                );
+            }
 
-      const allServiceIds = [...existingServices.map(service => service.id), ...createdServices.map(service => service.id)];
-
-      if (allServiceIds.length > 0) {
-        const servicesToAssociate = await Service.findAll({ where: { id: allServiceIds }, transaction });
-        await newTour.$set('services', servicesToAssociate, { transaction });
-      }
-    }
-
-    return await Tour.findByPk(newTour.id, {
-      include: [{ model: Service }],
-      transaction
-    }) as Tour;
-  });
+            return (await Tour.findByPk(newTour.id, {
+                include: [{ model: Service }],
+                transaction,
+            })) as Tour;
+        } catch (error) {
+            throw error;
+        }
+    });
 };
-
 
 /**
- * Actualizar un tour existente y sus servicios (relación N:M)
+ * Actualizar un tour existente y sus servicios
  */
-export const updateTour = async (id: number, tourData: Partial<Tour> & { services?: Partial<Service>[] }): Promise<Tour | null> => {
-  return await Tour.sequelize!.transaction(async (transaction: Transaction) => {
-    const tour = await Tour.findByPk(id, { include: [{ model: Service }], transaction });
-    if (!tour) throw new Error('Tour not found');
+export const updateTour = async (
+    id: number,
+    tourData: Partial<Tour> & { services?: Partial<Service>[] },
+): Promise<Tour> => {
+    return await Tour.sequelize!.transaction(async (transaction: Transaction) => {
+        try {
+            const tour = await Tour.findByPk(id, { include: [{ model: Service }], transaction });
+            if (!tour) throw makeErrorResponse(404, 'Tour no encontrado.');
 
-    if (tourData.name && tourData.name !== tour.name) {
-      const existingTour = await Tour.findOne({ where: { name: tourData.name }, transaction });
-      if (existingTour) {
-        throw new Error(`Tour with name "${tourData.name}" already exists.`);
-      }
-    }
+            if (tourData.name && tourData.name !== tour.name) {
+                const existingTour = await Tour.findOne({
+                    where: { name: tourData.name },
+                    transaction,
+                });
+                if (existingTour)
+                    throw makeErrorResponse(
+                        409,
+                        `El tour con nombre "${tourData.name}" ya existe.`,
+                    );
+            }
 
-    await tour.update(tourData, { transaction });
+            await tour.update(tourData, { transaction });
 
-    if (tourData.services && tourData.services.length > 0) {
-      const validServices = tourData.services.filter(service => service.name && service.description);
+            if (tourData.services?.length) {
+                const serviceNames = tourData.services.map((service) => service.name!);
+                const existingServices = await Service.findAll({
+                    where: { name: serviceNames },
+                    transaction,
+                });
 
-      const serviceNames = validServices.map(service => service.name!);
+                const servicesToCreate = tourData.services.filter(
+                    (service) =>
+                        !existingServices.some((existing) => existing.name === service.name),
+                );
 
-      const existingServices = await Service.findAll({ where: { name: serviceNames }, transaction });
+                let createdServices: Service[] = [];
+                if (servicesToCreate.length) {
+                    createdServices = await Service.bulkCreate(
+                        servicesToCreate as InferAttributes<Service>[],
+                        { transaction },
+                    );
+                }
 
-      const existingServiceNames = existingServices.map(service => service.name);
-      const servicesToCreate = validServices
-        .filter(service => !existingServiceNames.includes(service.name!))
-        .map(service => ({
-          name: service.name!,
-          description: service.description!
-        }));
+                const allServices = [...existingServices, ...createdServices];
 
-      let createdServices: Service[] = [];
-      if (servicesToCreate.length > 0) {
-        createdServices = await Service.bulkCreate(servicesToCreate as any, { transaction });
-      }
+                await tour.$set(
+                    'services',
+                    allServices.map((service) => service.id),
+                    { transaction },
+                );
+            }
 
-      const allServiceIds = [...existingServices.map(service => service.id), ...createdServices.map(service => service.id)];
-
-      if (allServiceIds.length > 0) {
-        const servicesToAssociate = await Service.findAll({ where: { id: allServiceIds }, transaction });
-        await tour.$set('services', servicesToAssociate, { transaction });
-      }
-    }
-
-    return await Tour.findByPk(id, {
-      include: [{ model: Service }],
-      transaction
-    }) as Tour;
-  });
+            return (await Tour.findByPk(id, {
+                include: [{ model: Service }],
+                transaction,
+            })) as Tour;
+        } catch (error) {
+            throw error;
+        }
+    });
 };
 
-
-
+/**
+ * Eliminar un tour y desasociar servicios
+ */
 export const deleteTour = async (id: number): Promise<void> => {
-  return await Tour.sequelize!.transaction(async (transaction: Transaction) => {
-    const lodging = await Tour.findByPk(id, { transaction });
-    if (!lodging) throw new Error('Tour not found');
+    return await Tour.sequelize!.transaction(async (transaction: Transaction) => {
+        try {
+            const tour = await Tour.findByPk(id, { transaction });
+            if (!tour) throw makeErrorResponse(404, 'Tour');
 
-    await lodging.$set('services', [], { transaction });
-
-    await lodging.destroy({ transaction });
-  });
+            await tour.$set('services', [], { transaction });
+            await tour.destroy({ transaction });
+        } catch (error) {
+            throw error;
+        }
+    });
 };

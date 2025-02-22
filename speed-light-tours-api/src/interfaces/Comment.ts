@@ -1,9 +1,11 @@
+import { EntityType } from '../utils/types/EnumTypes';
+
 export interface Comment {
-  id: number;
-  userId: string; 
-  type: 'tour' | 'lodging'; 
-  typeId: string; 
-  rating: number; 
-  text: string; 
-  publishedAt: Date; 
+    id: number;
+    userId: number;
+    entityType: EntityType;
+    entityId: number;
+    rating: number;
+    text: string;
+    publishedAt: Date;
 }
