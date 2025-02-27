@@ -5,10 +5,9 @@ interface AccountDetailsProps {
   username: string;
   email: string;
   password: string;
-  phone: string | null;
 }
 
-const AccountDetails: React.FC<AccountDetailsProps> = ({ username, email, password, phone }) => {
+const AccountDetails: React.FC<AccountDetailsProps> = ({ username, email, password}) => {
   return (
     <div className="account-details">
       <h3><strong>Datos de cuenta</strong></h3>
@@ -19,8 +18,6 @@ const AccountDetails: React.FC<AccountDetailsProps> = ({ username, email, passwo
         <div className="account-info">{email}</div>
         <div className="account-title">Contraseña:</div>
         <div className="account-info">{password}</div>
-        <div className="account-title">Teléfono:</div>
-        <div className="account-info">{phone}</div>
       </div>
     </div>
   );

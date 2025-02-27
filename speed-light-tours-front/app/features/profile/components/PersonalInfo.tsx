@@ -5,13 +5,12 @@ import Button from 'app/features/reservation/components/Button';
 
 interface PersonalInfoProps {
   name: string;
-  id: string | null;
   dateOfBirth: string;
   gender: string | null;
   occupation: string | null;
 }
 
-const PersonalInfo: React.FC<PersonalInfoProps> = ({ name, id, dateOfBirth, gender, occupation }) => {
+const PersonalInfo: React.FC<PersonalInfoProps> = ({ name, dateOfBirth, gender, occupation }) => {
   return (
     <div className="profile-details">
       <div className="profile-grid">
@@ -26,7 +25,6 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ name, id, dateOfBirth, gend
       </div>       
       <div className="details-grid">
         <div><strong>Nombre:</strong> {name}</div>
-        <div><strong>Cédula:</strong> {id}</div>
         <div><strong>DateOfBirth:</strong> {dateOfBirth}</div>
         <div><strong>Género:</strong> {gender}</div>
         <div><strong>Ocupación:</strong> {occupation}</div>

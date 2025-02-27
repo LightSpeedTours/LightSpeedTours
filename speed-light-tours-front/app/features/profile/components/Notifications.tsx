@@ -3,22 +3,16 @@ import '../app.css';
 
 interface NotificationsProps {
   emailNotifications: boolean;
-  smsNotifications: boolean;
   onToggleEmail: () => void;
-  onToggleSms: () => void;
 }
 
-const Notifications: React.FC<NotificationsProps> = ({ emailNotifications, smsNotifications, onToggleEmail, onToggleSms }) => {
+const Notifications: React.FC<NotificationsProps> = ({ emailNotifications, onToggleEmail}) => {
   return (
     <div className="notifications">
       <h3><strong>Notificaciones</strong></h3>
       <div>
         <span>Correo electrónico</span>
         <input type="checkbox" checked={emailNotifications} onChange={onToggleEmail} />
-      </div>
-      <div>
-        <span>SMS y Whatsapp</span>
-        <input type="checkbox" checked={smsNotifications} onChange={onToggleSms} />
       </div>
     </div>
   );
