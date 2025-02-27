@@ -1,43 +1,78 @@
 import {
-  Table,
-  Column,
-  Model,
-  DataType,
-  PrimaryKey,
-  AutoIncrement,
-  HasMany,
+    Table,
+    Column,
+    Model,
+    DataType,
+    PrimaryKey,
+    AutoIncrement,
+    ForeignKey,
+    BelongsTo,
+    HasMany,
+    BeforeValidate,
 } from 'sequelize-typescript';
-import Response from './ResponseModel';
-
+import Lodging from './LodgingModel';
+import Tour from './TourModel';
+import { ENTITY_TYPES, EntityType } from '../utils/types/EnumTypes';
 
 @Table({
-  tableName: 'comments',
-  timestamps: false,
+    tableName: 'comments',
+    timestamps: false,
 })
 export default class Comment extends Model {
-  @PrimaryKey
-  @AutoIncrement
-  @Column(DataType.INTEGER)
-  declare id: number;
+    @PrimaryKey
+    @AutoIncrement
+    @Column(DataType.INTEGER)
+    declare id: number;
 
-  @Column(DataType.STRING)
-  declare userId: string;
+    @Column(DataType.INTEGER)
+    declare userId: number;
 
-  @Column(DataType.ENUM('tour', 'lodging'))
-  declare type: 'tour' | 'lodging';
+    @Column(DataType.ENUM(...Object.values(ENTITY_TYPES)))
+    declare entityType: EntityType;
 
-  @Column(DataType.STRING)
-  declare typeId: string;
+    @ForeignKey(() => Lodging)
+    @ForeignKey(() => Tour)
+    @Column(DataType.INTEGER)
+    declare entityId: number;
 
-  @Column(DataType.FLOAT)
-  declare rating: number;
+    @BelongsTo(() => Lodging, { foreignKey: 'entityId', constraints: false })
+    declare lodging?: Lodging;
 
-  @Column(DataType.TEXT)
-  declare text: string;
+    @BelongsTo(() => Tour, { foreignKey: 'entityId', constraints: false })
+    declare tour?: Tour;
 
-  @Column(DataType.DATE)
-  declare publishedAt: Date;
+    @Column(DataType.FLOAT)
+    declare rating: number;
 
-  @HasMany(() => Response) 
-  declare responses: Response[];
+    @Column(DataType.TEXT)
+    declare text: string;
+
+    @Column(DataType.DATE)
+    declare publishedAt: Date;
+
+    @ForeignKey(() => Comment)
+    @Column(DataType.INTEGER)
+    declare parentId: number | null;
+
+    @BelongsTo(() => Comment, { foreignKey: 'parentId' })
+    declare parentComment?: Comment;
+
+    @HasMany(() => Comment, { foreignKey: 'parentId' })
+    declare replies?: Comment[];
+
+    /**
+     * Hook antes de la validación para asegurar que entityType y entityId sean coherentes.
+     */
+    @BeforeValidate
+    static validateEntityAssignment(instance: Comment) {
+        if (!instance.entityId) {
+            throw new Error('El campo entityId es obligatorio.');
+        }
+        if (!instance.entityType) {
+            throw new Error('El campo entityType es obligatorio.');
+        }
+        if (instance.entityType !== 'tour' && instance.entityType !== 'lodging') {
+            throw new Error('El campo entityType debe ser "tour" o "lodging".');
+        }
+    }
 }
