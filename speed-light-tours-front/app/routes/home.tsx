@@ -35,7 +35,7 @@ export default function Home() {
         <Link to="/tours">Ir a Tours</Link>
       </nav>
       <nav>
-      <Link to="/touReservation">Ir a reservar el tour</Link>
+      <Link to="/tourReservation">Ir a reservar el tour</Link>
       </nav>
       <nav>
       <Link to="/hotelReservation">Ir a reservar el hotel</Link>
