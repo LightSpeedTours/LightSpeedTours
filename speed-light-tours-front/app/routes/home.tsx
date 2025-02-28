@@ -10,14 +10,24 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
+  if (typeof document === 'undefined') {
+    return null; // Return null if not in a browser environment
+  }
+
   return (
     <div>
-      <Welcome />
+      <Welcome />      
       <nav>
         <Link to="/comentarios">Ir a Comentarios</Link>        
       </nav>
       <nav>
-      <Link to="/landingPage">Ir a Landing Page</Link>
+        <Link to="/landingPage">Ir a Landing Page</Link>
+      </nav>
+      <nav>
+        <Link to="/reservations">Ir a Reservas</Link>
+      </nav>
+      <nav>
+        <Link to="/profile">Ir a Perfil</Link>
       </nav>
       <nav>
         <Link to="/hotels">Ir a Hospedajes</Link>
