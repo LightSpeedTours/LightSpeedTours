@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PersonalInfo from '../components/PersonalInfo';
 import AccountDetails from '../components/AccountDetails';
 import './profileSections.css';

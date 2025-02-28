@@ -1,35 +1,43 @@
 import {
-  Table,
-  Column,
-  Model,
-  DataType,
-  PrimaryKey,
-  AutoIncrement,
-  BelongsToMany,
-  Unique
+    Table,
+    Column,
+    Model,
+    DataType,
+    PrimaryKey,
+    AutoIncrement,
+    BelongsToMany,
+    Unique,
 } from 'sequelize-typescript';
 import Lodging from './LodgingModel';
 import Tour from './TourModel';
 import LodgingService from './LodgingServiceModel';
 import TourService from './TourServiceModel';
+import { STATUS } from '../utils/types/EnumTypes';
 
 @Table({ tableName: 'services', timestamps: false })
 export default class Service extends Model {
-  @PrimaryKey
-  @AutoIncrement
-  @Column(DataType.INTEGER)
-  declare id: number;
-  
-  @Unique
-  @Column({ type: DataType.STRING, allowNull: false })
-  declare name: string;
+    @PrimaryKey
+    @AutoIncrement
+    @Column(DataType.INTEGER)
+    declare id: number;
 
-  @Column({ type: DataType.TEXT, allowNull: false })
-  declare description: string;
+    @Unique
+    @Column({ type: DataType.STRING, allowNull: false })
+    declare name: string;
 
-  @BelongsToMany(() => Lodging, { through: () => LodgingService }) 
-  declare lodgings: Lodging[];
+    @Column({ type: DataType.TEXT, allowNull: false })
+    declare description: string;
 
-  @BelongsToMany(() => Tour, { through: () => TourService })
-  declare tours: Tour[];
+    @BelongsToMany(() => Lodging, () => LodgingService)
+    declare lodgings: Lodging[];
+
+    @BelongsToMany(() => Tour, () => TourService)
+    declare tours: Tour[];
+
+    @Column({
+        type: DataType.ENUM(...Object.values(STATUS)),
+        allowNull: false,
+        defaultValue: STATUS.PENDING,
+    })
+    declare status: STATUS;
 }
