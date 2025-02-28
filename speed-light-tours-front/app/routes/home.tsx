@@ -16,7 +16,6 @@ export default function Home() {
 
   return (
     <div>
-      <Welcome />      
       <nav>
         <Link to="/comentarios">Ir a Comentarios</Link>        
       </nav>
@@ -34,6 +33,18 @@ export default function Home() {
       </nav>
       <nav>
         <Link to="/tours">Ir a Tours</Link>
+      </nav>
+      <nav>
+      <Link to="/tourReservation">Ir a reservar el tour</Link>
+      </nav>
+      <nav>
+      <Link to="/hotelReservation">Ir a reservar el hotel</Link>
+      </nav>
+      <nav>
+        <Link to="/login">Login Page</Link>
+      </nav>
+      <nav>
+        <Link to="/signup">SignUp Page</Link>
       </nav>
     </div>
   );
