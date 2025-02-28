@@ -29,7 +29,7 @@ export default function SignupPage() {
           <h1 className="text-4xl font-light" style={{ color: starWarsColors.primary }}>
             Speed Light Tours
           </h1>
-          <p className="text-[#CCCCCC] mt-2">Join us!</p>
+          <p className="text-[#CCCCCC] mt-2">The galaxy is waiting for you. Join us!</p>
         </div>
 
         {/* Form Section */}

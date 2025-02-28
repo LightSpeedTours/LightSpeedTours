@@ -1,17 +1,16 @@
-import { User, KeyRound } from "lucide-react"
-import {starWarsColors} from 'app/shared/utils/colorsTheme'
-
+import { User, KeyRound, ArrowRight } from "lucide-react"
+import { starWarsColors }  from 'app/shared/utils/colorsTheme'
 
 export default function Login() {
   return (
     <div className="grid min-h-screen grid-cols-1 lg:grid-cols-2">
-        <div className="hidden lg:block">
+      <div className="hidden lg:block">
         <img
-            src="../app/shared/assets/Falcon.jpg"
-            alt="Login illustration"
-            className="w-full aspect-square object-cover"
+          src="../app/shared/assets/Falcon.jpg"
+          alt="Login illustration"
+          className="w-full aspect-square object-cover"
         />
-        </div>
+      </div>
       <div className="flex items-center justify-center bg-[${starWarsColors.mediumGray}] px-4 py-12">
         <div className="w-full max-w-md space-y-8">
           <div className="space-y-6">
@@ -58,6 +57,20 @@ export default function Login() {
               Forgot password?
             </a>
           </div>
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-[#444444]" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-[#1A1A1A] px-2 text-[#CCCCCC]">Or</span>
+            </div>
+          </div>
+          <button
+            className="w-full bg-blue-600 flex items-center justify-center hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
+          >
+            Create an account
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </button>
         </div>
       </div>
     </div>
