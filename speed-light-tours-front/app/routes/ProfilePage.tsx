@@ -1,7 +1,6 @@
 import React from 'react';
-import Header from '../features/profile/components/Header';
+import Header from '../shared/components/OnlyHeader';
 import ProfileSections from '../features/profile/components/ProfileSections';
-import '../features/profile/app.css';
 
 const ProfilePage: React.FC = () => {
   return (

@@ -2,7 +2,7 @@ import React from "react";
 import { Bell } from "lucide-react";
 import { Link } from "react-router-dom";
 import Button from "app/shared/components/Button";
-import "../app.css";
+import "../styles/app.css";
 
 export default function Header() {
   return (

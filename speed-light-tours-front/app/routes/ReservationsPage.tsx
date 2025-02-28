@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../features/reservation/components/Header";
+import Header from '../shared/components/OnlyHeader';
 import ReservationList from "../features/reservation/components/ReservationList";
 
 // ReservationsPage Component
