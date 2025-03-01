@@ -35,7 +35,7 @@ const TourReservation: React.FC<TourProps> = ({
 
         {/* Columna derecha: BookingForm */}
         <div className="md:w-3/4 lg:w-1/3 flex justify-center">
-          <BookingForm cost={cost}  id={id}/>
+          <BookingForm cost={cost}  id={id} duration={duration}/>
         </div>
       </div>
 

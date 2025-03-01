@@ -6,7 +6,7 @@ import { createReservation } from "../../reservation/services/reservationService
 import InputField from "~/shared/components/InputField";
 import Button from "~/shared/components/Button";
 
-const TourBookingForm: React.FC<Pick<TourProps, "cost" | "id">> = ({ cost, id }) => {
+const TourBookingForm: React.FC<Pick<TourProps, "cost" | "id" | "duration">> = ({ cost, id, duration }) => {
   const [attendees, setAttendees] = useState<string>("1");
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -20,6 +20,13 @@ const TourBookingForm: React.FC<Pick<TourProps, "cost" | "id">> = ({ cost, id })
     const serviceFee = basePrice * 0.10;
     
     return basePrice + serviceFee;
+  };
+
+  const getEndDate = () => {
+    if (!selectedDate) return null;
+    const endDate = new Date(selectedDate);
+    endDate.setDate(endDate.getDate() + duration);
+    return endDate;
   };
 
   const validateFields = () => {
@@ -48,7 +55,7 @@ const TourBookingForm: React.FC<Pick<TourProps, "cost" | "id">> = ({ cost, id })
       quantity: parseInt(attendees, 10),
       subtotal: calculateTotal(),
       startDate: selectedDate?.toISOString() || "",
-      endDate: selectedDate?.toISOString() || "", // TODO: Adjust endDate if needed
+      endDate: getEndDate()?.toISOString() || "", // TODO: Adjust endDate if needed
     };
 
     try {
