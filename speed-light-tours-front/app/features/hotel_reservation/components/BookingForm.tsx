@@ -26,7 +26,7 @@ const BookingForm: React.FC<BookingFormProps> = ({ pricePerPerson, onReserve, ch
   };
 
   return (
-    <div className="booking-form p-4 bg-white shadow-md rounded-lg">
+    <div className="booking-form p-4 bg-white dark:bg-gray-800 shadow-md rounded-lg">
       <h3 className="text-xl font-bold mb-4">Reserva tu estadía</h3>
       <label className="block mb-4">
         <span className="text-lg font-semibold">Fecha de llegada:</span>

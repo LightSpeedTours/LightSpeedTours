@@ -38,7 +38,7 @@ const HotelReservationPage = () => {
   ];
 
   return (
-    <main className="min-h-screen bg-white">
+    <main>
       <Header />
       <HotelReservation
         hotelName={hotelName}

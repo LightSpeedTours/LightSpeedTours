@@ -84,7 +84,7 @@ const updateEntityRating = async (
 export const findCommentById = async (id: string): Promise<CommentInterface> => {
     try {
         const comment = await Comment.findByPk(id, {
-            include: [{ association: 'responses' }],
+            include: [{ association: 'replies' }],
         });
 
         if (!comment) throw makeErrorResponse(404, 'Comentario');
@@ -101,7 +101,20 @@ export const findCommentById = async (id: string): Promise<CommentInterface> => 
 export const findAllComments = async (): Promise<CommentInterface[]> => {
     try {
         const comments = await Comment.findAll({
-            include: [{ association: 'responses' }],
+            where: { parentId: null },
+            include: [
+                {
+                    model: Comment,
+                    as: 'replies',
+                    include: [
+                        {
+                            model: Comment,
+                            as: 'replies',
+                        },
+                    ],
+                },
+            ],
+            order: [['publishedAt', 'ASC']],
         });
 
         return comments.map((comment) => comment.toJSON() as CommentInterface);
