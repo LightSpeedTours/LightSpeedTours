@@ -14,6 +14,7 @@ const ConfirmModal = ({ message, onConfirm, onCancel }: ConfirmModalProps) => {
     setLoading(true);
     await onConfirm();
     setLoading(false);
+    window.location.reload();
   };
 
   return (
