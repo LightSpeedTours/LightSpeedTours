@@ -29,7 +29,7 @@ const TourBookingForm: React.FC<Pick<TourProps, 'cost' | 'id' | 'duration'>> = (
   const getEndDate = () => {
     if (!selectedDate) return null;
     const endDate = new Date(selectedDate);
-    endDate.setDate(endDate.getDate() + duration);
+    endDate.setDate(endDate.getDate() + duration/24);
     return endDate;
   };
 
