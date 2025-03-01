@@ -1,14 +1,6 @@
-export const API_URL = "http://localhost:3000"; // Ajusta según tu backend
+import type { CommentPayload } from '../utils/ReservationTypes';
 
-export interface Reservation {
-  userId: number;
-  entityType: string;
-  entityId: number;
-  quantity: number;
-  subtotal: number;
-  startDate: string;
-  endDate: string;
-}
+export const API_URL = 'http://localhost:3000'; // Ajusta según tu backend
 
 /**
  * Obtiene todas las fechas reservadas de un hospedaje o tour específico
@@ -18,9 +10,9 @@ export interface Reservation {
 export const fetchReservedDates = async (lodgingId: number): Promise<Date[]> => {
   try {
     const response = await fetch(`${API_URL}/reservations/lodging/${lodgingId}/dates`);
-    if (!response.ok) throw new Error("Error al obtener las reservas");
+    if (!response.ok) throw new Error('Error al obtener las reservas');
 
-    const data: Reservation[] = await response.json();
+    const data: CommentPayload[] = await response.json();
     return data
       .map((reservation) => {
         const start = new Date(reservation.startDate);
@@ -36,7 +28,7 @@ export const fetchReservedDates = async (lodgingId: number): Promise<Date[]> => 
       })
       .flat();
   } catch (error) {
-    console.error("Error obteniendo fechas reservadas:", error);
+    console.error('Error obteniendo fechas reservadas:', error);
     return [];
   }
 };
@@ -45,21 +37,21 @@ export const fetchReservedDates = async (lodgingId: number): Promise<Date[]> => 
  * Crea una nueva reserva
  * @param reservation Datos de la reserva
  */
-export const createReservation = async (reservation: Reservation) => {
+export const createReservation = async (reservation: CommentPayload) => {
   try {
     const response = await fetch(`${API_URL}/reservations`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(reservation),
     });
 
-    if (!response.ok) throw new Error("Error al realizar la reserva");
+    if (!response.ok) throw new Error('Error al realizar la reserva');
 
     return await response.json();
   } catch (error) {
-    console.error("Error creando la reserva:", error);
+    console.error('Error creando la reserva:', error);
     throw error;
   }
 };

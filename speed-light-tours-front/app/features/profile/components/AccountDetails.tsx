@@ -11,10 +11,20 @@ interface AccountDetailsProps {
   occupation: string;
 }
 
-const AccountDetails: React.FC<AccountDetailsProps> = ({ name, username, email, password, date, gender, occupation }) => {
+const AccountDetails: React.FC<AccountDetailsProps> = ({
+  name,
+  username,
+  email,
+  password,
+  date,
+  gender,
+  occupation,
+}) => {
   return (
     <div className="account-details">
-      <h3><strong>Datos de cuenta</strong></h3>
+      <h3>
+        <strong>Datos de cuenta</strong>
+      </h3>
       <div className="account-grid">
         <div className="account-title">Nombre: {name}</div>
         <div className="account-title">Nombre de usuario: {username}</div>

@@ -1,13 +1,16 @@
-import { useState, useEffect } from "react";
-import type { LodgingProps } from "../utils/types";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { fetchReservedDates, createReservation } from "../../reservation/services/reservationService";
-import InputField from "~/shared/components/InputField";
-import Button from "~/shared/components/Button";
+import { useState, useEffect } from 'react';
+import type { LodgingProps } from '../utils/types';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import {
+  fetchReservedDates,
+  createReservation,
+} from '../../reservation/services/reservationService';
+import InputField from '~/shared/components/InputField';
+import Button from '~/shared/components/Button';
 
-const BookingForm: React.FC<Pick<LodgingProps, "cost" | "id">> = ({ cost, id }) => {
-  const [guests, setGuests] = useState<string>("1");
+const BookingForm: React.FC<Pick<LodgingProps, 'cost' | 'id'>> = ({ cost, id }) => {
+  const [guests, setGuests] = useState<string>('1');
   const [datesReserved, setDatesReserved] = useState<Date[]>([]);
   const [selectedDates, setSelectedDates] = useState<[Date | null, Date | null]>([null, null]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -19,7 +22,7 @@ const BookingForm: React.FC<Pick<LodgingProps, "cost" | "id">> = ({ cost, id }) 
         const reservedDates = await fetchReservedDates(id);
         setDatesReserved(reservedDates);
       } catch (err) {
-        console.error("Error al obtener fechas reservadas:", err);
+        console.error('Error al obtener fechas reservadas:', err);
       }
     };
     getReservedDates();
@@ -28,10 +31,12 @@ const BookingForm: React.FC<Pick<LodgingProps, "cost" | "id">> = ({ cost, id }) 
   const calculateTotal = () => {
     const [checkInDate, checkOutDate] = selectedDates;
     if (checkInDate && checkOutDate) {
-      const daysDiff = Math.ceil(Math.abs(checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 3600 * 24));
+      const daysDiff = Math.ceil(
+        Math.abs(checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 3600 * 24),
+      );
       const guestsNum = parseInt(guests, 10) || 1;
       const basePrice = guestsNum * cost * daysDiff;
-      const serviceFee = basePrice * 0.10;
+      const serviceFee = basePrice * 0.1;
       return basePrice + serviceFee;
     }
     return 0;
@@ -40,26 +45,26 @@ const BookingForm: React.FC<Pick<LodgingProps, "cost" | "id">> = ({ cost, id }) 
   const validateFields = () => {
     const [startDate, endDate] = selectedDates;
     if (!startDate) {
-      setError("Debes seleccionar una fecha de inicio.");
+      setError('Debes seleccionar una fecha de inicio.');
       return false;
     }
     if (!endDate) {
-      setError("Debes seleccionar una fecha de fin.");
+      setError('Debes seleccionar una fecha de fin.');
       return false;
     }
     if (startDate.getTime() > endDate.getTime()) {
-      setError("La fecha de salida debe ser posterior a la fecha de entrada.");
+      setError('La fecha de salida debe ser posterior a la fecha de entrada.');
       return false;
     }
     if (startDate.getTime() === endDate.getTime()) {
-      setError("Debe reservar al menos un día.");
+      setError('Debe reservar al menos un día.');
       return false;
     }
     if (parseInt(guests, 10) < 1 || isNaN(parseInt(guests, 10))) {
-      setError("Debe haber al menos 1 huésped.");
+      setError('Debe haber al menos 1 huésped.');
       return false;
     }
-  
+
     setError(null);
     return true;
   };
@@ -71,25 +76,24 @@ const BookingForm: React.FC<Pick<LodgingProps, "cost" | "id">> = ({ cost, id }) 
 
     const reservationData = {
       userId: 1, // TODO: Obtener ID real del usuario autenticado
-      entityType: "lodging",
+      entityType: 'lodging',
       entityId: id,
       quantity: parseInt(guests, 10),
       subtotal: calculateTotal(),
-      startDate: selectedDates[0]?.toISOString() || "",
-      endDate: selectedDates[1]?.toISOString() || "",
+      startDate: selectedDates[0]?.toISOString() || '',
+      endDate: selectedDates[1]?.toISOString() || '',
     };
-    
+
     try {
       await createReservation(reservationData);
-      alert("Reserva realizada con éxito!");
+      alert('Reserva realizada con éxito!');
 
       const updatedDates = await fetchReservedDates(id);
       setDatesReserved(updatedDates);
       setSelectedDates([null, null]);
-      setGuests("1");
-
+      setGuests('1');
     } catch (err) {
-      setError("Hubo un problema con la reserva. Intenta nuevamente.");
+      setError('Hubo un problema con la reserva. Intenta nuevamente.');
     } finally {
       setLoading(false);
     }
@@ -131,10 +135,10 @@ const BookingForm: React.FC<Pick<LodgingProps, "cost" | "id">> = ({ cost, id }) 
       <div className="bg-white dark:bg-gray-700 p-4 rounded-md shadow-md">
         <h4 className="text-lg font-semibold mb-2">Precio</h4>
         <p className="text-sm flex justify-between">
-          <span>Precio / noche x días</span> <span>${(calculateTotal() * 0.90).toFixed(2)}</span>
+          <span>Precio / noche x días</span> <span>${(calculateTotal() * 0.9).toFixed(2)}</span>
         </p>
         <p className="text-sm flex justify-between">
-          <span>Tarifa por servicio (10%)</span> <span>${(calculateTotal() * 0.10).toFixed(2)}</span>
+          <span>Tarifa por servicio (10%)</span> <span>${(calculateTotal() * 0.1).toFixed(2)}</span>
         </p>
         <p className="text-lg font-bold flex justify-between mt-2">
           <span>Total</span> <span>${calculateTotal().toFixed(2)}</span>
@@ -144,11 +148,10 @@ const BookingForm: React.FC<Pick<LodgingProps, "cost" | "id">> = ({ cost, id }) 
       {/* Botón de reserva */}
       {error && <p className="text-red-500 text-center mt-2">{error}</p>}
       <div className="mt-4">
-        <Button text={loading ? "Reservando..." : "Reservar"} onClick={handleReserve}/>
+        <Button text={loading ? 'Reservando...' : 'Reservar'} onClick={handleReserve} />
       </div>
     </div>
   );
 };
 
 export default BookingForm;
-

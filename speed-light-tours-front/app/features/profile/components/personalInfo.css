@@ -1,57 +1,57 @@
 .profile-pic {
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    object-fit: cover;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 button {
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
 }
 
 .edit-button {
-    background-color: #3182ce;
-    color: #ffffff;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 3vh;
-    margin-left: 19vh;
+  background-color: #3182ce;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 3vh;
+  margin-left: 19vh;
 }
 
 .profile-details {
-    margin-bottom: 24px;
-    padding: 16px;
-    border-radius: 16px;
-    background-color: #f7fafc;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    margin-left: 1.3%;
-    margin-right: 1.3%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+  margin-bottom: 24px;
+  padding: 16px;
+  border-radius: 16px;
+  background-color: #f7fafc;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  margin-left: 1.3%;
+  margin-right: 1.3%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
-@media (prefers-color-scheme: dark) { 
-    .profile-details{
-      background-color: #2d3748;
-    }
+@media (prefers-color-scheme: dark) {
+  .profile-details {
+    background-color: #2d3748;
+  }
 }
 
 @media (max-width: 880px) {
-    .edit-button {
-        margin-left: 10vh;
-    }
+  .edit-button {
+    margin-left: 10vh;
+  }
 }
 
 @media (max-width: 425px) {
-    .edit-button {
-        margin-left: 6vh;
-    }
+  .edit-button {
+    margin-left: 6vh;
+  }
 }

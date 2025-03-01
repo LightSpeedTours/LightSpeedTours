@@ -9,10 +9,10 @@ const PersonalInfo: React.FC = () => {
       <div className="personal-pic">
         <img src={DarthVader} alt="Profile" className="profile-pic" />
       </div>
-        <Button className="button" variant="outline">
-          Editar
-        </Button>
-    </div>      
+      <Button className="button" variant="outline">
+        Editar
+      </Button>
+    </div>
   );
 };
 

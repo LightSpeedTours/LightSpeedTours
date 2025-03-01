@@ -6,8 +6,8 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  border: 1px solid #FFE81F;
-  background-color: #1A1A1A;
+  border: 1px solid #ffe81f;
+  background-color: #1a1a1a;
   margin-left: 0px;
   max-width: 100%;
   box-sizing: border-box;
@@ -16,7 +16,7 @@
 .filtroSection {
   margin-bottom: 20px;
   padding: 10px;
-  border: 1px solid #FFE81F;
+  border: 1px solid #ffe81f;
   border-radius: 8px;
   width: 100%;
   box-sizing: border-box;
@@ -38,16 +38,16 @@
 
 @media (max-width: 768px) {
   .filtersContainer {
-      margin-left: 0;
-      padding: 15px;
+    margin-left: 0;
+    padding: 15px;
   }
 
   .filtroSection {
-      padding: 8px;
+    padding: 8px;
   }
 
   .ratingContainer {
-      flex-direction: column;
-      align-items: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

@@ -12,7 +12,10 @@ const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
         const isFullStar = rating >= index + 1;
 
         return (
-          <span key={index} className={isFullStar || isHalfStar ? "text-yellow-500" : "text-gray-300"}>
+          <span
+            key={index}
+            className={isFullStar || isHalfStar ? 'text-yellow-500' : 'text-gray-300'}
+          >
             {isFullStar ? '★' : '☆'}
           </span>
         );

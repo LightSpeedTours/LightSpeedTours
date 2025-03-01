@@ -138,30 +138,3 @@ export const findCommentsByLodging = async (lodgingId: number): Promise<CommentI
 export const findCommentsByTour = async (tourId: number): Promise<CommentInterface[]> => {
     return getComments({ entityId: tourId, entityType: 'tour' });
 };
-
-/**
- * Responder a un comentario existente sin afectar la calificación
- */
-export const replyToComment = async (
-    commentId: number,
-    replyData: Omit<CommentInterface, 'id' | 'publishedAt' | 'entityId' | 'entityType'>,
-): Promise<CommentInterface> => {
-    try {
-        const parentComment = await Comment.findByPk(commentId);
-        if (!parentComment) {
-            throw makeErrorResponse(404, 'Comentario padre');
-        }
-
-        const newReply = await Comment.create({
-            ...replyData,
-            parentId: commentId,
-            entityId: parentComment.entityId,
-            entityType: parentComment.entityType,
-            publishedAt: new Date(),
-        });
-
-        return newReply.toJSON() as CommentInterface;
-    } catch (error) {
-        throw error;
-    }
-};

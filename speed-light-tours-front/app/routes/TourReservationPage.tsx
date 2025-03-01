@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import Header from "../shared/components/Header";
-import TourReservation from "~/features/tour_reservation/components/TourReservation";
-import { getTourById } from "~/features/tour_reservation/services/TourService";
-import type { TourProps } from "~/features/tour_reservation/utils/types";
-import mainImage from "../shared/assets/imagenp.jpeg";
-import image1 from "../shared/assets/imagen1.jpeg";
-import image2 from "../shared/assets/imagen2.jpeg";
-import image3 from "../shared/assets/imagen3.jpeg";
+import { useEffect, useState } from 'react';
+import Header from '../shared/components/Header';
+import TourReservation from '~/features/tour_reservation/components/TourReservation';
+import { getTourById } from '~/features/tour_reservation/services/TourService';
+import type { TourProps } from '~/features/tour_reservation/utils/types';
+import mainImage from '../shared/assets/imagenp.jpeg';
+import image1 from '../shared/assets/imagen1.jpeg';
+import image2 from '../shared/assets/imagen2.jpeg';
+import image3 from '../shared/assets/imagen3.jpeg';
 
 const TourReservationPage = () => {
   const [tour, setTour] = useState<TourProps | null>(null);
@@ -31,7 +31,7 @@ const TourReservationPage = () => {
           capacity: data.capacity,
         });
       } catch (err) {
-        setError("No se pudo obtener la información del tour.");
+        setError('No se pudo obtener la información del tour.');
       } finally {
         setLoading(false);
       }

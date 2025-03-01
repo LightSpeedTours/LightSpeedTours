@@ -7,7 +7,11 @@ interface CancelConfirmationModalProps {
   onConfirm: (id: number) => void;
 }
 
-const CancelConfirmationModal: React.FC<CancelConfirmationModalProps> = ({ isOpen, onClose, onConfirm }) => {
+const CancelConfirmationModal: React.FC<CancelConfirmationModalProps> = ({
+  isOpen,
+  onClose,
+  onConfirm,
+}) => {
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add('no-scroll');
@@ -21,14 +25,22 @@ const CancelConfirmationModal: React.FC<CancelConfirmationModalProps> = ({ isOpe
   return (
     <div className="modal-overlay">
       <div className="modal-content-cancel">
-        <p>Una vez cancelada, <strong>NO</strong> podrá recuperar su reserva.</p>
+        <p>
+          Una vez cancelada, <strong>NO</strong> podrá recuperar su reserva.
+        </p>
         <br />
-        <p>Recuerde que <strong>NO</strong> hay devolución del dinero.</p>
+        <p>
+          Recuerde que <strong>NO</strong> hay devolución del dinero.
+        </p>
         <br />
         <h2>¿Está seguro que desea cancelar la reserva?</h2>
         <div className="modal-actions">
-          <Button className="return-button" variant="outline" onClick={onClose}>No</Button>
-          <Button className="cancel-button" variant="destructive" onClick={() => onConfirm(1)}>Sí, cancelar</Button>
+          <Button className="return-button" variant="outline" onClick={onClose}>
+            No
+          </Button>
+          <Button className="cancel-button" variant="destructive" onClick={() => onConfirm(1)}>
+            Sí, cancelar
+          </Button>
         </div>
       </div>
     </div>

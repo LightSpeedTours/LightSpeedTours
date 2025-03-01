@@ -1,8 +1,7 @@
 export interface ReviewsSectionProps {
-  entityType: "lodging" | "tour";
+  entityType: 'lodging' | 'tour';
   entityId: number;
 }
-
 
 export interface Comment {
   id: number;
@@ -16,7 +15,7 @@ export interface Comment {
 }
 
 export interface CommentPayload {
-  userId: string;
+  userId: number;
   entityType: 'tour' | 'lodging';
   entityId: number;
   rating?: number;

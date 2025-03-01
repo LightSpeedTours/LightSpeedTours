@@ -1,13 +1,13 @@
-import { useState } from "react";
-import type { ChangeEvent } from "react";
-import { Link } from "react-router-dom";
-import { ShoppingCart, Menu, X, User } from "lucide-react";
-import planetsImages from "../utils/planetsImagesLists";
-import Button from "./Button";
-import InputField from "./InputField";
+import { useState } from 'react';
+import type { ChangeEvent } from 'react';
+import { Link } from 'react-router-dom';
+import { ShoppingCart, Menu, X, User } from 'lucide-react';
+import planetsImages from '../utils/planetsImagesLists';
+import Button from './Button';
+import InputField from './InputField';
 
 export default function Header() {
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -72,7 +72,11 @@ export default function Header() {
           {Object.entries(planetsImages).map(([planeta, imagen]) => (
             <Link key={planeta} to={`/planets/${planeta}`} aria-label={`View ${planeta}`}>
               <button className="w-10 h-10 rounded-full bg-[#2C2C2C] flex-shrink-0 overflow-hidden border-2 border-[#FFE81F] transition-transform hover:scale-110">
-                <img src={imagen || "/placeholder.svg"} alt={planeta} className="w-full h-full object-cover" />
+                <img
+                  src={imagen || '/placeholder.svg'}
+                  alt={planeta}
+                  className="w-full h-full object-cover"
+                />
               </button>
             </Link>
           ))}
@@ -95,9 +99,18 @@ export default function Header() {
         <div className="flex items-center gap-4 mt-4 md:mt-0">
           <Button text="Buscar" />
           <div className="relative w-64">
-            <InputField value={searchValue} onChange={handleSearchChange} placeholder="Nombre del planeta" />
+            <InputField
+              value={searchValue}
+              onChange={handleSearchChange}
+              placeholder="Nombre del planeta"
+            />
             {searchValue && (
-              <button className="absolute right-2 top-1/2 -translate-y-1/2 text-[#FFE81F] hover:text-[#FFD700]" onClick={() => setSearchValue("")}>×</button>
+              <button
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-[#FFE81F] hover:text-[#FFD700]"
+                onClick={() => setSearchValue('')}
+              >
+                ×
+              </button>
             )}
           </div>
         </div>

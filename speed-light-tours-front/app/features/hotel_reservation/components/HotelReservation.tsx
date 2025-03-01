@@ -1,20 +1,20 @@
-import Gallery from "./Gallery";
-import ServicesList from "../../../shared/components/ServicesList";
-import BookingForm from "./BookingForm";
-import DescriptionSection from "./DescriptionSection";
-import HotelInfo from "./HotelInfo";
-import type { LodgingProps } from "../utils/types";
-import ReviewsSection from "~/features/comment/components/ReviewSection";
+import Gallery from './Gallery';
+import ServicesList from '../../../shared/components/ServicesList';
+import BookingForm from './BookingForm';
+import DescriptionSection from './DescriptionSection';
+import HotelInfo from './HotelInfo';
+import type { LodgingProps } from '../utils/types';
+import ReviewsSection from '~/features/comment/components/ReviewSection';
 
-const HotelReservation: React.FC<LodgingProps> = ({ 
+const HotelReservation: React.FC<LodgingProps> = ({
   id,
-  name, 
-  images, 
-  planet, 
-  capacity, 
-  services, 
-  cost, 
-  description 
+  name,
+  images,
+  planet,
+  capacity,
+  services,
+  cost,
+  description,
 }) => {
   return (
     <div className="w-full mx-auto px-4 flex flex-col w-full">
@@ -27,7 +27,7 @@ const HotelReservation: React.FC<LodgingProps> = ({
         <div className="space-y-4 md:w-3/4 lg:w-2/3">
           <HotelInfo planet={planet} capacity={capacity} />
           <ServicesList services={services} category="hospedaje" />
-          </div>
+        </div>
 
         {/* Columna derecha: BookingForm */}
         <div className="md:w-3/4 lg:w-1/3 flex justify-center">
@@ -39,10 +39,10 @@ const HotelReservation: React.FC<LodgingProps> = ({
       <div className="mt-6 w-full">
         <DescriptionSection description={description} />
       </div>
-      
+
       {/* Sección de comentarios */}
       <ReviewsSection entityType="lodging" entityId={id} />
-      </div>
+    </div>
   );
 };
 

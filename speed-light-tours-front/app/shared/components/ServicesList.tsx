@@ -1,8 +1,11 @@
-import React from "react";
-import defaultIcon from "~/shared/assets/default-service.png"; // Ícono por defecto
-import type { ServicesListProps } from "../utils/types";
+import React from 'react';
+import defaultIcon from '~/shared/assets/default-service.png'; // Ícono por defecto
+import type { ServicesListProps } from '../utils/types';
 
-const ServicesList: React.FC<ServicesListProps & { category: string }> = ({ services, category }) => {
+const ServicesList: React.FC<ServicesListProps & { category: string }> = ({
+  services,
+  category,
+}) => {
   return (
     <div className="services p-4 bg-gray-200 dark:bg-gray-800 shadow-md rounded-lg p-6">
       <h3 className="text-xl font-bold mb-4">Lo que ofrece este {category}</h3>
@@ -12,14 +15,16 @@ const ServicesList: React.FC<ServicesListProps & { category: string }> = ({ serv
           // Intentar cargar la imagen desde assets
           let serviceImage;
           try {
-            serviceImage = require(`~/shared/assets/${service.name.toLowerCase().replace(/\s+/g, "-")}.png`);
+            serviceImage = require(
+              `~/shared/assets/${service.name.toLowerCase().replace(/\s+/g, '-')}.png`,
+            );
           } catch (error) {
             serviceImage = defaultIcon; // Usa ícono por defecto si no existe la imagen
           }
 
           return (
-            <li 
-              key={service.id} 
+            <li
+              key={service.id}
               className="flex items-center space-x-4 relative group bg-white dark:bg-gray-700 p-3 rounded-lg shadow-md break-words"
             >
               {/* Imagen del servicio (NO se altera bajo ningún motivo) */}

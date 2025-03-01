@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import Button from "../../../shared/components/Button";
-import StarRating from "../../../shared/components/StarRating";
-import styles from "./Info.module.css";
+import React, { useState } from 'react';
+import Button from '../../../shared/components/Button';
+import StarRating from '../../../shared/components/StarRating';
+import styles from './Info.module.css';
 
 export default function Info() {
   const [rating, setRating] = useState(0);
@@ -27,7 +27,6 @@ export default function Info() {
             <li>Servicio 3</li>
           </ul>
 
-          
           <StarRating rating={rating} />
         </div>
 

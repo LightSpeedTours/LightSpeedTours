@@ -1,14 +1,16 @@
 import { Router } from 'express';
 import {
-    getCartController,
+    getUserCartController,
     getUserOrdersController,
     payCartController,
+    removeCartItemController,
 } from '../controllers/CartController';
 
 const router = Router();
 
-router.get('/', getCartController);
+router.get('/', getUserCartController);
 router.post('/pay', payCartController);
 router.get('/orders', getUserOrdersController);
+router.delete('/:itemId', removeCartItemController);
 
 export default router;

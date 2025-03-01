@@ -1,5 +1,5 @@
-import CartItems from "~/features/cart/components/CartItems";
-import CartSummary from "~/features/cart/components/CartSummary";
+import CartItems from '~/features/cart/components/CartItems';
+import CartSummary from '~/features/cart/components/CartSummary';
 import Header from '../shared/components/OnlyHeader';
 
 const CartPage = () => {
@@ -7,7 +7,7 @@ const CartPage = () => {
     <div className="w-full h-screen bg-black">
       {/* Header */}
       <Header />
-      
+
       <div className="flex flex-col md:flex-row w-full p-6">
         {/* Sección de reservas - Ocupa 2/3 de la pantalla en dispositivos grandes */}
         <div className="w-full md:w-2/3 md:pr-2">

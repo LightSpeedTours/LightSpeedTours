@@ -1,11 +1,11 @@
-import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
-import { Link } from "react-router-dom";
+import type { Route } from './+types/home';
+import { Welcome } from '../welcome/welcome';
+import { Link } from 'react-router-dom';
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: 'New React Router App' },
+    { name: 'description', content: 'Welcome to React Router!' },
   ];
 }
 
@@ -16,9 +16,6 @@ export default function Home() {
 
   return (
     <div>
-      <nav>
-        <Link to="/comentarios">Ir a Comentarios</Link>        
-      </nav>
       <nav>
         <Link to="/landingPage">Ir a Landing Page</Link>
       </nav>
@@ -35,10 +32,10 @@ export default function Home() {
         <Link to="/tours">Ir a Tours</Link>
       </nav>
       <nav>
-      <Link to="/tourReservation">Ir a reservar el tour</Link>
+        <Link to="/tourReservation">Ir a reservar el tour</Link>
       </nav>
       <nav>
-      <Link to="/hotelReservation">Ir a reservar el hotel</Link>
+        <Link to="/hotelReservation">Ir a reservar el hotel</Link>
       </nav>
       <nav>
         <Link to="/cart">Ir al Carrito</Link>

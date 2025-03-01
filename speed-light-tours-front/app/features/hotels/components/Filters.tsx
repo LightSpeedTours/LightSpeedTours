@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import RatingSlider from "../../../shared/components/RatingSlider";
-import styles from "./Filters.module.css";
+import React, { useState } from 'react';
+import RatingSlider from '../../../shared/components/RatingSlider';
+import styles from './Filters.module.css';
 
 export default function Filters() {
   const [rating, setRating] = useState(0);

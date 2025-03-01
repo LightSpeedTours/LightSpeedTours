@@ -3,7 +3,7 @@
   position: absolute;
   top: 350px;
   right: 20px;
-  background-color: #1A1A1A;
+  background-color: #1a1a1a;
   border-radius: 8px;
 }
 
@@ -17,7 +17,7 @@
 
 .imageContainer {
   border-radius: 8px;
-  border: 1px solid  #FFE81F;
+  border: 1px solid #ffe81f;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: center;
@@ -26,9 +26,10 @@
   width: 100%;
 }
 
-.detailsContainer, .priceContainer {
+.detailsContainer,
+.priceContainer {
   border-radius: 8px;
-  border: 1px solid  #FFE81F;
+  border: 1px solid #ffe81f;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   position: relative;
@@ -55,14 +56,14 @@ ul {
 /* 🔹 Ajustes para pantallas pequeñas */
 @media (max-width: 768px) {
   .gridContainer {
-      grid-template-columns: 1fr; /* Se convierte en una sola columna */
+    grid-template-columns: 1fr; /* Se convierte en una sola columna */
   }
 
   .infoContainer {
-      position: relative; /* Evita que se superponga en móviles */
-      top: auto;
-      right: auto;
-      padding: 10px;
-      width: 100%; /* Se adapta al ancho disponible */
+    position: relative; /* Evita que se superponga en móviles */
+    top: auto;
+    right: auto;
+    padding: 10px;
+    width: 100%; /* Se adapta al ancho disponible */
   }
 }

@@ -7,18 +7,32 @@ interface CommentListProps {
   refreshTrigger: number;
   setRefreshTrigger: React.Dispatch<React.SetStateAction<number>>;
   comments: Comment[];
+  entityId: number;
+  entityType: 'tour' | 'lodging';
   isReply?: boolean;
 }
 
-const CommentList: React.FC<CommentListProps> = ({ refreshTrigger, setRefreshTrigger, comments, isReply = false }) => {
+const CommentList: React.FC<CommentListProps> = ({
+  refreshTrigger,
+  setRefreshTrigger,
+  comments,
+  isReply = false,
+  entityId,
+  entityType,
+}) => {
   const [replyingTo, setReplyingTo] = useState<number | null>(null);
 
   return (
-    <div className={`mt-4 ${isReply ? 'pl-4 border-l-2 border-gray-600' : ''} w-full max-w-full overflow-hidden`}>
+    <div
+      className={`mt-4 ${isReply ? 'pl-4 border-l-2 border-gray-600' : ''} w-full max-w-full overflow-hidden`}
+    >
       {comments.length > 0 ? (
         comments.map((comment) => {
           return (
-            <div key={comment.id} className="p-2 w-full max-w-full break-words overflow-hidden border-gray-600 rounded-md shadow-md">
+            <div
+              key={comment.id}
+              className="p-2 w-full max-w-full break-words overflow-hidden border-gray-600 rounded-md shadow-md"
+            >
               <p className="mt-2 font-semibold break-words overflow-hidden">{comment.text}</p>
 
               {!isReply && <StarRating rating={comment.rating} />}
@@ -35,6 +49,8 @@ const CommentList: React.FC<CommentListProps> = ({ refreshTrigger, setRefreshTri
                     setReplyingTo(null);
                     setRefreshTrigger((prev) => prev + 1);
                   }}
+                  entityId={entityId}
+                  entityType={entityType}
                 />
               )}
 
@@ -49,7 +65,14 @@ const CommentList: React.FC<CommentListProps> = ({ refreshTrigger, setRefreshTri
               {/* Renderizar respuestas recursivamente */}
               {comment.replies && comment.replies.length > 0 && (
                 <div className="mt-1 w-full max-w-full overflow-hidden">
-                  <CommentList comments={comment.replies} refreshTrigger={refreshTrigger} setRefreshTrigger={setRefreshTrigger} isReply />
+                  <CommentList
+                    comments={comment.replies}
+                    refreshTrigger={refreshTrigger}
+                    setRefreshTrigger={setRefreshTrigger}
+                    isReply
+                    entityId={entityId}
+                    entityType={entityType}
+                  />
                 </div>
               )}
             </div>

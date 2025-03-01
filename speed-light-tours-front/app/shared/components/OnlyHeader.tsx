@@ -1,8 +1,8 @@
-import React from "react";
-import { ShoppingCart, User } from "lucide-react";
-import { Link } from "react-router-dom";
-import Button from "app/shared/components/Button";
-import "../styles/app.css";
+import React from 'react';
+import { ShoppingCart, User } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import Button from 'app/shared/components/Button';
+import '../styles/app.css';
 
 export default function Header() {
   return (
@@ -23,9 +23,7 @@ export default function Header() {
             </button>
           </Link>
           <Link to="/reservations">
-            <Button
-              text="Mis reservas"
-            />
+            <Button text="Mis reservas" />
           </Link>
           <Link to="/profile">
             <button className="text-[#FFE81F] p-2 rounded hover:bg-[#2C2C2C] transition-colors">
