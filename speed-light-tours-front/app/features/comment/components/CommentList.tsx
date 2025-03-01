@@ -18,7 +18,7 @@ const CommentList: React.FC<CommentListProps> = ({ refreshTrigger, setRefreshTri
       {comments.length > 0 ? (
         comments.map((comment) => {
           return (
-            <div key={comment.id} className="p-2 w-full max-w-full break-words overflow-hidden bg-black border border-gray-600 rounded-md shadow-md">
+            <div key={comment.id} className="p-2 w-full max-w-full break-words overflow-hidden border-gray-600 rounded-md shadow-md">
               <p className="mt-2 font-semibold break-words overflow-hidden">{comment.text}</p>
 
               {!isReply && <StarRating rating={comment.rating} />}

@@ -5,6 +5,7 @@ import Tour from '../models/TourModel';
 import Lodging from '../models/LodgingModel';
 import Cart from '../models/CartModel';
 import { hasOverlappingReservation } from '../utils/ReservationUtils';
+import { EntityType } from '../utils/types/EnumTypes';
 
 /**
  * ✅ Obtener todas las reservas de un usuario
@@ -191,4 +192,27 @@ export const cleanExpiredReservations = async (): Promise<void> => {
             throw error;
         }
     });
+};
+
+/**
+ * ✅ Obtener todas las fechas de reservas asociadas a un hospedaje o tour
+ */
+export const getReservationDatesByEntity = async (
+    entityType: EntityType,
+    entityId: number,
+): Promise<{ startDate: Date; endDate: Date }[]> => {
+    try {
+        const reservations = await Reservation.findAll({
+            where: { entityType, entityId },
+            attributes: ['startDate', 'endDate'],
+            order: [['startDate', 'ASC']],
+        });
+
+        return reservations.map((reservation) => ({
+            startDate: reservation.startDate,
+            endDate: reservation.endDate,
+        }));
+    } catch (error) {
+        throw error;
+    }
 };

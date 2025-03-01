@@ -1,3 +1,8 @@
+export interface ReviewsSectionProps {
+  entityType: "lodging" | "tour";
+  entityId: number;
+}
+
 
 export interface Comment {
   id: number;

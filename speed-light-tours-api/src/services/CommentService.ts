@@ -79,29 +79,13 @@ const updateEntityRating = async (
 };
 
 /**
- * Buscar un comentario por ID
+ * Obtiene comentarios con estructura jerárquica
+ * @param whereCondition Condición para filtrar los comentarios
  */
-export const findCommentById = async (id: string): Promise<CommentInterface> => {
-    try {
-        const comment = await Comment.findByPk(id, {
-            include: [{ association: 'replies' }],
-        });
-
-        if (!comment) throw makeErrorResponse(404, 'Comentario');
-
-        return comment.toJSON() as CommentInterface;
-    } catch (error) {
-        throw error;
-    }
-};
-
-/**
- * Obtener todos los comentarios
- */
-export const findAllComments = async (): Promise<CommentInterface[]> => {
+const getComments = async (whereCondition: object): Promise<CommentInterface[]> => {
     try {
         const comments = await Comment.findAll({
-            where: { parentId: null },
+            where: { ...whereCondition, parentId: null },
             include: [
                 {
                     model: Comment,
@@ -124,33 +108,35 @@ export const findAllComments = async (): Promise<CommentInterface[]> => {
 };
 
 /**
- * Obtener comentarios de un hospedaje específico
+ * Buscar un comentario por ID con estructura jerárquica
  */
-export const findCommentsByLodging = async (lodgingId: number): Promise<CommentInterface[]> => {
-    try {
-        const comments = await Comment.findAll({
-            where: { entityId: lodgingId, entityType: 'lodging' },
-        });
+export const findCommentById = async (id: string): Promise<CommentInterface> => {
+    const comments = await getComments({ id });
 
-        return comments.map((comment) => comment.toJSON() as CommentInterface);
-    } catch (error) {
-        throw error;
-    }
+    if (comments.length === 0) throw makeErrorResponse(404, 'Comentario no encontrado');
+
+    return comments[0];
 };
 
 /**
- * Obtener comentarios de un tour específico
+ * Obtener todos los comentarios principales con respuestas
+ */
+export const findAllComments = async (): Promise<CommentInterface[]> => {
+    return getComments({});
+};
+
+/**
+ * Obtener comentarios principales de un hospedaje específico
+ */
+export const findCommentsByLodging = async (lodgingId: number): Promise<CommentInterface[]> => {
+    return getComments({ entityId: lodgingId, entityType: 'lodging' });
+};
+
+/**
+ * Obtener comentarios principales de un tour específico
  */
 export const findCommentsByTour = async (tourId: number): Promise<CommentInterface[]> => {
-    try {
-        const comments = await Comment.findAll({
-            where: { entityId: tourId, entityType: 'tour' },
-        });
-
-        return comments.map((comment) => comment.toJSON() as CommentInterface);
-    } catch (error) {
-        throw error;
-    }
+    return getComments({ entityId: tourId, entityType: 'tour' });
 };
 
 /**

@@ -5,10 +5,10 @@ import {
     updateReservation,
     deleteReservation,
     cleanExpiredReservations,
+    getReservationDatesByEntity,
 } from '../services/ReservationService';
 import { handleErrorResponse, makeErrorResponse } from '../utils/ErrorHandler';
 import { validationResult } from 'express-validator';
-
 /**
  * ✅ Obtener todas las reservas de un usuario
  */
@@ -17,6 +17,30 @@ export const getReservationsByUserController = async (req: Request, res: Respons
         const { userId } = req.params;
         const reservations = await getReservationsByUser(parseInt(userId));
         res.status(200).json(reservations);
+    } catch (error) {
+        handleErrorResponse(res, error);
+    }
+};
+
+/**
+ * ✅ Obtener todas las fechas de reservas de un hospedaje o tour
+ */
+export const getReservationDatesByEntityController = async (req: Request, res: Response) => {
+    try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.status(400).json({
+                errors: errors.array().map((err) => err.msg),
+            });
+        }
+
+        const { entityType, entityId } = req.params;
+        const reservationDates = await getReservationDatesByEntity(
+            entityType as 'tour' | 'lodging',
+            parseInt(entityId),
+        );
+
+        res.status(200).json(reservationDates);
     } catch (error) {
         handleErrorResponse(res, error);
     }

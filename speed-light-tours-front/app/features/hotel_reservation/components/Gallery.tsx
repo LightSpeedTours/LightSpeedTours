@@ -1,10 +1,10 @@
 import React from "react";
 import ImageGallery from 'react-image-gallery';
-import type { GalleryProps } from './types';
+import type { LodgingProps } from '../utils/types';
 import 'react-image-gallery/styles/css/image-gallery.css';
 
 
-const Gallery: React.FC<GalleryProps> = ({ images }) => {
+const Gallery: React.FC<Pick<LodgingProps, 'images' >> = ({ images }) => {
   const galleryImages = images.map((image) => ({
     original: image,
     thumbnail: image,

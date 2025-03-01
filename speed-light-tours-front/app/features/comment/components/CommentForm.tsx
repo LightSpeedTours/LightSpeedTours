@@ -26,7 +26,7 @@ const CommentForm = ({ parentId, onCommentAdded, isReply = false }: { parentId?:
       userId: '123',
       entityType: 'tour',
       entityId: 1,
-      rating: isReply ? undefined : rating, // No incluir rating en respuestas
+      rating: isReply ? undefined : rating,
       text: content,
       parentId,
     };
@@ -40,7 +40,7 @@ const CommentForm = ({ parentId, onCommentAdded, isReply = false }: { parentId?:
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-1 p-3 border rounded">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-1 p-3 border-2 border-gray-600 rounded">
       <InputField value={content} onChange={(e) => setContent(e.target.value)} placeholder="Escribe tu comentario..." minLength={3} required />
       {error && <p className="text-red-500 text-sm">{error}</p>}
       {!isReply && <RatingSlider value={rating} onChange={setRating} />} {/* Solo mostrar rating si no es respuesta */}

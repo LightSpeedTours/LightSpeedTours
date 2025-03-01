@@ -1,12 +1,19 @@
 import React from 'react';
-import type { TourInfoProps } from './types';
+import type { TourProps } from '../utils/types';
 
-const TourInfo: React.FC<TourInfoProps> = ({ location, duration, contact }) => {
+const TourInfo: React.FC<Pick<TourProps, 'planet' | 'duration' >> = ({ planet, duration }) => {
   return (
-    <div className="tour-info flex flex-col md:flex-row md:items-center md:justify-between p-4 bg-white shadow-md rounded-lg">
-      <p className="text-lg font-semibold mb-2 md:mb-0"><strong>Localidad:</strong> {location}</p>
-      <p className="text-lg font-semibold mb-2 md:mb-0"><strong>Duración:</strong> {duration} horas</p>
-      <p className="text-lg font-semibold"><strong>Contacto:</strong> {contact}</p>
+    <div className="tour-info p-4 bg-white dark:bg-gray-800 shadow-md rounded-lg">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+        <div className="mb-4 md:mb-0 md:mr-8">
+          <p className="text-lg font-semibold"><strong>Localidad:</strong></p>
+          <p className="text-lg">{planet}</p>
+        </div>
+        <div className="mb-4 md:mb-0 md:mr-8">
+          <p className="text-lg font-semibold"><strong>Duración:</strong></p>
+          <p className="text-lg">{duration} horas</p>
+        </div>
+      </div>
     </div>
   );
 };
