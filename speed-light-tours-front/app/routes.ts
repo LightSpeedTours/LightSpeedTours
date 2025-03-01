@@ -10,6 +10,7 @@ export default [
   route("/profile","routes/ProfilePage.tsx"),
   route("/hotels", "routes/HotelsPage.tsx"),
   route("/tours", "routes/ToursPage.tsx"),
+  route("/cart", "routes/CartPage.tsx"),
   route("/login","routes/LoginPage.tsx"),
   route("/signup","routes/SignUpPage.tsx")
 ] satisfies RouteConfig;

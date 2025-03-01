@@ -41,6 +41,9 @@ export default function Home() {
       <Link to="/hotelReservation">Ir a reservar el hotel</Link>
       </nav>
       <nav>
+        <Link to="/cart">Ir al Carrito</Link>
+      </nav>
+      <nav>
         <Link to="/login">Login Page</Link>
       </nav>
       <nav>

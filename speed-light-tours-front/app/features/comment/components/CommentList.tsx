@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { getComments } from '../services/CommentService';
+import React, { useState } from 'react';
 import type { Comment } from '../utils/CommentTypes';
 import StarRating from '../../../shared/components/StarRating';
 import CommentForm from './CommentForm';
@@ -11,25 +10,22 @@ interface CommentListProps {
   isReply?: boolean;
 }
 
-const MAX_CHARACTERS = 50;
-
 const CommentList: React.FC<CommentListProps> = ({ refreshTrigger, setRefreshTrigger, comments, isReply = false }) => {
   const [replyingTo, setReplyingTo] = useState<number | null>(null);
 
   return (
-    <div className={`mt-4 ${isReply ? 'pl-4 border-l-2 border-gray-300' : ''} w-full max-w-full overflow-hidden`}>
+    <div className={`mt-4 ${isReply ? 'pl-4 border-l-2 border-gray-600' : ''} w-full max-w-full overflow-hidden`}>
       {comments.length > 0 ? (
         comments.map((comment) => {
-
           return (
-            <div key={comment.id} className="p-1 w-full max-w-full break-words overflow-hidden">
+            <div key={comment.id} className="p-2 w-full max-w-full break-words overflow-hidden bg-black border border-gray-600 rounded-md shadow-md">
               <p className="mt-2 font-semibold break-words overflow-hidden">{comment.text}</p>
 
               {!isReply && <StarRating rating={comment.rating} />}
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-gray-400">
                 Publicado el: {new Date(comment.publishedAt).toLocaleDateString()}
               </p>
-              
+
               {/* Formulario para responder */}
               {replyingTo === comment.id && (
                 <CommentForm
@@ -41,11 +37,11 @@ const CommentList: React.FC<CommentListProps> = ({ refreshTrigger, setRefreshTri
                   }}
                 />
               )}
-              
+
               {/* Botón para responder */}
               <button
                 onClick={() => setReplyingTo(replyingTo === comment.id ? null : comment.id)}
-                className="mt-2 text-[#ffec80] hover:underline"
+                className="mt-2 text-[#ffec80] hover:text-[#ffd700] hover:underline"
               >
                 {replyingTo === comment.id ? 'Cancelar' : 'Responder'}
               </button>
@@ -60,7 +56,7 @@ const CommentList: React.FC<CommentListProps> = ({ refreshTrigger, setRefreshTri
           );
         })
       ) : (
-        <p>No hay comentarios aún.</p>
+        <p className="text-gray-400">No hay comentarios aún.</p>
       )}
     </div>
   );
