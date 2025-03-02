@@ -1,0 +1,55 @@
+button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+button.outline {
+  border: 1px solid #cbd5e0;
+  background-color: transparent;
+  color: #2d3748;
+  margin-bottom: 8px;
+}
+
+button.outline:hover {
+  background-color: #edf2f7;
+}
+
+button.destructive {
+  background-color: #c53030;
+  color: white;
+  border: 1px solid #cbd5e0;
+}
+
+button.destructive:hover {
+  background-color: #e53e3e;
+}
+
+.return-button,
+.cancel-button {
+  background-color: #f44336;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+  margin: 4vh;
+  margin-top: 8vh;
+  margin-bottom: -8vh;
+}
+
+@media (prefers-color-scheme: dark) {
+  button.outline {
+    border-color: #cbd5e0;
+    color: #e2e8f0;
+  }
+
+  button.outline:hover {
+    background-color: #4a5568;
+  }
+
+  .close-button {
+    color: #e2e8f0;
+  }
+}

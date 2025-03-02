@@ -1,76 +1,80 @@
 .searchContainer {
-    display: flex;
-    flex-wrap: wrap;
-    position: relative;
-    width: 100%;
-    padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  width: 100%;
+  padding: 20px;
 }
 
-    .buttonStyle {
-        padding: 0px;
-        color: black;
-        border: none;
-        border-radius: 5px;
-        width: 180px;
-        text-align: center;
-        transition: background 0.3s;
-    }
+.buttonStyle {
+  padding: 0px;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  width: 180px;
+  text-align: center;
+  transition: background 0.3s;
+}
 
-    .entryDateSelector {
-        position: absolute;
-        top: 0px;
-    }
+.entryDateSelector {
+  position: absolute;
+  top: 0px;
+}
 
-    .entryDateSelector { left: 20px; }
+.entryDateSelector {
+  left: 20px;
+}
 
-    .calendarWrapper {
-        position: absolute;
-        background-color: #1A1A1A;
-        padding: 0px;
-        border-radius: 8px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        z-index: 10;
-    }
+.calendarWrapper {
+  position: absolute;
+  background-color: #1a1a1a;
+  padding: 0px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
 
-    .planeta {
-        position: absolute;
-        left: 330px; 
-        top: 80px;
-    }
+.planeta {
+  position: absolute;
+  left: 330px;
+  top: 80px;
+}
 
-    .typeBar {
-        position: absolute;
-        top: 00px;
-        right: 20px; 
-        padding: 8px;
-        border: 1px solid #FFE81F;
-        border-radius: 8px;
-        width: 300px;
-        text-align: center;
-        background-color: #1A1A1A;
-    }
+.typeBar {
+  position: absolute;
+  top: 00px;
+  right: 20px;
+  padding: 8px;
+  border: 1px solid #ffe81f;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+  background-color: #1a1a1a;
+}
 
-    .searchButton {
-        position: absolute;
-        top: 00px;
-        right: 340px; 
-    }
+.searchButton {
+  position: absolute;
+  top: 00px;
+  right: 340px;
+}
 
-    @media (max-width: 768px) {
-        .entryDateSelector, .typeBar, .searchButton {
-            position: static;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-        
-        .searchContainer {
-            display: flex;
-            flex-direction: column;
-            align-items: left;
-        }
-        
-        .planeta {
-            position: static;
-            margin-top: 10px;
-        }
-    }
+@media (max-width: 768px) {
+  .entryDateSelector,
+  .typeBar,
+  .searchButton {
+    position: static;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .searchContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+  }
+
+  .planeta {
+    position: static;
+    margin-top: 10px;
+  }
+}

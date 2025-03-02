@@ -1,54 +1,54 @@
-"use client"
+'use client';
 
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { useState } from "react"
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState } from 'react';
 
 interface Promotion {
-  id: string
-  price: string
-  location: string
-  dates: string
-  description: string
-  capacity: string
+  id: string;
+  price: string;
+  location: string;
+  dates: string;
+  description: string;
+  capacity: string;
 }
 
 const promotions: Promotion[] = [
   {
-    id: "1",
-    price: "$100",
-    location: "Tatooine",
-    dates: "2024-03-08 - 2024-03-15",
-    description: "Experience the thrill of a lifetime on Tatooine!",
-    capacity: "100 seats available",
+    id: '1',
+    price: '$100',
+    location: 'Tatooine',
+    dates: '2024-03-08 - 2024-03-15',
+    description: 'Experience the thrill of a lifetime on Tatooine!',
+    capacity: '100 seats available',
   },
   {
-    id: "2",
-    price: "$200",
-    location: "Hoth",
-    dates: "2024-04-10 - 2024-04-17",
-    description: "Enjoy the icy landscapes of Hoth!",
-    capacity: "50 seats available",
+    id: '2',
+    price: '$200',
+    location: 'Hoth',
+    dates: '2024-04-10 - 2024-04-17',
+    description: 'Enjoy the icy landscapes of Hoth!',
+    capacity: '50 seats available',
   },
   {
-    id: "3",
-    price: "$300",
-    location: "Endor",
-    dates: "2024-05-12 - 2024-05-19",
-    description: "Explore the lush forests of Endor!",
-    capacity: "75 seats available",
+    id: '3',
+    price: '$300',
+    location: 'Endor',
+    dates: '2024-05-12 - 2024-05-19',
+    description: 'Explore the lush forests of Endor!',
+    capacity: '75 seats available',
   },
-]
+];
 
 export default function PromotionsCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % promotions.length)
-  }
+    setCurrentIndex((prev) => (prev + 1) % promotions.length);
+  };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + promotions.length) % promotions.length)
-  }
+    setCurrentIndex((prev) => (prev - 1 + promotions.length) % promotions.length);
+  };
 
   return (
     <div className="relative">
@@ -93,6 +93,5 @@ export default function PromotionsCarousel() {
         <ChevronRight className="w-6 h-6" />
       </button>
     </div>
-  )
+  );
 }
-

@@ -8,7 +8,15 @@ import { makeErrorResponse } from '../utils/ErrorHandler';
  */
 export const getAllTours = async (): Promise<Tour[]> => {
     try {
-        return await Tour.findAll({ include: [{ model: Service }] });
+        return await Tour.findAll({
+            include: [
+                {
+                    model: Service,
+                    attributes: ['id', 'name', 'description'],
+                    through: { attributes: [] },
+                },
+            ],
+        });
     } catch (error) {
         throw error;
     }
@@ -19,7 +27,15 @@ export const getAllTours = async (): Promise<Tour[]> => {
  */
 export const getTourById = async (id: number): Promise<Tour> => {
     try {
-        const tour = await Tour.findByPk(id, { include: [{ model: Service }] });
+        const tour = await Tour.findByPk(id, {
+            include: [
+                {
+                    model: Service,
+                    attributes: ['id', 'name', 'description'],
+                    through: { attributes: [] },
+                },
+            ],
+        });
         if (!tour) throw makeErrorResponse(404, 'Tour');
         return tour;
     } catch (error) {

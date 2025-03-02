@@ -10,7 +10,15 @@ interface InputFieldProps {
   required?: boolean;
 }
 
-const InputField: React.FC<InputFieldProps> = ({ value, onChange, placeholder, type = 'text', minLength, maxLength, required }) => {
+const InputField: React.FC<InputFieldProps> = ({
+  value,
+  onChange,
+  placeholder,
+  type = 'text',
+  minLength,
+  maxLength,
+  required,
+}) => {
   const [error, setError] = useState('');
 
   const handleBlur = () => {

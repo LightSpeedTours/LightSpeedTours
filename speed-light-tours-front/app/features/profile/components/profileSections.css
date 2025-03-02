@@ -1,0 +1,72 @@
+body {
+  font-family:
+    'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+  background-color: #ffffff;
+  color: #333;
+}
+
+.profile-sections {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.profile-info {
+  display: grid;
+  grid-template-columns: 2.5fr 2.5fr;
+  gap: 8px;
+  margin-left: 4vw;
+  margin-right: 4vw;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+.profile-title {
+  font-size: 200%;
+  font-weight: 600;
+  margin-bottom: 1.5%;
+  color: #2d3748;
+  margin-left: 4vw;
+  margin-top: 2vh;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #1a202c;
+    color: #e2e8f0;
+  }
+
+  .profile-details,
+  .notifications {
+    background-color: #2d3748;
+  }
+
+  .profile-title {
+    color: #f7fafc;
+  }
+}
+
+@media (max-width: 880px) {
+  .profile-pic {
+    width: 50vh;
+    height: 50vh;
+  }
+
+  .profile-info {
+    grid-template-columns: 1fr;
+    margin-left: 2vw;
+    margin-right: 2vw;
+  }
+}
+
+@media (max-width: 425px) {
+  .profile-pic {
+    width: 40vh;
+    height: 40vh;
+  }
+
+  .profile-info {
+    margin-left: 1vw;
+    margin-right: 1vw;
+  }
+}
