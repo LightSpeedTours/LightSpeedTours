@@ -1,18 +1,20 @@
 import React from 'react';
 
 interface ButtonProps {
-  onClick?: (e?: React.MouseEvent<HTMLButtonElement> | React.FormEvent<HTMLFormElement>) => void | Promise<void>;
+  onClick?: (
+    e?: React.MouseEvent<HTMLButtonElement> | React.FormEvent<HTMLFormElement>,
+  ) => void | Promise<void>;
   text: string;
   type?: 'button' | 'submit';
-  className?: string; // Add className to the props
+  disabled?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({ onClick, text, type = 'button' }) => {
-  // Combine the default classes with any additional classes passed via props
-  const buttonClasses = `bg-[#fade4b] text-black p-2 rounded hover:bg-[#ffec80] hover:text-black`;
+const Button: React.FC<ButtonProps> = ({ onClick, text, type = 'button', disabled = false }) => {
+  const buttonClasses = `bg-[#fade4b] text-black p-2 rounded transition-all duration-200 ease-in-out 
+    ${disabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#ffec80] hover:text-black'}`;
 
   return (
-    <button onClick={onClick} type={type} className={buttonClasses.trim()}>
+    <button onClick={onClick} type={type} className={buttonClasses.trim()} disabled={disabled}>
       {text}
     </button>
   );

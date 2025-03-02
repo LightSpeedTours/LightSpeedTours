@@ -1,21 +1,24 @@
-import type { Response } from './ResponseTypes';
+export interface ReviewsSectionProps {
+  entityType: 'lodging' | 'tour';
+  entityId: number;
+}
 
 export interface Comment {
   id: number;
   userId: string;
-  type: 'tour' | 'lodging';
-  typeId: string;
+  entityType: 'tour' | 'lodging';
+  entityId: number;
   rating: number;
   text: string;
   publishedAt: Date;
-  responses: Response[];
+  replies: Comment[];
 }
 
 export interface CommentPayload {
-  userId: string;
-  type: 'tour' | 'lodging';
-  typeId: string;
-  rating: number;
+  userId: number;
+  entityType: 'tour' | 'lodging';
+  entityId: number;
+  rating?: number;
   text: string;
+  parentId?: number;
 }
-  

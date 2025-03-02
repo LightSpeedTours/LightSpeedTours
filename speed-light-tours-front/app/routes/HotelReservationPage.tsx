@@ -1,58 +1,49 @@
-import Header from "../shared/components/Header";
-import HotelReservation from "~/features/hotel_reservation/components/HotelReservation";
-import mainImage from "../shared/assets/imagenp.jpeg";
-import image1 from "../shared/assets/imagen1.jpeg";
-import image2 from "../shared/assets/imagen2.jpeg";
-import image3 from "../shared/assets/imagen3.jpeg";
+import { useEffect, useState } from 'react';
+import Header from '../shared/components/Header';
+import HotelReservation from '~/features/hotel_reservation/components/HotelReservation';
+import { getLodgingById } from '~/features/hotel_reservation/services/hotelService';
+import type { LodgingProps } from '~/features/hotel_reservation/utils/types';
+import mainImage from '../shared/assets/imagenp.jpeg';
+import image1 from '../shared/assets/imagen1.jpeg';
+import image2 from '../shared/assets/imagen2.jpeg';
+import image3 from '../shared/assets/imagen3.jpeg';
 
 const HotelReservationPage = () => {
-  const hotelName = "Hotel en la Montaña";
-  const images = [
-    mainImage,
-    image1,
-    image2,
-    image3,
-  ];
-  const location = "Montaña XYZ";
-  const capacity = 100;
-  const contact = "contacto@ejemplo.com";
-  const services = [
-    "Wi-Fi gratuito",
-    "Desayuno incluido",
-    "Piscina",
-    "Gimnasio"
-  ];
-  const pricePerPerson = 150;
-  const onReserve = (guests: number, checkInDate: Date, checkOutDate: Date) => {
-    alert(`Reserva realizada para ${guests} personas desde ${checkInDate.toLocaleDateString()} hasta ${checkOutDate.toLocaleDateString()}.`);
-  };
-  const checkAvailability = (checkInDate: Date, checkOutDate: Date) => {
-    // Lógica para verificar la disponibilidad de las fechas
-    // Retorna true si las fechas están disponibles, de lo contrario false
-    return true; // Ejemplo: siempre disponible
-  };
-  const description = "Este es un hotel increíble en la montaña XYZ.";
-  const reviews = [
-    { user: "Juan", rating: 5, comment: "¡Excelente hotel!" },
-    { user: "María", rating: 4, comment: "Muy bueno, pero podría mejorar." }
-  ];
+  const [hotel, setHotel] = useState<LodgingProps | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchHotel = async () => {
+      try {
+        const data = await getLodgingById(1); // TODO: al hacer click en la lista de hospedajes se debe cargar el id del hospedaje
+        setHotel({
+          id: data.id,
+          name: data.name,
+          images: [mainImage, image1, image2, image3],
+          planet: data.planet,
+          capacity: data.capacity,
+          services: data.services,
+          cost: data.cost,
+          description: data.description,
+        });
+      } catch (err) {
+        setError('No se pudo obtener la información del hospedaje.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchHotel();
+  }, []);
+
+  if (loading) return <p>Cargando...</p>;
+  if (error) return <p>{error}</p>;
+  if (!hotel) return <p>No hay información disponible.</p>;
 
   return (
-    <main className="min-h-screen bg-white">
+    <main>
       <Header />
-      <HotelReservation
-        hotelName={hotelName}
-        images={images}
-        location={location}
-        capacity={capacity}
-        contact={contact}
-        services={services}
-        pricePerPerson={pricePerPerson}
-        onReserve={onReserve}
-        checkAvailability={checkAvailability}
-        description={description}
-        reviews={reviews}
-      />
+      <HotelReservation {...hotel} />
     </main>
   );
 };

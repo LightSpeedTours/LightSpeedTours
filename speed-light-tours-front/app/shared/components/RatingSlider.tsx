@@ -37,7 +37,7 @@ const RatingSlider: React.FC<RatingSliderProps> = ({ value, onChange }) => {
               onMouseMove={(e) => handleMouseMove(e, index)}
               onMouseLeave={handleMouseLeave}
               onClick={() => handleClick(isHalfStar ? index + 0.5 : index + 1)}
-              className={isFullStar || isHalfStar ? "text-yellow-500" : "text-gray-300"}
+              className={isFullStar || isHalfStar ? 'text-yellow-500' : 'text-gray-300'}
             >
               {isFullStar ? '★' : '☆'}
             </span>

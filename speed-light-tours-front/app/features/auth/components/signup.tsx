@@ -1,27 +1,29 @@
-import { Calendar } from "lucide-react"
+import { Calendar } from 'lucide-react';
 
 const starWarsColors = {
-  primary: "#FFE81F", // Star Wars Yellow
-  secondary: "#000000", // Space Black
-  accent: "#2E67F8", // Lightsaber Blue
-  darkGray: "#1A1A1A", // Dark Background
-  mediumGray: "#2C2C2C", // Medium Background
-  lightGray: "#444444", // Light Background
-  textPrimary: "#FFFFFF", // White Text
-  textSecondary: "#CCCCCC", // Light Gray Text
-  imperial: "#FF0000", // Imperial Red
+  primary: '#FFE81F', // Star Wars Yellow
+  secondary: '#000000', // Space Black
+  accent: '#2E67F8', // Lightsaber Blue
+  darkGray: '#1A1A1A', // Dark Background
+  mediumGray: '#2C2C2C', // Medium Background
+  lightGray: '#444444', // Light Background
+  textPrimary: '#FFFFFF', // White Text
+  textSecondary: '#CCCCCC', // Light Gray Text
+  imperial: '#FF0000', // Imperial Red
   hover: {
-    primary: "#FFD700", // Darker Yellow
-    accent: "#1E4FCC", // Darker Blue
-    imperial: "#CC0000", // Darker Red
+    primary: '#FFD700', // Darker Yellow
+    accent: '#1E4FCC', // Darker Blue
+    imperial: '#CC0000', // Darker Red
   },
-}
+};
 
 export default function SignupPage() {
   return (
     <div
       className="min-h-screen bg-[${starWarsColors.darkGray}] py-8 px-4"
-      style={{ background: `linear-gradient(to bottom, ${starWarsColors.secondary}, ${starWarsColors.darkGray})` }}
+      style={{
+        background: `linear-gradient(to bottom, ${starWarsColors.secondary}, ${starWarsColors.darkGray})`,
+      }}
     >
       <div className="mx-auto max-w-3xl">
         {/* Logo Section */}
@@ -116,7 +118,10 @@ export default function SignupPage() {
 
               {/* Confirm Password Input */}
               <div className="space-y-2">
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-[#FFFFFF]">
+                <label
+                  htmlFor="confirmPassword"
+                  className="block text-sm font-medium text-[#FFFFFF]"
+                >
                   Confirmar contraseña
                 </label>
                 <input
@@ -142,6 +147,5 @@ export default function SignupPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-

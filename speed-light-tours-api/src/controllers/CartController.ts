@@ -1,18 +1,24 @@
 import { Request, Response } from 'express';
-import { getUserCart, getUserOrders, processCartPayment } from '../services/CartService';
+import {
+    getUserCart,
+    getUserOrders,
+    processCartPayment,
+    removeItemFromCart,
+} from '../services/CartService';
 import { handleErrorResponse } from '../utils/ErrorHandler';
 
 /**
  * ✅ Obtener el carrito del usuario autenticado
  */
-export const getCartController = async (req: Request, res: Response) => {
+export const getUserCartController = async (req: Request, res: Response) => {
     try {
         //TODO: dejar de mockear un usuario
         //const userId = req.user.id;
         //const cart = await getUserCart(userId);
         const cart = await getUserCart(1);
         if (!cart) {
-            res.status(200).json({ message: 'El carrito está vacío', cart: null });
+            res.status(200).json({ message: 'El carrito está vacío' });
+            return;
         }
 
         res.status(200).json(cart);
@@ -47,6 +53,28 @@ export const getUserOrdersController = async (req: Request, res: Response) => {
         const orders = await getUserOrders(1);
 
         res.status(200).json(orders);
+    } catch (error) {
+        handleErrorResponse(res, error);
+    }
+};
+
+/**
+ * ✅ Eliminar un elemento del carrito de un usuario autenticado
+ */
+export const removeCartItemController = async (req: Request, res: Response) => {
+    try {
+        //TODO: dejar de mockear un usuario
+        // const userId = req.user.id;
+        const userId = 1;
+        const { itemId } = req.params;
+
+        if (!itemId) {
+            res.status(400).json({ message: 'Se requiere el itemId' });
+        }
+
+        const result = await removeItemFromCart(userId, Number(itemId));
+
+        res.status(200).json(result);
     } catch (error) {
         handleErrorResponse(res, error);
     }

@@ -8,10 +8,14 @@ import { Transaction } from 'sequelize';
  * ✅ Obtener el carrito del usuario autenticado con sus reservas
  */
 export const getUserCart = async (userId: number) => {
-    return await Cart.findOne({
+    let cart = await Cart.findOne({
         where: { userId },
         include: [Reservation],
     });
+    if (!cart) {
+        cart = await Cart.create({ userId: userId, totalPrice: 0 });
+    }
+    return cart;
 };
 
 /**
@@ -80,4 +84,33 @@ export const processCartPayment = async (userId: number) => {
 
         return order;
     });
+};
+
+/**
+ * ✅ Eliminar un elemento específico del carrito de un usuario
+ */
+export const removeItemFromCart = async (userId: number, itemId: number) => {
+    // Buscar el carrito del usuario
+    const cart = await Cart.findOne({ where: { userId }, include: [Reservation] });
+
+    if (!cart) {
+        throw makeErrorResponse(404, 'El carrito');
+    }
+
+    // Buscar la reserva específica dentro del carrito
+    const reservation = await Reservation.findOne({
+        where: { id: itemId, locationId: cart.id, locationType: 'cart' },
+    });
+
+    if (!reservation) {
+        throw makeErrorResponse(404, 'El reserva');
+    }
+
+    const newTotalPrice = cart.totalPrice - reservation.subtotal;
+    await cart.update({ totalPrice: newTotalPrice });
+
+    // Eliminar la reserva del carrito
+    await reservation.destroy();
+
+    return { message: 'Elemento eliminado correctamente' };
 };

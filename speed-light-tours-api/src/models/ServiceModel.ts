@@ -33,11 +33,4 @@ export default class Service extends Model {
 
     @BelongsToMany(() => Tour, () => TourService)
     declare tours: Tour[];
-
-    @Column({
-        type: DataType.ENUM(...Object.values(STATUS)),
-        allowNull: false,
-        defaultValue: STATUS.PENDING,
-    })
-    declare status: STATUS;
 }

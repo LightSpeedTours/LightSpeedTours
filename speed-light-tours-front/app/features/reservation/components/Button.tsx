@@ -3,16 +3,16 @@ import './button.css';
 
 interface ButtonProps {
   children: React.ReactNode;
-  variant: "outline" | "destructive";
+  variant: 'outline' | 'destructive';
   className?: string;
   onClick?: () => void;
 }
 
 const Button: React.FC<ButtonProps> = ({ children, variant, className, onClick }) => {
-  const baseStyle = "button";
+  const baseStyle = 'button';
   const variantStyles = {
-    outline: "outline",
-    destructive: "destructive",
+    outline: 'outline',
+    destructive: 'destructive',
   };
 
   return (

@@ -1,78 +1,85 @@
-import React, { useEffect, useState } from 'react';
-import { getComments } from '../services/CommentService';
+import React, { useState } from 'react';
 import type { Comment } from '../utils/CommentTypes';
 import StarRating from '../../../shared/components/StarRating';
-import ResponseForm from './ResponseForm';
-import type { Response } from '../utils/ResponseTypes';
+import CommentForm from './CommentForm';
 
 interface CommentListProps {
   refreshTrigger: number;
   setRefreshTrigger: React.Dispatch<React.SetStateAction<number>>;
+  comments: Comment[];
+  entityId: number;
+  entityType: 'tour' | 'lodging';
+  isReply?: boolean;
 }
 
-const CommentList: React.FC<CommentListProps> = ({ refreshTrigger, setRefreshTrigger }) => {
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [replyingTo, setReplyingTo] = useState<number | null>(null); 
-
-  useEffect(() => {
-    fetchComments();
-  }, [refreshTrigger]);
-
-  const fetchComments = async () => {
-    const fetchedComments: Comment[] = await getComments();
-    setComments(fetchedComments);
-  };
+const CommentList: React.FC<CommentListProps> = ({
+  refreshTrigger,
+  setRefreshTrigger,
+  comments,
+  isReply = false,
+  entityId,
+  entityType,
+}) => {
+  const [replyingTo, setReplyingTo] = useState<number | null>(null);
 
   return (
-    <div className="mt-4">
-      <h2 className="text-lg font-semibold mb-4">Comentarios</h2>
+    <div
+      className={`mt-4 ${isReply ? 'pl-4 border-l-2 border-gray-600' : ''} w-full max-w-full overflow-hidden`}
+    >
       {comments.length > 0 ? (
-        comments.map((comment) => (
-          <div key={comment.id} className="p-4 border-b">
-            <StarRating rating={comment.rating} />
-            <p className="mt-2">{comment.text}</p>
-            <p className="text-sm text-gray-500">
-              Publicado el: {new Date(comment.publishedAt).toLocaleDateString()}
-            </p>
+        comments.map((comment) => {
+          return (
+            <div
+              key={comment.id}
+              className="p-2 w-full max-w-full break-words overflow-hidden border-gray-600 rounded-md shadow-md"
+            >
+              <p className="mt-2 font-semibold break-words overflow-hidden">{comment.text}</p>
 
-            {/* Lista de respuestas dentro del comentario */}
-            <div className="mt-2 pl-6 border-l-2 border-gray-300">
-              {comment.responses.length > 0 ? (
-                comment.responses.map((response: Response) => (
-                  <div key={response.id} className="p-2 border-b">
-                    <p>{response.text}</p>
-                    <p className="text-sm text-gray-500">
-                      Publicado el: {new Date(response.publishedAt).toLocaleDateString()}
-                    </p>
-                  </div>
-                ))
-              ) : (
-                <p className="text-gray-500">No hay respuestas aún.</p>
+              {!isReply && <StarRating rating={comment.rating} />}
+              <p className="text-sm text-gray-400">
+                Publicado el: {new Date(comment.publishedAt).toLocaleDateString()}
+              </p>
+
+              {/* Formulario para responder */}
+              {replyingTo === comment.id && (
+                <CommentForm
+                  parentId={comment.id}
+                  isReply={true}
+                  onCommentAdded={() => {
+                    setReplyingTo(null);
+                    setRefreshTrigger((prev) => prev + 1);
+                  }}
+                  entityId={entityId}
+                  entityType={entityType}
+                />
+              )}
+
+              {/* Botón para responder */}
+              <button
+                onClick={() => setReplyingTo(replyingTo === comment.id ? null : comment.id)}
+                className="mt-2 text-[#ffec80] hover:text-[#ffd700] hover:underline"
+              >
+                {replyingTo === comment.id ? 'Cancelar' : 'Responder'}
+              </button>
+
+              {/* Renderizar respuestas recursivamente */}
+              {comment.replies && comment.replies.length > 0 && (
+                <div className="mt-1 w-full max-w-full overflow-hidden">
+                  <CommentList
+                    comments={comment.replies}
+                    refreshTrigger={refreshTrigger}
+                    setRefreshTrigger={setRefreshTrigger}
+                    isReply
+                    entityId={entityId}
+                    entityType={entityType}
+                  />
+                </div>
               )}
             </div>
-
-            {/* Botón para responder */}
-            <button
-              onClick={() => setReplyingTo(replyingTo === comment.id ? null : comment.id)}
-              className="mt-2 text-blue-500 hover:underline"
-            >
-              {replyingTo === comment.id ? 'Cancelar' : 'Responder'}
-            </button>
-
-            {/* Formulario para responder (solo se muestra si el usuario ha hecho clic en "Responder") */}
-            {replyingTo === comment.id && (
-              <ResponseForm
-                commentId={comment.id.toString()}
-                onResponseAdded={() => {
-                  setReplyingTo(null); // Ocultar el formulario después de enviar la respuesta
-                  setRefreshTrigger((prev) => prev + 1);
-                }}
-              />
-            )}
-          </div>
-        ))
+          );
+        })
       ) : (
-        <p>No hay comentarios aún.</p>
+        <p className="text-gray-400">No hay comentarios aún.</p>
       )}
     </div>
   );

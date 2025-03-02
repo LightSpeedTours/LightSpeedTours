@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 import '../app.css';
 
 interface ReservationFormProps {
@@ -22,7 +22,9 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ isOpen, onClose }) =>
       <div className="modal-content">
         <div className="modal-header">
           <h2>Precio / Noche</h2>
-          <button className="close-button" onClick={onClose}>X</button>
+          <button className="close-button" onClick={onClose}>
+            X
+          </button>
         </div>
         <div className="modal-body">
           <div className="input-section">
@@ -36,11 +38,11 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ isOpen, onClose }) =>
                 <label htmlFor="arrival">Regreso</label>
                 <input type="date" id="departure" />
               </div>
-            </div>  
+            </div>
             <div className="input-group">
               <label htmlFor="guests">Huéspedes</label>
               <input type="number" id="guests" placeholder="# de huéspedes" />
-            </div>   
+            </div>
             <div className="price-section">
               <div className="price-title">
                 <h3>Precio</h3>

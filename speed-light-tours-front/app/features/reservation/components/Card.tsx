@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import '../app.css';
 
 interface CardProps {
@@ -6,7 +6,7 @@ interface CardProps {
   className?: string;
 }
 
-const Card: React.FC<CardProps> = ({ children, className = "" }) => (
+const Card: React.FC<CardProps> = ({ children, className = '' }) => (
   <div className={`card ${className}`}>{children}</div>
 );
 
