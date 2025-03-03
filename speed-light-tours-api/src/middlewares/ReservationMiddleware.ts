@@ -1,4 +1,6 @@
 import { body } from 'express-validator';
+import { param } from 'express-validator';
+import { ENTITY_TYPES } from '../utils/types/EnumTypes';
 
 export const validateReservation = [
     body('entityType')
@@ -25,4 +27,14 @@ export const validateReservation = [
             }
             return true;
         }),
+];
+
+export const validateEntityType = [
+    param('entityType')
+        .isString()
+        .notEmpty()
+        .isIn(Object.values(ENTITY_TYPES))
+        .withMessage(`EntityType must be one of: ${Object.values(ENTITY_TYPES).join(', ')}`),
+
+    param('entityId').isInt({ min: 1 }).withMessage('EntityId must be a positive integer'),
 ];

@@ -1,8 +1,8 @@
-import Header from "../shared/components/Header";
-import Search from "../features/hotels/components/Search";
-import Filters from "../features/hotels/components/Filters";
-import Info from "../features/hotels/components/Info";
-import styles from "../features/hotels/components/HotelsPage.module.css";
+import Header from '../shared/components/Header';
+import Search from '../features/hotels/components/Search';
+import Filters from '../features/hotels/components/Filters';
+import Info from '../features/hotels/components/Info';
+import styles from '../features/hotels/components/HotelsPage.module.css';
 
 export default function HotelsPage() {
   return (
@@ -22,7 +22,7 @@ export default function HotelsPage() {
         <aside className={styles.filtersContainer}>
           <Filters />
         </aside>
-        
+
         {/* Sección de información */}
         <section className={styles.infoContainer}>
           <Info />

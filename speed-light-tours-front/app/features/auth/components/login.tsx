@@ -1,5 +1,5 @@
-import { User, KeyRound, ArrowRight } from "lucide-react"
-import { starWarsColors }  from 'app/shared/utils/colorsTheme'
+import { User, KeyRound, ArrowRight } from 'lucide-react';
+import { starWarsColors } from 'app/shared/utils/colorsTheme';
 
 export default function Login() {
   return (
@@ -65,15 +65,12 @@ export default function Login() {
               <span className="bg-[#1A1A1A] px-2 text-[#CCCCCC]">Or</span>
             </div>
           </div>
-          <button
-            className="w-full bg-blue-600 flex items-center justify-center hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
-          >
+          <button className="w-full bg-blue-600 flex items-center justify-center hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline">
             Create an account
             <ArrowRight className="ml-2 h-4 w-4" />
           </button>
         </div>
       </div>
     </div>
-  )
+  );
 }
-

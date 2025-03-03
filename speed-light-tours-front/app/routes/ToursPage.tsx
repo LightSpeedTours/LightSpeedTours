@@ -1,8 +1,8 @@
-import Header from "../shared/components/Header";
-import Search from "../features/tours/components/ToursSearch";
-import Filters from "../features/tours/components/ToursFilters";
-import Info from "../features/tours/components/ToursInfo";
-import styles from "../features/tours/components/ToursPage.module.css";
+import Header from '../shared/components/Header';
+import Search from '../features/tours/components/ToursSearch';
+import Filters from '../features/tours/components/ToursFilters';
+import Info from '../features/tours/components/ToursInfo';
+import styles from '../features/tours/components/ToursPage.module.css';
 
 export default function ToursPage() {
   return (
@@ -22,7 +22,7 @@ export default function ToursPage() {
         <aside className={styles.filtersContainer}>
           <Filters />
         </aside>
-        
+
         {/* Sección de información */}
         <section className={styles.infoContainer}>
           <Info />

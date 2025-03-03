@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import ReservationCard from "./ReservationCard";
-import "../app.css";
+import React, { useState } from 'react';
+import ReservationCard from './ReservationCard';
+import '../app.css';
 import CancelModal from './CancelModal';
-import sunImage from "app/shared/assets/sun.jpg";
-import worldImage from "app/shared/assets/world.jpg";
-import brainImage from "app/shared/assets/brain.jpg";
+import sunImage from 'app/shared/assets/sun.jpg';
+import worldImage from 'app/shared/assets/world.jpg';
+import brainImage from 'app/shared/assets/brain.jpg';
 
 const ReservationList: React.FC = () => {
   const [isCancelModalOpen, setCancelModalOpen] = useState(false);
@@ -18,11 +18,11 @@ const ReservationList: React.FC = () => {
   };
 
   const handleConfirmCancel = () => {
-    console.log("Reserva cancelada");
-    alert("Tu reserva ha sido cancelada");
+    console.log('Reserva cancelada');
+    alert('Tu reserva ha sido cancelada');
     setCancelModalOpen(false);
-  }
-  return(
+  };
+  return (
     <div className="reservation-list">
       <h1 className="reservation-list-title">Mis Reservas</h1>
       <ReservationCard
@@ -64,11 +64,11 @@ const ReservationList: React.FC = () => {
         imageSrc={brainImage}
         onCancelClick={openCancelModal}
       />
-      <CancelModal 
-          isOpen={isCancelModalOpen} 
-          onClose={closeCancelModal} 
-          onConfirm={handleConfirmCancel}
-        />
+      <CancelModal
+        isOpen={isCancelModalOpen}
+        onClose={closeCancelModal}
+        onConfirm={handleConfirmCancel}
+      />
     </div>
   );
 };

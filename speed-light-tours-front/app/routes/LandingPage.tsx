@@ -1,6 +1,6 @@
-import Header from "../shared/components/Header"
-import PromotionsCarousel from "../features/landing/components/promotions-carousel"
-import FeaturedDestinations from "../features/landing/components/feature-destinations"
+import Header from '../shared/components/Header';
+import PromotionsCarousel from '../features/landing/components/promotions-carousel';
+import FeaturedDestinations from '../features/landing/components/feature-destinations';
 
 export default function LandingPage() {
   return (
@@ -18,6 +18,5 @@ export default function LandingPage() {
         </section>
       </div>
     </main>
-  )
+  );
 }
-

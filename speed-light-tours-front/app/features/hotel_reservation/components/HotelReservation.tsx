@@ -1,32 +1,47 @@
 import Gallery from './Gallery';
-import ServicesList from './ServicesList';
+import ServicesList from '../../../shared/components/ServicesList';
 import BookingForm from './BookingForm';
 import DescriptionSection from './DescriptionSection';
-import ReviewsSection from './ReviewsSection';
 import HotelInfo from './HotelInfo';
-import type { HotelReservationProps } from './types';
+import type { LodgingProps } from '../utils/types';
+import ReviewsSection from '~/features/comment/components/ReviewSection';
 
-const HotelReservation: React.FC<HotelReservationProps> = ({ hotelName, images, location, capacity, contact, 
-  services, pricePerPerson, onReserve, checkAvailability, description, reviews }) => {
+const HotelReservation: React.FC<LodgingProps> = ({
+  id,
+  name,
+  images,
+  planet,
+  capacity,
+  services,
+  cost,
+  description,
+}) => {
   return (
-    <div className="container mx-auto px-4">
-      <h1 className="text-2xl font-bold my-4">{hotelName}</h1>
+    <div className="w-full mx-auto px-4 flex flex-col w-full">
+      <h1 className="text-2xl font-bold my-4 text-center">{name}</h1>
       <Gallery images={images} />
-      <div className="grid grid-cols-2 gap-8 mt-6">
-        <div className="space-y-4">
-          <HotelInfo location={location} capacity={capacity} contact={contact} />
-          <ServicesList services={services} />
+
+      {/* Contenedor flexible para responsividad */}
+      <div className="flex flex-col md:flex-col lg:flex-row mt-6 gap-6 w-full items-center md:justify-center">
+        {/* Columna izquierda: Información del hotel y servicios */}
+        <div className="space-y-4 md:w-3/4 lg:w-2/3">
+          <HotelInfo planet={planet} capacity={capacity} />
+          <ServicesList services={services} category="hospedaje" />
         </div>
-        <div className="space-y-4">
-          <BookingForm pricePerPerson={pricePerPerson} onReserve={onReserve} checkAvailability={checkAvailability} />
+
+        {/* Columna derecha: BookingForm */}
+        <div className="md:w-3/4 lg:w-1/3 flex justify-center">
+          <BookingForm cost={cost} id={id} />
         </div>
       </div>
-      <div className="mt-8">
+
+      {/* Descripción */}
+      <div className="mt-6 w-full">
         <DescriptionSection description={description} />
       </div>
-      <div className="mt-8">
-        <ReviewsSection reviews={reviews} />
-      </div>
+
+      {/* Sección de comentarios */}
+      <ReviewsSection entityType="lodging" entityId={id} />
     </div>
   );
 };
