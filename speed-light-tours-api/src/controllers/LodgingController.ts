@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import {
     getAllLodgings,
     getLodgingById,
+    getLodgingsByPlanet,
     createLodging,
     updateLodging,
     deleteLodging,

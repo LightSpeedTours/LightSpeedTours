@@ -3,6 +3,7 @@ import { validateLodging } from '../middlewares/LodgingMiddleware';
 import {
     getLodgingsController,
     getLodgingByIdController,
+    getLodgingByPlanetController,
     createLodgingController,
     updateLodgingController,
     deleteLodgingController,
