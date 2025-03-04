@@ -43,6 +43,26 @@ export const getLodgingById = async (id: number): Promise<Lodging> => {
     }
 };
 
+export const getLodgingByPlanet = async (planet: string): Promise<Lodging[]> => {
+    try {
+        planet = planet.toLowerCase();
+        const lodgingList = await Lodging.findAll({
+            where: { planet },
+            include: [
+                {
+                    model: Service,
+                    attributes: ['id', 'name', 'description'],
+                    through: { attributes: [] },
+                },
+            ],
+        });
+
+        return lodgingList;
+    } catch (error) {
+        throw error;
+    }
+};
+
 /**
  * Crear un nuevo hospedaje y asociar servicios opcionales
  */
@@ -60,6 +80,7 @@ export const createLodging = async (
                     409,
                     `El hospedaje con nombre "${lodgingData.name}" ya existe.`,
                 );
+            lodgingData.planet = lodgingData.planet?.toLowerCase();
 
             const newLodging = await Lodging.create(lodgingData, { transaction });
 
