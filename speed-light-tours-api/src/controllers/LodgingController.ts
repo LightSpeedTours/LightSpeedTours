@@ -2,9 +2,11 @@ import { Request, Response } from 'express';
 import {
     getAllLodgings,
     getLodgingById,
+    getLodgingsByPlanet,
     createLodging,
     updateLodging,
     deleteLodging,
+    getLodgingByPlanet,
 } from '../services/LodgingService';
 import { handleErrorResponse, makeErrorResponse } from '../utils/ErrorHandler';
 import { validationResult } from 'express-validator';
@@ -21,6 +23,15 @@ export const getLodgingsController = async (_req: Request, res: Response): Promi
 export const getLodgingByIdController = async (req: Request, res: Response): Promise<void> => {
     try {
         const lodging = await getLodgingById(parseInt(req.params.id));
+        res.status(200).json(lodging);
+    } catch (error: unknown) {
+        handleErrorResponse(res, error);
+    }
+};
+
+export const getLodgingByPlanetController = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const lodging = await getLodgingByPlanet(req.params.planet);
         res.status(200).json(lodging);
     } catch (error: unknown) {
         handleErrorResponse(res, error);

@@ -44,6 +44,28 @@ export const getTourById = async (id: number): Promise<Tour> => {
 };
 
 /**
+ * Obtener un tour por ID, incluyendo sus servicios
+ */
+export const getTourByPlanet = async (planet: string): Promise<Tour[]> => {
+    try {
+        planet = planet.toLowerCase();
+        const tours = await Tour.findAll({
+            where: { planet },
+            include: [
+                {
+                    model: Service,
+                    attributes: ['id', 'name', 'description'],
+                    through: { attributes: [] },
+                },
+            ],
+        });
+        return tours;
+    } catch (error) {
+        throw error;
+    }
+};
+
+/**
  * Crear un nuevo tour y asociar servicios opcionales
  */
 export const createTour = async (
@@ -57,7 +79,7 @@ export const createTour = async (
             });
             if (existingTour)
                 throw makeErrorResponse(409, `El tour con nombre "${tourData.name}" ya existe.`);
-
+            tourData.planet = tourData.planet?.toLowerCase();
             const newTour = await Tour.create(tourData, { transaction });
 
             if (tourData.services?.length) {
