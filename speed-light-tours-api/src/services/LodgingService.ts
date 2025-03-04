@@ -44,6 +44,26 @@ export const getLodgingById = async (id: number): Promise<Lodging> => {
 };
 
 /**
+ * Obtener todos los hospedajes de un planeta específico con sus servicios asociados
+ */
+export const getLodgingsByPlanet = async (planet: string): Promise<Lodging[]> => {
+    try {
+        return await Lodging.findAll({
+            where: { planet },
+            include: [
+                {
+                    model: Service,
+                    attributes: ['id', 'name', 'description'],
+                    through: { attributes: [] },
+                },
+            ],
+        });
+    } catch (error) {
+        throw error;
+    }
+};
+
+/**
  * Crear un nuevo hospedaje y asociar servicios opcionales
  */
 export const createLodging = async (

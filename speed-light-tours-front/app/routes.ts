@@ -1,3 +1,4 @@
+
 import { type RouteConfig, index, route } from '@react-router/dev/routes';
 
 export default [
@@ -12,4 +13,6 @@ export default [
   route('/cart', 'routes/CartPage.tsx'),
   route('/login', 'routes/LoginPage.tsx'),
   route('/signup', 'routes/SignUpPage.tsx'),
+//  route("/planet/:planet", "routes/PlanetPage.tsx")
+
 ] satisfies RouteConfig;

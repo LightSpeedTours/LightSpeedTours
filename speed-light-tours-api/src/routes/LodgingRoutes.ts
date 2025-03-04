@@ -3,6 +3,7 @@ import { validateLodging } from '../middlewares/LodgingMiddleware';
 import {
     getLodgingsController,
     getLodgingByIdController,
+    getLodgingByPlanetController,
     createLodgingController,
     updateLodgingController,
     deleteLodgingController,
@@ -12,6 +13,7 @@ const router = Router();
 
 router.get('/', getLodgingsController);
 router.get('/:id', getLodgingByIdController);
+router.get('/:planet', getLodgingByPlanetController);
 router.post('/', validateLodging, createLodgingController);
 router.put('/:id', validateLodging, updateLodgingController);
 router.delete('/:id', deleteLodgingController);
