@@ -6,6 +6,7 @@ import {
     createLodging,
     updateLodging,
     deleteLodging,
+    getLodgingByPlanet,
 } from '../services/LodgingService';
 import { handleErrorResponse, makeErrorResponse } from '../utils/ErrorHandler';
 import { validationResult } from 'express-validator';
@@ -30,7 +31,7 @@ export const getLodgingByIdController = async (req: Request, res: Response): Pro
 
 export const getLodgingByPlanetController = async (req: Request, res: Response): Promise<void> => {
     try {
-        const lodging = await getLodgingById(parseInt(req.params.planet));
+        const lodging = await getLodgingByPlanet(req.params.planet);
         res.status(200).json(lodging);
     } catch (error: unknown) {
         handleErrorResponse(res, error);

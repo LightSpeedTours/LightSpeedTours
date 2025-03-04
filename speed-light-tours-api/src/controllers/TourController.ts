@@ -5,6 +5,7 @@ import {
     createTour,
     updateTour,
     deleteTour,
+    getTourByPlanet,
 } from '../services/TourService';
 import { handleErrorResponse, makeErrorResponse } from '../utils/ErrorHandler';
 import { validationResult } from 'express-validator';
@@ -23,9 +24,16 @@ export const getToursController = async (_req: Request, res: Response): Promise<
 export const getTourByIdController = async (req: Request, res: Response): Promise<void> => {
     try {
         const tour = await getTourById(parseInt(req.params.id));
-        if (!tour) {
-            throw new Error('Tour not found');
-        }
+        res.status(200).json(tour);
+    } catch (error: unknown) {
+        handleErrorResponse(res, error);
+    }
+};
+
+export const getTourByPlanetController = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const tour = await getTourByPlanet(req.params.planet);
+
         res.status(200).json(tour);
     } catch (error: unknown) {
         handleErrorResponse(res, error);

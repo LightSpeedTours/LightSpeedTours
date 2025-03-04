@@ -8,6 +8,7 @@ import {
     BelongsToMany,
     Unique,
     HasMany,
+    AllowNull,
 } from 'sequelize-typescript';
 import Service from './ServiceModel';
 import Comment from './CommentModel';
@@ -27,6 +28,9 @@ export default class Lodging extends Model {
 
     @Column({ type: DataType.STRING, allowNull: false })
     declare planet: string;
+
+    @Column({type: DataType.STRING , allowNull: false})
+    declare location: string;
 
     @Column(DataType.TEXT)
     declare description: string;
