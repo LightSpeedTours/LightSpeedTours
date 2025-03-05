@@ -1,38 +1,70 @@
-import Header from '../shared/components/Header';
-import Search from '../features/hotels/components/Search';
-import Filters from '../features/hotels/components/Filters';
-import Info from '../features/hotels/components/Info';
-import styles from '../features/hotels/components/HotelsPage.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
+import Header from "../shared/components/Header";
+import Search from "../features/hotels/components/Search";
+import Filters from "../features/hotels/components/Filters";
+import Info from "../features/hotels/components/Info";
+import styles from "../features/hotels/components/HotelsPage.module.css";
+import type { Lodging } from "../features/hotels/utils/LodgingsTypes";
 
 export default function HotelsPage() {
   const [planet, setPlanet] = useState<string | null>(null);
-  const [planetInfo, setPlanetInfo] = useState(null);
+  const [planetInfo, setPlanetInfo] = useState<Lodging[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // Estados para los filtros
+  const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
+  const [rating, setRating] = useState<number>(0);
+
   useEffect(() => {
-    // Extrae el parámetro "planet" de la URL (ej. /hotels?planet=tatooine)
-    const params = new URLSearchParams(window.location.search);
-    const planetName = params.get('planet');
-    setPlanet(planetName);
+    if (typeof window !== "undefined") {
+      const fetchData = async () => {
+        setLoading(true);
+        try {
+          const params = new URLSearchParams(window.location.search);
+          const planetName = params.get("planet");
+          setPlanet(planetName);
 
-    // Si se seleccionó un planeta, se utiliza la ruta GET /:planet,
-    // de lo contrario, se obtiene solo la lista de nombres de planetas
-    const url = planetName
-      ? `http://localhost:3000/lodgings/${planetName}`  // RUTA: router.get('/:planet', getLodgingByPlanetController)
-      : `http://localhost:3000/lodgings/planet`;
+          const url = planetName
+            ? `http://localhost:3000/lodgings/planet/${planetName}`
+            : `http://localhost:3000/lodgings/planet`;
 
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        setPlanetInfo(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error al obtener la información:', error);
-        setLoading(false);
-      });
+          const response = await fetch(url);
+          if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
+          }
+
+          const data = await response.json();
+          setPlanetInfo(Array.isArray(data) ? data : []);
+        } catch (error) {
+          console.error("Error al obtener la información:", error);
+          setPlanetInfo([]);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchData();
+    }
   }, []);
+
+  const filteredLodgings = planetInfo.filter((lodging) => {
+    const matchesLocation =
+      selectedLocations.length === 0 || selectedLocations.includes(lodging.location);
+  
+    const matchesServices =
+      selectedServices.length === 0 ||
+      (lodging.services &&
+        selectedServices.every((service) =>
+          lodging.services?.some((s) => s.name === service)
+        ));
+  
+    // Asegurar que rating no sea null con '?? 0'
+    const matchesRating = (lodging.rating ?? 0) >= rating;
+  
+    return matchesLocation && matchesServices && matchesRating;
+  });
+  
 
   if (loading) {
     return <div>Cargando información...</div>;
@@ -46,15 +78,18 @@ export default function HotelsPage() {
       </div>
       <div className={styles.contentContainer}>
         <aside className={styles.filtersContainer}>
-          <Filters />
+          <Filters
+            lodgings={planetInfo}
+            selectedLocations={selectedLocations}
+            setSelectedLocations={setSelectedLocations}
+            selectedServices={selectedServices}
+            setSelectedServices={setSelectedServices}
+            rating={rating}
+            setRating={setRating}
+          />
         </aside>
         <section className={styles.infoContainer}>
-          {/*
-            El componente Info debe manejar:
-            - Si "planet" es null: mostrar la lista de nombres de planetas.
-            - Si "planet" tiene valor: mostrar los hospedajes filtrados para ese planeta.
-          */}
-          <Info planet={planet} planetInfo={planetInfo} />
+          <Info planet={planet} planetInfo={filteredLodgings} />
         </section>
       </div>
     </main>

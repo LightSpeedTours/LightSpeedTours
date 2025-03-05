@@ -27,9 +27,6 @@ export default function Search() {
 
   return (
     <div className={styles.searchContainer}>
-      <div className={styles.planeta}>
-        <h1>Planeta</h1>
-      </div>
 
       {/* Botón de fecha de entrada */}
       <div className={styles.entryDateSelector}>

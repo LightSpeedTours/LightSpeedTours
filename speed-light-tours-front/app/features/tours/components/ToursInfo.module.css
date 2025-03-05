@@ -2,17 +2,21 @@
   padding: 0px;
   position: absolute;
   top: 350px;
-  right: 20px;
+  left: 320px;
+  margin-right: 20px;
+  margin-bottom: 50px;
   background-color: #1a1a1a;
   border-radius: 8px;
+  row-gap: 20px;
 }
 
 /* Mantiene la estructura original en pantallas grandes */
 .gridContainer {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 0px;
+  row-gap: 20px;
   width: 100%;
+  padding: 10px;
 }
 
 .imageContainer {
@@ -57,13 +61,15 @@ ul {
 @media (max-width: 768px) {
   .gridContainer {
     grid-template-columns: 1fr; /* Se convierte en una sola columna */
+    padding: 10px
   }
 
   .infoContainer {
     position: relative; /* Evita que se superponga en móviles */
     top: auto;
     right: auto;
-    padding: 10px;
+    left: auto;
+    padding: 0px;
     width: 100%; /* Se adapta al ancho disponible */
   }
 }

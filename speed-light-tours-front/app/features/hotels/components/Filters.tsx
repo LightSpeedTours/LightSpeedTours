@@ -1,46 +1,91 @@
-import React, { useState } from 'react';
-import RatingSlider from '../../../shared/components/RatingSlider';
-import styles from './Filters.module.css';
+import React, { useState, useEffect } from "react";
+import styles from "./Filters.module.css";
+import RatingSlider from "../../../shared/components/RatingSlider";
+import type { Lodging } from "../utils/LodgingsTypes";
 
-export default function Filters() {
-  const [rating, setRating] = useState(0);
+interface FiltersProps {
+  lodgings: Lodging[];
+  selectedLocations: string[];
+  setSelectedLocations: (locations: string[]) => void;
+  selectedServices: string[];
+  setSelectedServices: (services: string[]) => void;
+  rating: number;
+  setRating: (rating: number) => void;
+}
+
+export default function Filters({
+  lodgings,
+  selectedLocations,
+  setSelectedLocations,
+  selectedServices,
+  setSelectedServices,
+  rating,
+  setRating,
+}: FiltersProps) {
+  const [locations, setLocations] = useState<string[]>([]);
+  const [services, setServices] = useState<string[]>([]);
+
+  useEffect(() => {
+    const uniqueLocations = Array.from(new Set(lodgings.map((lodging) => lodging.location)));
+    setLocations(uniqueLocations);
+
+    const allServices = lodgings.flatMap((lodging) =>
+      lodging.services ? lodging.services.map((service) => service.name) : []
+    );
+    setServices(Array.from(new Set(allServices)));
+  }, [lodgings]);
+
+  const handleLocationChange = (loc: string) => {
+    setSelectedLocations(
+      selectedLocations.includes(loc) ? selectedLocations.filter((l) => l !== loc) : [...selectedLocations, loc]
+    );
+  };
+
+  const handleServiceChange = (service: string) => {
+    setSelectedServices(
+      selectedServices.includes(service) ? selectedServices.filter((s) => s !== service) : [...selectedServices, service]
+    );
+  };
 
   return (
     <div className={styles.filtersContainer}>
       <h2>Filtros</h2>
 
-      {/* Localidad */}
       <div className={styles.filtroSection}>
         <h3>Localidad</h3>
         <div className={styles.checkboxGroup}>
-          {[1, 2, 3, 4, 5].map((num) => (
-            <label key={num}>
-              <input type="checkbox" />
-              Localidad {num}
-            </label>
-          ))}
+          {locations.length > 0 ? (
+            locations.map((loc) => (
+              <label key={loc}>
+                <input type="checkbox" checked={selectedLocations.includes(loc)} onChange={() => handleLocationChange(loc)} />
+                {loc}
+              </label>
+            ))
+          ) : (
+            <p>No hay locaciones disponibles</p>
+          )}
         </div>
       </div>
 
-      {/* Servicios */}
       <div className={styles.filtroSection}>
         <h3>Servicios</h3>
         <div className={styles.checkboxGroup}>
-          {[...Array(8)].map((_, index) => (
-            <label key={index}>
-              <input type="checkbox" />
-              Servicio {index + 1}
-            </label>
-          ))}
+          {services.length > 0 ? (
+            services.map((service) => (
+              <label key={service}>
+                <input type="checkbox" checked={selectedServices.includes(service)} onChange={() => handleServiceChange(service)} />
+                {service}
+              </label>
+            ))
+          ) : (
+            <p>No hay servicios disponibles</p>
+          )}
         </div>
       </div>
 
-      {/* Puntuación */}
       <div className={styles.filtroSection}>
         <h3>Puntuación</h3>
-        <div className={styles.ratingContainer}>
-          <RatingSlider value={rating} onChange={setRating} />
-        </div>
+        <RatingSlider value={rating} onChange={setRating} />
       </div>
     </div>
   );

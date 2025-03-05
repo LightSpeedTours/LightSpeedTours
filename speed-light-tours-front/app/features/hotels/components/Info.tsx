@@ -2,71 +2,49 @@ import React, { useState } from 'react';
 import Button from '../../../shared/components/Button';
 import StarRating from '../../../shared/components/StarRating';
 import styles from './Info.module.css';
+import type { Lodging, Service, LodgingService } from "../utils/LodgingsTypes";
+
 
 interface InfoProps {
   planet: string | null;
-  planetInfo: any; // Puedes reemplazar "any" con el tipo adecuado para tus datos
+  planetInfo: Lodging[]; // Mejor que "any"
 }
 
 export default function Info({ planet, planetInfo }: InfoProps) {
-  const [rating, setRating] = useState(0);
+  const [ratings, setRatings] = useState<{ [key: string]: number }>({});
 
-  // Si no se selecciona ningún planeta, mostramos una lista con los nombres de los planetas
-  if (!planet) {
-    return (
-      <div className={styles.infoContainer}>
-        <h2>Lista de Planetas</h2>
-        <ul>
-          {Array.isArray(planetInfo) &&
-            planetInfo.map((item: any, index: number) => (
-              <li key={index}>{item.planet}</li>
-            ))}
-        </ul>
-      </div>
-    );
-  }
+  const handleRatingChange = (id: string, rating: number) => {
+    setRatings((prev) => ({ ...prev, [id]: rating }));
+  };
 
-  // Si se selecciona un planeta, se asume que planetInfo es un array con la info de hospedajes
   return (
     <div className={styles.infoContainer}>
       {Array.isArray(planetInfo) && planetInfo.length > 0 ? (
-        planetInfo.map((lodging: any) => (
+        planetInfo.map((lodging) => (
           <div key={lodging.id} className={styles.gridContainer}>
-            {/* Sección de imagenes */}
+            {/* Sección de imágenes */}
             <div className={styles.imageContainer}>
-              <button>&lt;</button>
-              <span>{lodging.image || 'Imagen'}</span>
-              <button>&gt;</button>
             </div>
 
             {/* Sección de detalles */}
             <div className={styles.detailsContainer}>
               <h2>{lodging.name || 'Hospedaje'}</h2>
-              <p>Ubicación: {lodging.location || 'Dirección del hospedaje'}</p>
-              <h3>Servicios:</h3>
-              <ul>
-                {lodging.services && lodging.services.length > 0 ? (
-                  lodging.services.map((service: any, idx: number) => (
-                    <li key={idx}>{service.name}</li>
-                  ))
-                ) : (
-                  <li>No hay servicios</li>
-                )}
-              </ul>
-              <StarRating rating={rating} />
+              <h3>{lodging.location || 'Dirección del hospedaje'}</h3>
+              <h3>{lodging.description || 'Descripcion del hospedaje'}</h3>
+              <StarRating rating={ratings[lodging.id] || 0} />
             </div>
 
             {/* Sección de precio */}
             <div className={styles.priceContainer}>
               <h2>Precio</h2>
-              <p>{lodging.priceInfo || 'Información del precio'}</p>
-              <p>{lodging.paymentInfo || 'Información del pago'}</p>
+              <p>{lodging.cost || 'Información del precio no disponible'}</p>
+              <h3>Precio por noche</h3>
               <Button text="Reservar" type="button" />
             </div>
           </div>
         ))
       ) : (
-        <div>No hay información disponible para {planet}</div>
+        <div>Selecciona un planeta</div>
       )}
     </div>
   );

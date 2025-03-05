@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Search.module.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -12,29 +12,43 @@ export default function Search() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedRooms, setSelectedRooms] = useState<number | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [planet, setPlanet] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const planetName = params.get("planet");
+      setPlanet(planetName);
+    }
+  }, []);
 
   const handleSelect = (rooms: number) => {
     setSelectedRooms(rooms);
-    setIsOpen(false); // Oculta la lista después de seleccionar
+    setIsOpen(false);
   };
+
+  const capitalizeFirstLetter = (text: string | null) => {
+    if (!text) return null;
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  };
+
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // Evita que el formulario recargue la página
+    event.preventDefault();
     if (searchTerm.trim() === '') {
       alert('Por favor ingresa un término de búsqueda');
       return;
     }
     console.log('Buscando:', searchTerm);
-    // petición a una API
   };
 
   return (
     <div className={styles.searchContainer}>
       <div className={styles.planeta}>
-        <h1>Planeta</h1>
+      <h1>{capitalizeFirstLetter(planet) || 'Planeta'}</h1>
       </div>
 
       {/* Botón de fecha de entrada */}
@@ -79,7 +93,7 @@ export default function Search() {
               selectsEnd
               startDate={startDate}
               endDate={endDate}
-              minDate={startDate} // Evita seleccionar una fecha de salida anterior a la de entrada
+              minDate={startDate}
               inline
             />
           </div>
@@ -103,6 +117,8 @@ export default function Search() {
           </div>
         )}
       </div>
+
+      {/* Barra de búsqueda */}
       <div>
         <input
           type="text"
