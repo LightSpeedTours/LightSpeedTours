@@ -1,18 +1,22 @@
 .infoContainer {
   padding: 0px;
   position: absolute;
-  top: 350px;
-  right: 20px;
+  top: 400px;
+  left: 320px;
+  margin-right: 20px;
+  margin-bottom: 50px;
   background-color: #1a1a1a;
   border-radius: 8px;
+  row-gap: 20px;
 }
 
 /* Mantiene la estructura original en pantallas grandes */
 .gridContainer {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 0px;
+  row-gap: 20px;
   width: 100%;
+  padding: 10px;
 }
 
 .imageContainer {
@@ -57,13 +61,71 @@ ul {
 @media (max-width: 768px) {
   .gridContainer {
     grid-template-columns: 1fr; /* Se convierte en una sola columna */
+    padding: 10px
   }
 
   .infoContainer {
     position: relative; /* Evita que se superponga en móviles */
     top: auto;
     right: auto;
-    padding: 10px;
+    left: auto;
+    padding: 0px;
     width: 100%; /* Se adapta al ancho disponible */
   }
+}
+
+.tourImage {
+  border-radius: 8px;
+}
+
+/* Agregar fuente Star Wars desde Google Fonts o fuente personalizada */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+h1 {
+  font-family: 'Press Start 2P', sans-serif; /* Fuente estilo retro-futurista */
+  text-transform: uppercase; /* Letras mayúsculas */
+  color: #ffcc00; /* Color amarillo (como el de los títulos de Star Wars) */
+  text-shadow: 0 0 5px #ffcc00, 0 0 10px #ffcc00, 0 0 20px #ff6600, 0 0 30px #ff6600, 0 0 40px #ff6600, 0 0 50px #ff6600, 0 0 75px #ff6600; /* Efecto de resplandor */
+  letter-spacing: 5px; /* Espaciado entre letras */
+  font-size: 2rem; /* Tamaño grande */
+  text-align: center; /* Centrado del texto */
+  padding: 20px; /* Relleno dentro del h1 */
+
+}
+
+h2 {
+  font-family: 'Press Start 2P', sans-serif; /* Fuente estilo retro-futurista */
+  text-transform: uppercase; /* Letras mayúsculas */
+  color: #ffcc00; /* Color amarillo (como el de los títulos de Star Wars) */
+  text-shadow: 0 0 1px #ffcc00, 0 0 10px #ffcc00, 0 0 20px #ff6600, 0 0 30px #ff6600, 0 0 40px #ff6600, 0 0 50px #ff6600, 0 0 75px #ff6600; /* Efecto de resplandor */
+  letter-spacing: 2px; /* Espaciado entre letras */
+  font-size: 1.5rem; /* Tamaño grande */
+  text-align: center; /* Centrado del texto */ 
+
+}
+
+h3 {
+  font-family: 'Press Start 2P', sans-serif; /* Fuente estilo retro-futurista */
+  color: #ffcc00; /* Color amarillo (como el de los títulos de Star Wars) */
+  text-shadow: 0 0 1px #ffcc00, 0 0 10px #ffcc00, 0 0 20px #ff6600, 0 0 30px #ff6600, 0 0 40px #ff6600, 0 0 50px #ff6600, 0 0 75px #ff6600; /* Efecto de resplandor */
+  letter-spacing: 2px; /* Espaciado entre letras */
+  font-size: 1rem; /* Tamaño grande */
+  text-align: center; /* Centrado del texto */ 
+  padding: 10px
+
+}
+
+p {
+  font-family: sans-serif; /* Fuente estilo retro-futurista */
+  color: white; /* Color amarillo (como el de los títulos de Star Wars) */
+  letter-spacing: 2px; /* Espaciado entre letras */
+  font-size: 1rem; /* Tamaño grande */
+  text-align: justify; /* Centrado del texto */ 
+  padding: 10px
+
+}
+
+
+button{
+  width: 100%
 }

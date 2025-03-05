@@ -25,7 +25,7 @@ export default class Service extends Model {
     @Column({ type: DataType.STRING, allowNull: false })
     declare name: string;
 
-    @Column({ type: DataType.TEXT, allowNull: false })
+    @Column({ type: DataType.TEXT })
     declare description: string;
 
     @BelongsToMany(() => Lodging, () => LodgingService)

@@ -1,12 +1,23 @@
-import { Service } from './Service';
+export interface Service {
+    id: number;
+    name: string;
+    description: string;
+}
+
+
+export interface TourService {
+    tourId: number;
+    serviceId: number;
+}
+
 
 export interface Tour {
     id: number;
-    planet: String;
+    planet: string;
     name: string;
     description: string;
-    route: string;
     duration: number;
+    route: string;
     capacity: number;
     rating: number | null;
     cost: number;
