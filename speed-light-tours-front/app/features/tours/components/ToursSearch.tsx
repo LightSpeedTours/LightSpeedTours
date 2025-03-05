@@ -50,7 +50,7 @@ export default function Search({
       <div className={styles.entryDateSelector}>
         <Button
           onClick={() => setShowStartCalendar(!showStartCalendar)}
-          text={startDate ? `Entrada: ${startDate.toLocaleDateString()}` : 'Fecha de entrada'}
+          text={startDate ? `${startDate.toLocaleDateString()}` : 'Fecha'}
           type="button"
         />
         {showStartCalendar && (

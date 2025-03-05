@@ -23,7 +23,12 @@ export default function Info({ planetInfo }: InfoProps) {
           <div key={tour.id} className={styles.gridContainer}>
             {/* Sección de imágenes */}
             <div className={styles.imageContainer}>
-              {/* Aquí podrías agregar una imagen si está disponible */}
+              <img
+              src={`/app/shared/assets/tours/${tour.name.replace(/\s+/g, "-").toLowerCase()}.png`}
+              alt={tour.name || "Imagen del hospedaje"}
+              className={styles.image}
+            />
+
             </div>
 
             {/* Detalles */}
@@ -37,8 +42,8 @@ export default function Info({ planetInfo }: InfoProps) {
             {/* Sección de precio */}
             <div className={styles.priceContainer}>
               <h2>Precio</h2>
-              <p>{tour.cost ? `$${tour.cost}` : "Precio no disponible"}</p>
-              <h3>Precio por persona</h3>
+              <h2>{tour.cost ? `$${tour.cost}` : "Precio no disponible"}</h2>
+              <h3>Valor por persona</h3>
               <a href='/tourReservation'>
               <Button text="Reservar" type="button" />
               </a>

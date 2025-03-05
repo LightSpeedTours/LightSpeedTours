@@ -81,7 +81,7 @@ export default function ToursPage() {
             rating={rating}
             setRating={setRating}
           />
-          <button onClick={resetFilters}>Limpiar filtros</button>
+         
         </aside>
         <section className={styles.infoContainer}>
           <Info planet={planet || ""} planetInfo={filteredTours} />
