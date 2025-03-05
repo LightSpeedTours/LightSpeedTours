@@ -37,15 +37,15 @@ export default function Info({ planet, planetInfo }: InfoProps) {
             <div className={styles.detailsContainer}>
               <h2>{lodging.name || 'Hospedaje'}</h2>
               <h3>{lodging.location || 'Dirección del hospedaje'}</h3>
-              <h3>{lodging.description || 'Descripcion del hospedaje'}</h3>
+              <p>{lodging.description || 'Descripcion del hospedaje'}</p>
               <StarRating rating={ratings[lodging.id] || 0} />
             </div>
 
             {/* Sección de precio */}
             <div className={styles.priceContainer}>
               <h2>Precio</h2>
-              <p>{lodging.cost || 'Información del precio no disponible'}</p>
-              <h3>Precio por noche</h3>
+              <h2>{lodging.cost || 'Información del precio no disponible'}</h2>
+              <p>Precio por noche</p>
               <Button text="Reservar" type="button" />
             </div>
           </div>
