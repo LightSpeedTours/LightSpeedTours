@@ -96,16 +96,3 @@ input {
 .reserve-button:hover {
   background-color: #4caf50;
 }
-
-@media (prefers-color-scheme: dark) {
-  .modal-content {
-    background-color: #2d3748;
-  }
-  .modal-content-cancel {
-    background-color: #2d3748;
-  }
-
-  .close-button {
-    color: #e2e8f0;
-  }
-}

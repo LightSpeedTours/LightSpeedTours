@@ -1,0 +1,36 @@
+.modal-content-cancel {
+  background-color: white;
+  padding: 7vh;
+  width: 85vh;
+  height: 50vh;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.return-button, .cancel-button {
+  background-color: #f44336;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+  margin: 4vh;
+  margin-top: 8vh;
+  margin-bottom: -8vh;
+}
+
+@media (prefers-color-scheme: dark) {
+  .modal-content {
+    background-color: #2d3748;
+  }
+  .modal-content-cancel {
+    background-color: #2d3748;
+  }
+
+  .close-button {
+    color: #e2e8f0;
+  }
+}

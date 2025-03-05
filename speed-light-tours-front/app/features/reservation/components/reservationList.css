@@ -1,0 +1,18 @@
+.reservation-list {
+  padding: 16px;
+}
+
+.reservation-list-title {
+  font-size: 200%;
+  font-weight: 600;
+  margin-bottom: 1.5%;
+  color: #2d3748;
+  margin-left: 1%;
+  margin-top: -0.5%;
+}
+
+@media (prefers-color-scheme: dark) {
+  .reservation-list-title {
+    color: #f7fafc;
+  }
+}

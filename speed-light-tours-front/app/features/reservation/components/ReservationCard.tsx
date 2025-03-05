@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from './Modal';
 import Card from './Card';
 import Button from './Button';
-import '../app.css';
+import './reservationCard.css';
 
 interface ReservationCardProps {
   service: string;

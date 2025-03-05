@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReservationCard from './ReservationCard';
-import '../app.css';
+import './reservationList.css';
 import CancelModal from './CancelModal';
 import sunImage from 'app/shared/assets/sun.jpg';
 import worldImage from 'app/shared/assets/world.jpg';

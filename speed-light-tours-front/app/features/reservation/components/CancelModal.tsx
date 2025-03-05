@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import Button from './Button';
+import './modal.css';
+import './cancelModal.css';
 
 interface CancelConfirmationModalProps {
   isOpen: boolean;
