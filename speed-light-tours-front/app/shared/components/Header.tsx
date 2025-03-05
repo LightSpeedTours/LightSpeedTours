@@ -4,7 +4,8 @@ import { ShoppingCart, Menu, X, User } from 'lucide-react';
 import Button from './Button';
 import InputField from './InputField';
 import planetsImages from '../utils/planetsImagesLists'; 
- 
+import "../styles/global.css"; // Sin la variable 'styles'
+
 
 export default function Header() {
   const [searchValue, setSearchValue] = useState('');
@@ -23,9 +24,13 @@ export default function Header() {
         {/* Logo y Nombre */}
         <div className="flex items-center gap-4">
           <a href="/landingPage" className="flex items-center gap-4">
-            <span className="font-medium">Nombre</span>
-            <div className="w-12 h-12 bg-[#2C2C2C] rounded-md flex items-center justify-center border border-[#FFE81F]">
-              Logo
+            <span className="name">Light Speed Tours</span>
+            <div className="w-12 h-12">
+              <img
+                src="/app/shared/assets/light-speed-tours.png"
+                alt="Light Speed Tours Logo"
+                className="w-full h-full object-cover"
+              />
             </div>
           </a>
         </div>

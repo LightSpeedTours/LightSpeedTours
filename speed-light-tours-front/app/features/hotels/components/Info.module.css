@@ -87,7 +87,7 @@ ul {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     row-gap: 30px;
-    column-gap: 20;
+    column-gap: 20px;
     width: 100%;
     padding: 20px;
 
