@@ -10,6 +10,7 @@ export default function ToursPage() {
   const [planet, setPlanet] = useState<string | null>(null);
   const [planetInfo, setPlanetInfo] = useState<Tour[]>([]);
   const [loading, setLoading] = useState(true);
+  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
 
   // Estados para los filtros
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
@@ -51,6 +52,11 @@ export default function ToursPage() {
     return matchesServices && matchesRating;
   });
 
+  const resetFilters = () => {
+    setSelectedServices([]);
+    setRating(0);
+  };
+
   if (loading) {
     return <div>Cargando información...</div>;
   }
@@ -59,7 +65,13 @@ export default function ToursPage() {
     <main className={styles.ToursPage}>
       <Header />
       <div className={styles.searchContainer}>
-        <Search />
+        <Search
+        selectedServices={selectedServices}
+        setSelectedServices={setSelectedServices}
+        rating={rating}
+        setRating={setRating}
+        startDate={startDate}
+        setStartDate={setStartDate} />
       </div>
       <div className={styles.contentContainer}>
         <aside className={styles.filtersContainer}>
@@ -69,6 +81,7 @@ export default function ToursPage() {
             rating={rating}
             setRating={setRating}
           />
+          <button onClick={resetFilters}>Limpiar filtros</button>
         </aside>
         <section className={styles.infoContainer}>
           <Info planet={planet || ""} planetInfo={filteredTours} />

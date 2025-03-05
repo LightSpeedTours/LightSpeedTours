@@ -4,19 +4,31 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from '../../../shared/components/Button';
 
-export default function Search() {
+interface SearchProps {
+  selectedServices: string[];
+  setSelectedServices: React.Dispatch<React.SetStateAction<string[]>>;
+  rating: number;
+  setRating: React.Dispatch<React.SetStateAction<number>>;
+  startDate: Date | undefined;
+  setStartDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+}
+
+export default function Search({
+  selectedServices,
+  setSelectedServices,
+  rating,
+  setRating,
+  startDate,
+  setStartDate}: SearchProps) {
+  
   const [showStartCalendar, setShowStartCalendar] = useState(false);
-  const [showEndCalendar, setShowEndCalendar] = useState(false);
-  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
-  const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // Evita que el formulario recargue la página
+  const handleSubmit = () => {
     if (searchTerm.trim() === '') {
       alert('Por favor ingresa un término de búsqueda');
       return;
@@ -25,9 +37,15 @@ export default function Search() {
     // petición a una API
   };
 
+  const resetFilters = () => {
+    setStartDate(undefined);
+    setSelectedServices([]);
+    setRating(0);
+  };
+
+
   return (
     <div className={styles.searchContainer}>
-
       {/* Botón de fecha de entrada */}
       <div className={styles.entryDateSelector}>
         <Button
@@ -50,17 +68,11 @@ export default function Search() {
           </div>
         )}
       </div>
-      <div>
-        <input
-          type="text"
-          placeholder="Nombre del tour"
-          value={searchTerm}
-          onChange={handleSearch}
-          className={styles.typeBar}
-        />
-        <div className={styles.searchButton}>
-          <Button text="Buscar" type="submit" />
-        </div>
+
+
+      {/* Limpiar filtros */}
+      <div className={styles.searchButton}>
+        <Button text="Limpiar filtros" type="button" onClick={resetFilters} />
       </div>
     </div>
   );

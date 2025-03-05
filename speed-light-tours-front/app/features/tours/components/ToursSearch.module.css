@@ -89,7 +89,7 @@
 .searchButton {
   position: absolute;
   top: 0px;
-  right: 340px;
+  right: 20px;
 }
 
 @media (max-width: 768px) {

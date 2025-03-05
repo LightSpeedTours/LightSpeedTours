@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../shared/components/Header";
 import Search from "../features/hotels/components/Search";
 import Filters from "../features/hotels/components/Filters";
@@ -10,6 +10,9 @@ export default function HotelsPage() {
   const [planet, setPlanet] = useState<string | null>(null);
   const [planetInfo, setPlanetInfo] = useState<Lodging[]>([]);
   const [loading, setLoading] = useState(true);
+  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
+  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+  const [selectedRooms, setSelectedRooms] = useState<number | null>(null);
 
   // Estados para los filtros
   const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
@@ -51,20 +54,18 @@ export default function HotelsPage() {
   const filteredLodgings = planetInfo.filter((lodging) => {
     const matchesLocation =
       selectedLocations.length === 0 || selectedLocations.includes(lodging.location);
-  
+
     const matchesServices =
       selectedServices.length === 0 ||
       (lodging.services &&
         selectedServices.every((service) =>
           lodging.services?.some((s) => s.name === service)
         ));
-  
-    // Asegurar que rating no sea null con '?? 0'
+
     const matchesRating = (lodging.rating ?? 0) >= rating;
-  
+
     return matchesLocation && matchesServices && matchesRating;
   });
-  
 
   if (loading) {
     return <div>Cargando información...</div>;
@@ -74,7 +75,20 @@ export default function HotelsPage() {
     <main className={styles.hotelsPage}>
       <Header />
       <div className={styles.searchContainer}>
-        <Search />
+        <Search
+          selectedLocations={selectedLocations}
+          setSelectedLocations={setSelectedLocations}
+          selectedServices={selectedServices}
+          setSelectedServices={setSelectedServices}
+          rating={rating}
+          setRating={setRating}
+          startDate={startDate}
+          setStartDate={setStartDate}
+          endDate={endDate}
+          setEndDate={setEndDate}
+          selectedRooms={selectedRooms}
+          setSelectedRooms={setSelectedRooms}
+        />
       </div>
       <div className={styles.contentContainer}>
         <aside className={styles.filtersContainer}>

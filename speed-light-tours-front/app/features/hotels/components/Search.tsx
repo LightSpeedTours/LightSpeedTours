@@ -4,14 +4,38 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from '../../../shared/components/Button';
 
-export default function Search() {
+interface SearchProps {
+  selectedLocations: string[];
+  setSelectedLocations: React.Dispatch<React.SetStateAction<string[]>>;
+  selectedServices: string[];
+  setSelectedServices: React.Dispatch<React.SetStateAction<string[]>>;
+  rating: number;
+  setRating: React.Dispatch<React.SetStateAction<number>>;
+  startDate: Date | undefined;
+  setStartDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  endDate: Date | undefined;
+  setEndDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  selectedRooms: number | null;
+  setSelectedRooms: React.Dispatch<React.SetStateAction<number | null>>;
+}
+
+export default function Search({
+  selectedLocations,
+  setSelectedLocations,
+  selectedServices,
+  setSelectedServices,
+  rating,
+  setRating,
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate,
+  selectedRooms,
+  setSelectedRooms
+}: SearchProps) {
   const [showStartCalendar, setShowStartCalendar] = useState(false);
   const [showEndCalendar, setShowEndCalendar] = useState(false);
-  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
-  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedRooms, setSelectedRooms] = useState<number | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
   const [planet, setPlanet] = useState<string | null>(null);
 
   useEffect(() => {
@@ -32,23 +56,19 @@ export default function Search() {
     return text.charAt(0).toUpperCase() + text.slice(1);
   };
 
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (searchTerm.trim() === '') {
-      alert('Por favor ingresa un término de búsqueda');
-      return;
-    }
-    console.log('Buscando:', searchTerm);
+  const resetFilters = () => {
+    setStartDate(undefined);
+    setEndDate(undefined);
+    setSelectedRooms(null);
+    setSelectedLocations([]);
+    setSelectedServices([]);
+    setRating(0);
   };
 
   return (
     <div className={styles.searchContainer}>
       <div className={styles.planeta}>
-      <h1>{capitalizeFirstLetter(planet) || 'Planeta'}</h1>
+        <h1>{capitalizeFirstLetter(planet) || 'Planeta'}</h1>
       </div>
 
       {/* Botón de fecha de entrada */}
@@ -118,17 +138,10 @@ export default function Search() {
         )}
       </div>
 
-      {/* Barra de búsqueda */}
+      {/* Limpiar filtros */}
       <div>
-        <input
-          type="text"
-          placeholder="Nombre del hospedaje"
-          value={searchTerm}
-          onChange={handleSearch}
-          className={styles.typeBar}
-        />
         <div className={styles.searchButton}>
-          <Button text="Buscar" type="submit" />
+          <Button text="Limpiar filtros" type="button" onClick={resetFilters} />
         </div>
       </div>
     </div>
