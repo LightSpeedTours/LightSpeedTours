@@ -23,7 +23,7 @@
 
 .entryDateSelector,
 .leaveDateSelector,
-.rooms {
+.people{
   position: absolute;
   top: 0px;
 }
@@ -34,26 +34,40 @@
 .leaveDateSelector {
   left: 180px;
 }
-.rooms {
+.people{
   left: 350px;
 }
 
 .calendarWrapper,
-.roomsDropdown {
+.peopleDropdown {
   position: absolute;
   background-color: #1a1a1a;
   padding: 0px;
   border-radius: 8px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 10;
+  
 }
 
-.roomsDropdown {
+input[type="date"] {
+  font-family: 'Press Start 2P', sans-serif; /* Usa la misma fuente retro-futurista */
+  font-size: 1rem;
+  color: white;
+  background-color: transparent;
+  border: 1px solid #ffe81f;
+  border-radius: 5px;
+  padding: 5px 10px;
+  width: auto; /* Ajuste automático al tamaño del texto */
+  box-sizing: border-box;
+}
+
+
+.peopleDropdown {
   border: 1px solid #ffe81f;
   width: auto;
 }
 
-.roomOption {
+.peopleOption {
   display: block;
   width: 100%;
   text-align: left;
@@ -64,7 +78,7 @@
   transition: background 0.2s;
 }
 
-.roomOption:hover {
+.peopleOption:hover {
   background-color: #f0f0f0;
 }
 
