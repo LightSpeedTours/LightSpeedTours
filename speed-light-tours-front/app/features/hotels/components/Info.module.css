@@ -73,3 +73,7 @@ ul {
     width: 100%; /* Se adapta al ancho disponible */
   }
 }
+
+.tourImage {
+  border-radius: 8px;
+}

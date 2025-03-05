@@ -24,7 +24,14 @@ export default function Info({ planet, planetInfo }: InfoProps) {
           <div key={lodging.id} className={styles.gridContainer}>
             {/* Sección de imágenes */}
             <div className={styles.imageContainer}>
+              <img
+              src={`/app/shared/assets/${lodging.name.replace(/\s+/g, "-").toLowerCase()}.png`}
+              alt={lodging.name || "Imagen del hospedaje"}
+              className={styles.tourImage}
+            />
+
             </div>
+
 
             {/* Sección de detalles */}
             <div className={styles.detailsContainer}>
