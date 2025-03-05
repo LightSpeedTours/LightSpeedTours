@@ -7,7 +7,6 @@ import {
     createLodgingController,
     updateLodgingController,
     deleteLodgingController,
-    getLodgingByPlanetController,
 } from '../controllers/LodgingController';
 
 const router = Router();

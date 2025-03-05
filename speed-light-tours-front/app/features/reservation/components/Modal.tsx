@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import '../app.css';
+import './modal.css';
 
 interface ReservationFormProps {
   isOpen: boolean;

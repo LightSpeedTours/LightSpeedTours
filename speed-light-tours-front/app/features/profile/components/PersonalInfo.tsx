@@ -1,5 +1,6 @@
 import React from 'react';
 import './personalInfo.css';
+import 'app/features/reservation/components/button.css'
 import DarthVader from 'app/shared/assets/Darth-Vader.png';
 import Button from 'app/features/reservation/components/Button';
 

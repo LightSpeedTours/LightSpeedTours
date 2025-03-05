@@ -165,35 +165,6 @@ body {
   margin-left: 12%;
 }
 
-button {
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-button.outline {
-  border: 1px solid #cbd5e0;
-  background-color: transparent;
-  color: #2d3748;
-  margin-bottom: 8px;
-}
-
-button.outline:hover {
-  background-color: #edf2f7;
-}
-
-button.destructive {
-  background-color: #c53030;
-  color: white;
-  border: 1px solid #cbd5e0;
-}
-
-button.destructive:hover {
-  background-color: #e53e3e;
-}
-
 .reservation-list {
   padding: 16px;
 }
@@ -205,105 +176,6 @@ button.destructive:hover {
   color: #2d3748;
   margin-left: 1%;
   margin-top: -0.5%;
-}
-
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.no-scroll {
-  overflow: hidden;
-}
-
-.modal-content {
-  background-color: white;
-  padding: 7vh;
-  width: 80vh;
-  height: 80vh;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: -2vh;
-  margin-bottom: 2vh;
-  font-size: large;
-}
-
-.close-button {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.input-section {
-  display: flex;
-  flex-direction: column;
-}
-
-.input-group-row {
-  display: flex;
-  justify-content: space-between;
-}
-
-.input-group {
-  margin-bottom: 20px;
-  width: 48%;
-}
-
-input {
-  width: 100%;
-  padding: 2%;
-  margin-top: 2%;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.price-title {
-  margin-bottom: 1%;
-  font-size: large;
-}
-
-.price-item {
-  display: flex;
-  justify-content: space-between;
-}
-
-.total {
-  font-weight: bold;
-}
-
-.modal-footer {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.reserve-button {
-  margin-top: 4vh;
-  padding: 10px 20px;
-  background-color: #45a049;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.reserve-button:hover {
-  background-color: #4caf50;
 }
 
 .modal-content-cancel {
@@ -375,15 +247,6 @@ input {
     color: #cbd5e0;
   }
 
-  button.outline {
-    border-color: #cbd5e0;
-    color: #e2e8f0;
-  }
-
-  button.outline:hover {
-    background-color: #4a5568;
-  }
-
   .header {
     background-color: #4a5568;
   }
@@ -405,65 +268,5 @@ input {
 
   .close-button {
     color: #e2e8f0;
-  }
-}
-
-@media (max-width: 820px) {
-  .card,
-  .reservation-card {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .card .left,
-  .reservation-card-left {
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .card .right,
-  .reservation-card-right {
-    width: 100%;
-    text-align: center;
-    margin-top: 16px;
-  }
-
-  .card .left .image-title,
-  .service-info {
-    width: 100%;
-    text-align: center;
-  }
-
-  .card .left .details,
-  .price-description {
-    width: 100%;
-    padding-left: 0;
-    text-align: center;
-  }
-
-  .reservation-info {
-    width: 100%;
-  }
-
-  .modal-content,
-  .modal-content-cancel {
-    width: 90%;
-    height: auto;
-    padding: 5vh;
-  }
-
-  .input-group {
-    width: 100%;
-  }
-
-  .input-group-row {
-    flex-direction: column;
-  }
-
-  .reserve-button,
-  .return-button,
-  .cancel-button {
-    width: 100%;
   }
 }
