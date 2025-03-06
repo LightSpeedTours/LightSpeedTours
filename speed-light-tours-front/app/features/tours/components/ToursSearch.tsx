@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './ToursSearch.module.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -25,9 +25,23 @@ export default function Search({
   selectedPlanets,
   setSelectedPlanets
 }: SearchProps) {
-  
   const [showStartCalendar, setShowStartCalendar] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest(`.${styles.calendarWrapper}`) && !target.closest(`.${styles.entryDateSelector}`)) {
+        setShowStartCalendar(false);
+      }
+    };
+
+    window.addEventListener('click', handleClickOutside);
+
+    return () => {
+      window.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -41,21 +55,18 @@ export default function Search({
     console.log('Buscando:', searchTerm);
   };
 
-  // Función para resetear todos los filtros
   const resetFilters = () => {
-    setSearchTerm(''); // ✅ Reiniciar el término de búsqueda
+    setSearchTerm('');
     setStartDate(undefined);
     setSelectedServices([]);
     setRating(0);
     setSelectedPlanets([]);
-    setShowStartCalendar(false); // ✅ Cerrar el calendario si está abierto
+    setShowStartCalendar(false);
   };
 
   return (
     <div className={styles.searchContainer}>
-      
-      {/* Botón de fecha de entrada */}
-      <div className={styles.entryDateSelector}>
+      <div className={styles.entryDateSelector} onClick={(e) => e.stopPropagation()}>
         <Button
           onClick={() => setShowStartCalendar(!showStartCalendar)}
           text={startDate ? `${startDate.toLocaleDateString()}` : 'Fecha'}
@@ -77,7 +88,6 @@ export default function Search({
         )}
       </div>
 
-      {/* Botón para limpiar los filtros */}
       <div className={styles.searchButton}>
         <Button text="Limpiar filtros" type="button" onClick={resetFilters} />
       </div>

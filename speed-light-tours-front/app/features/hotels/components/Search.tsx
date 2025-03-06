@@ -46,6 +46,30 @@ export default function Search({
     }
   }, []);
 
+  // Cerrar calendarios y dropdown al hacer clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (
+        !target.closest(`.${styles.calendarWrapper}`) &&
+        !target.closest(`.${styles.peopleDropdown}`) &&
+        !target.closest(`.${styles.entryDateSelector}`) &&
+        !target.closest(`.${styles.leaveDateSelector}`) &&
+        !target.closest(`.${styles.people}`)
+      ) {
+        setShowStartCalendar(false);
+        setShowEndCalendar(false);
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener('click', handleClickOutside);
+
+    return () => {
+      window.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
   const handleSelect = (people: number) => {
     setSelectedPeople(people);
     setIsOpen(false);
@@ -71,11 +95,12 @@ export default function Search({
         <h1>{capitalizeFirstLetter(planet) || 'Planeta'}</h1>
       </div>
 
-      <div className={styles.entryDateSelector}>
+      <div className={styles.entryDateSelector} onClick={(e) => e.stopPropagation()}>
         <Button
           onClick={() => {
             setShowStartCalendar(!showStartCalendar);
             setShowEndCalendar(false);
+            setIsOpen(false)
           }}
           text={startDate ? `${startDate.toLocaleDateString()}` : 'Entrada'}
           type="button"
@@ -87,6 +112,7 @@ export default function Search({
               onChange={(date) => {
                 setStartDate(date ?? undefined);
                 setShowStartCalendar(false);
+                setIsOpen(false)
               }}
               selectsStart
               startDate={startDate}
@@ -97,11 +123,12 @@ export default function Search({
         )}
       </div>
 
-      <div className={styles.leaveDateSelector}>
+      <div className={styles.leaveDateSelector} onClick={(e) => e.stopPropagation()}>
         <Button
           onClick={() => {
             setShowEndCalendar(!showEndCalendar);
             setShowStartCalendar(false);
+            setIsOpen(false)
           }}
           text={endDate ? `${endDate.toLocaleDateString()}` : 'Salida'}
           type="button"
@@ -113,6 +140,7 @@ export default function Search({
               onChange={(date) => {
                 setEndDate(date ?? undefined);
                 setShowEndCalendar(false);
+                setIsOpen(false)
               }}
               selectsEnd
               startDate={startDate}
@@ -124,15 +152,15 @@ export default function Search({
         )}
       </div>
 
-      <div className={styles.people}>
+      <div className={styles.people} onClick={(e) => e.stopPropagation()}>
         <Button
-          onClick={() => setIsOpen(!isOpen)}
-          text={selectedPeople ? `Habitaciones: ${selectedPeople}` : 'Huespedes'}
+          onClick={() => {setIsOpen(!isOpen); setShowEndCalendar(false); setShowEndCalendar(false) }}
+          text={selectedPeople ? `Huespedes: ${selectedPeople}` : 'Huespedes'}
           type="button"
         />
         {isOpen && (
           <div className={styles.peopleDropdown}>
-            {[1, 2, 3, 4, 5].map((people) => (
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((people) => (
               <button key={people} className={styles.peopleOption} onClick={() => handleSelect(people)}>
                 {people}
               </button>
