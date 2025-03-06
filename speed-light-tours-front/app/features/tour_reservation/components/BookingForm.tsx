@@ -108,10 +108,10 @@ const TourBookingForm: React.FC<Pick<TourProps, 'cost' | 'id' | 'duration'>> = (
       <div className="bg-white dark:bg-gray-700 p-4 rounded-md shadow-md">
         <h4 className="text-lg font-semibold mb-2">Precio</h4>
         <p className="text-sm flex justify-between">
-          <span>Precio por persona</span> <span>${(calculateTotal() * 0.9).toFixed(2)}</span>
+          <span>Precio por persona</span> <span>${(cost).toFixed(2)}</span>
         </p>
         <p className="text-sm flex justify-between">
-          <span>Tarifa por servicio (10%)</span> <span>${(calculateTotal() * 0.1).toFixed(2)}</span>
+          <span>Tarifa por servicio (10%)</span> <span>${(cost * 0.1).toFixed(2)}</span>
         </p>
         <p className="text-lg font-bold flex justify-between mt-2">
           <span>Total</span> <span>${calculateTotal().toFixed(2)}</span>

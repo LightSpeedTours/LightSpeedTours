@@ -35,6 +35,7 @@ const BookingForm: React.FC<Pick<LodgingProps, 'cost' | 'id'>> = ({ cost, id }) 
         Math.abs(checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 3600 * 24),
       );
       const guestsNum = parseInt(guests, 10) || 1;
+      console.log('guestsNum:', guestsNum, 'cost:', cost, 'daysDiff:', daysDiff);
       const basePrice = guestsNum * cost * daysDiff;
       const serviceFee = basePrice * 0.1;
       return basePrice + serviceFee;
@@ -135,10 +136,10 @@ const BookingForm: React.FC<Pick<LodgingProps, 'cost' | 'id'>> = ({ cost, id }) 
       <div className="bg-white dark:bg-gray-700 p-4 rounded-md shadow-md">
         <h4 className="text-lg font-semibold mb-2">Precio</h4>
         <p className="text-sm flex justify-between">
-          <span>Precio / noche x días</span> <span>${(calculateTotal() * 0.9).toFixed(2)}</span>
+          <span>Precio / noche x días</span> <span>${(cost).toFixed(2)}</span>
         </p>
         <p className="text-sm flex justify-between">
-          <span>Tarifa por servicio (10%)</span> <span>${(calculateTotal() * 0.1).toFixed(2)}</span>
+          <span>Tarifa por servicio (10%)</span> <span>${(cost * 0.1).toFixed(2)}</span>
         </p>
         <p className="text-lg font-bold flex justify-between mt-2">
           <span>Total</span> <span>${calculateTotal().toFixed(2)}</span>
