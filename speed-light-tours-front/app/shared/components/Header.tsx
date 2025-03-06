@@ -23,15 +23,17 @@ export default function Header() {
       <div className="w-full px-4 py-3 flex justify-between items-center bg-[#1A1A1A]">
         {/* Logo y Nombre */}
         <div className="flex items-center gap-4">
-          <a href="/landingPage" className="flex items-center gap-4">
+          <a href="/landingPage" className="flex items-center gap-4 text-[#FFE81F]">
             <span className="name">Light Speed Tours</span>
             <div className="w-12 h-12">
-              <img
-                src="/app/shared/assets/light-speed-tours.png"
-                alt="Light Speed Tours Logo"
-                className="w-full h-full object-cover"
-              />
-            </div>
+          <img
+            src="/app/shared/assets/light-speed-tours.png"
+            alt="Light Speed Tours Logo"
+            className="w-full h-full object-cover shadow-[0px_4px_10px_#FFE81F] rounded-full"
+          />
+        </div>
+
+
           </a>
         </div>
 

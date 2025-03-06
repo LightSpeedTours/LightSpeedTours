@@ -11,6 +11,8 @@ interface FiltersProps {
   setSelectedServices: (services: string[]) => void;
   rating: number;
   setRating: (rating: number) => void;
+  maxPrice: number;
+  setMaxPrice: (price: number) => void;
 }
 
 export default function Filters({
@@ -21,13 +23,18 @@ export default function Filters({
   setSelectedServices,
   rating,
   setRating,
+  maxPrice,
+  setMaxPrice,
 }: FiltersProps) {
   const [locations, setLocations] = useState<string[]>([]);
   const [services, setServices] = useState<string[]>([]);
+  const [priceRange, setPriceRange] = useState<number>(200); // Precio inicial
 
   useEffect(() => {
     // Extraer las ubicaciones únicas
-    const uniqueLocations = Array.from(new Set(lodgings.map((lodging) => lodging.location)));
+    const uniqueLocations = Array.from(
+      new Set(lodgings.map((lodging) => lodging.location))
+    );
     setLocations(uniqueLocations);
 
     // Extraer los servicios únicos
@@ -51,6 +58,12 @@ export default function Filters({
         ? selectedServices.filter((s) => s !== service)
         : [...selectedServices, service]
     );
+  };
+
+  const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newPrice = Number(event.target.value);
+    setPriceRange(newPrice);
+    setMaxPrice(newPrice);
   };
 
   return (
@@ -99,6 +112,19 @@ export default function Filters({
         </div>
       </div>
 
+
+      {/* Filtro por Precio */}
+      <div className={styles.filtroSection}>
+        <h3>Precio Máximo: ${priceRange}</h3>
+        <input
+          type="range"
+          min="0"
+          max="200"
+          value={priceRange}
+          onChange={handlePriceChange}
+          className={styles.priceSlider}
+        />
+      </div>
       {/* Filtro por Puntuación */}
       <div className={styles.filtroSection}>
         <h3>Puntuación</h3>

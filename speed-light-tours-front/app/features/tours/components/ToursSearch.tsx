@@ -11,6 +11,8 @@ interface SearchProps {
   setRating: React.Dispatch<React.SetStateAction<number>>;
   startDate: Date | undefined;
   setStartDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  selectedPlanets: string[];
+  setSelectedPlanets: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export default function Search({
@@ -19,7 +21,10 @@ export default function Search({
   rating,
   setRating,
   startDate,
-  setStartDate}: SearchProps) {
+  setStartDate,
+  selectedPlanets,
+  setSelectedPlanets
+}: SearchProps) {
   
   const [showStartCalendar, setShowStartCalendar] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -34,18 +39,21 @@ export default function Search({
       return;
     }
     console.log('Buscando:', searchTerm);
-    // petición a una API
   };
 
+  // Función para resetear todos los filtros
   const resetFilters = () => {
+    setSearchTerm(''); // ✅ Reiniciar el término de búsqueda
     setStartDate(undefined);
     setSelectedServices([]);
     setRating(0);
+    setSelectedPlanets([]);
+    setShowStartCalendar(false); // ✅ Cerrar el calendario si está abierto
   };
-
 
   return (
     <div className={styles.searchContainer}>
+      
       {/* Botón de fecha de entrada */}
       <div className={styles.entryDateSelector}>
         <Button
@@ -69,8 +77,7 @@ export default function Search({
         )}
       </div>
 
-
-      {/* Limpiar filtros */}
+      {/* Botón para limpiar los filtros */}
       <div className={styles.searchButton}>
         <Button text="Limpiar filtros" type="button" onClick={resetFilters} />
       </div>
