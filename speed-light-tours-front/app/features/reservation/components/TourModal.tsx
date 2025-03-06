@@ -1,12 +1,8 @@
 import React, { useEffect } from 'react';
-import './modal.css';
+import type { TourFormProps } from '../utils/ReservationTypes';
+import './lodgingModal.css';
 
-interface ReservationFormProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-const ReservationForm: React.FC<ReservationFormProps> = ({ isOpen, onClose }) => {
+const TourForm: React.FC<TourFormProps> = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add('no-scroll');
@@ -33,11 +29,6 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ isOpen, onClose }) =>
                 <label htmlFor="departure">Salida</label>
                 <input type="date" id="arrival" />
               </div>
-
-              <div className="input-group">
-                <label htmlFor="arrival">Regreso</label>
-                <input type="date" id="departure" />
-              </div>
             </div>
             <div className="input-group">
               <label htmlFor="guests">Huéspedes</label>
@@ -46,14 +37,6 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ isOpen, onClose }) =>
             <div className="price-section">
               <div className="price-title">
                 <h3>Precio</h3>
-              </div>
-              <div className="price-item">
-                <p>Precio / noche x días</p>
-                <p>$111.11</p>
-              </div>
-              <div className="price-item">
-                <p>Tarifa de limpieza</p>
-                <p>$111.11</p>
               </div>
               <div className="price-item">
                 <p>Tarifa por servicio</p>
@@ -75,4 +58,4 @@ const ReservationForm: React.FC<ReservationFormProps> = ({ isOpen, onClose }) =>
   );
 };
 
-export default ReservationForm;
+export default TourForm;

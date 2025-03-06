@@ -1,13 +1,8 @@
 import React, { useEffect } from 'react';
 import Button from './Button';
-import './modal.css';
+import type { CancelConfirmationModalProps } from '../utils/ReservationTypes';
+import './lodgingModal.css';
 import './cancelModal.css';
-
-interface CancelConfirmationModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onConfirm: (id: number) => void;
-}
 
 const CancelConfirmationModal: React.FC<CancelConfirmationModalProps> = ({
   isOpen,

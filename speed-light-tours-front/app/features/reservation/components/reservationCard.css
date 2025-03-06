@@ -1,5 +1,6 @@
 .reservation-card {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   justify-content: space-between;
   padding: 16px;
   border-radius: 16px;
@@ -10,11 +11,10 @@
 
 .reservation-card-left {
   display: flex;
-  width: 66.6%;
 }
 
 .service-info {
-  width: 40%;
+  width: 60%;
 }
 
 .service-title {
@@ -61,7 +61,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 20%;
+  width: 40%;
   text-align: center;
 }
 
@@ -71,7 +71,7 @@
 }
 
 .reservation-card-right {
-  width: 40%;
+  width: 30%;
   text-align: right;
 }
 
