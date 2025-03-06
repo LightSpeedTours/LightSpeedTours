@@ -26,9 +26,11 @@ export default function Filters({
   const [services, setServices] = useState<string[]>([]);
 
   useEffect(() => {
+    // Extraer las ubicaciones únicas
     const uniqueLocations = Array.from(new Set(lodgings.map((lodging) => lodging.location)));
     setLocations(uniqueLocations);
 
+    // Extraer los servicios únicos
     const allServices = lodgings.flatMap((lodging) =>
       lodging.services ? lodging.services.map((service) => service.name) : []
     );
@@ -37,13 +39,17 @@ export default function Filters({
 
   const handleLocationChange = (loc: string) => {
     setSelectedLocations(
-      selectedLocations.includes(loc) ? selectedLocations.filter((l) => l !== loc) : [...selectedLocations, loc]
+      selectedLocations.includes(loc)
+        ? selectedLocations.filter((l) => l !== loc)
+        : [...selectedLocations, loc]
     );
   };
 
   const handleServiceChange = (service: string) => {
     setSelectedServices(
-      selectedServices.includes(service) ? selectedServices.filter((s) => s !== service) : [...selectedServices, service]
+      selectedServices.includes(service)
+        ? selectedServices.filter((s) => s !== service)
+        : [...selectedServices, service]
     );
   };
 
@@ -51,13 +57,18 @@ export default function Filters({
     <div className={styles.filtersContainer}>
       <h2>Filtros</h2>
 
+      {/* Filtro por Localidad */}
       <div className={styles.filtroSection}>
         <h3>Localidad</h3>
         <div className={styles.checkboxGroup}>
           {locations.length > 0 ? (
             locations.map((loc) => (
               <label key={loc}>
-                <input type="checkbox" checked={selectedLocations.includes(loc)} onChange={() => handleLocationChange(loc)} />
+                <input
+                  type="checkbox"
+                  checked={selectedLocations.includes(loc)}
+                  onChange={() => handleLocationChange(loc)}
+                />
                 {loc}
               </label>
             ))
@@ -67,13 +78,18 @@ export default function Filters({
         </div>
       </div>
 
+      {/* Filtro por Servicios */}
       <div className={styles.filtroSection}>
         <h3>Servicios</h3>
         <div className={styles.checkboxGroup}>
           {services.length > 0 ? (
             services.map((service) => (
               <label key={service}>
-                <input type="checkbox" checked={selectedServices.includes(service)} onChange={() => handleServiceChange(service)} />
+                <input
+                  type="checkbox"
+                  checked={selectedServices.includes(service)}
+                  onChange={() => handleServiceChange(service)}
+                />
                 {service}
               </label>
             ))
@@ -83,6 +99,7 @@ export default function Filters({
         </div>
       </div>
 
+      {/* Filtro por Puntuación */}
       <div className={styles.filtroSection}>
         <h3>Puntuación</h3>
         <RatingSlider value={rating} onChange={setRating} />
