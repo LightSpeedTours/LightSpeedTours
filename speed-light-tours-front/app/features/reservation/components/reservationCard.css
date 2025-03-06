@@ -1,20 +1,21 @@
 .reservation-card {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  justify-content: space-between;
+  grid-template-columns: 1fr 1fr;
   padding: 16px;
   border-radius: 16px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   background-color: #f7fafc;
-  margin-bottom: 16px;
+  gap: 5vw;
 }
 
 .reservation-card-left {
   display: flex;
+  overflow: hidden;
+  word-break: break-all;
 }
 
 .service-info {
-  width: 60%;
+  width: 70%;
 }
 
 .service-title {
@@ -27,15 +28,11 @@
 
 .service-image {
   width: 100%;
-  height: 128px;
-  object-fit: cover;
   border-radius: 8px;
-  margin-bottom: 1%;
 }
 
 .price-description {
   padding-left: 16px;
-  width: 40%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -60,36 +57,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  width: 40%;
-  text-align: center;
+  align-items: left;
 }
 
 .reservation-info p {
   text-align: left;
-  width: 100%;
-}
-
-.reservation-card-right {
-  width: 30%;
-  text-align: right;
-}
-
-.countdown {
-  font-weight: 600;
-  color: #2d3748;
-}
-
-.modify-button,
-.destructive-button {
-  margin: 8px 0;
-}
-
-.time-limit {
-  font-size: 0.75rem;
-  color: #a0aec0;
-  display: inline-block;
-  margin-left: 12%;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -108,13 +80,5 @@
 
   .reservation-info {
     color: #e2e8f0;
-  }
-
-  .countdown {
-    color: #e2e8f0;
-  }
-
-  .time-limit {
-    color: #cbd5e0;
   }
 }

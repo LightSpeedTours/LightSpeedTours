@@ -1,14 +1,21 @@
 .reservation-list {
   padding: 16px;
+  display: grid;
+  grid-template-columns: 3.2fr 1.8fr;
+  gap: 25px;
+  margin-left: 1.5vw;
+  margin-right: 1.5vw;
+  justify-content: center;
+  align-items: center;
 }
 
 .reservation-list-title {
   font-size: 200%;
   font-weight: 600;
-  margin-bottom: 1.5%;
+  margin-bottom: 0.5vh;
   color: #2d3748;
-  margin-left: 1%;
-  margin-top: -0.5%;
+  margin-left: 1vw;
+  margin-top: 1vh;
 }
 
 @media (prefers-color-scheme: dark) {

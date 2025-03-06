@@ -46,14 +46,16 @@ export interface ReservationCardProps {
   location: string;
   dates: string;
   people: string;
-  countDown: string;
-  timeLimitModify: string;
-  timeLimitCancel: string;
   imageSrc: string;
-  onCancelClick: () => void;
 }
 
 export interface TourFormProps {
   isOpen: boolean;
   onClose: () => void;
+}
+
+export interface ReservationButtonsProps {
+  service: string;
+  countDown: string;
+  onCancelClick: () => void;
 }

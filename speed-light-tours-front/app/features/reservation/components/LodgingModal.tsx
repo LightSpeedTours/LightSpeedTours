@@ -48,11 +48,7 @@ const LodgingForm: React.FC<LodgingFormProps> = ({ isOpen, onClose }) => {
                 <p>$111.11</p>
               </div>
               <div className="price-item">
-                <p>Tarifa de limpieza</p>
-                <p>$111.11</p>
-              </div>
-              <div className="price-item">
-                <p>Tarifa por servicio</p>
+                <p>Tarifa por servicio (10%)</p>
                 <p>$111.11</p>
               </div>
               <div className="price-item total">
