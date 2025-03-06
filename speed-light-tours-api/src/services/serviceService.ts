@@ -43,3 +43,16 @@ export const getToursByServiceId = async (serviceId: number): Promise<Tour[]> =>
         throw error;
     }
 };
+
+/**
+ * Servicio para obtener todos los servicios.
+ */
+export const getAllServices = async (): Promise<Service[]> => {
+    try {
+        return await Service.findAll({
+            attributes: ['id', 'name', 'description'],
+        });
+    } catch (error) {
+        throw error;
+    }
+};
