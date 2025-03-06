@@ -34,13 +34,17 @@ export default function Info({ planet, planetInfo }: InfoProps) {
             </div>
 
 
-            {/* Sección de detalles */}
             <div className={styles.detailsContainer}>
-              <h2>{lodging.name || 'Hospedaje'}</h2>
-              <h3>{lodging.location || 'Dirección del hospedaje'}</h3>
-              <p>{lodging.description || 'Descripcion del hospedaje'}</p>
+            <h2>{lodging.name || 'Hospedaje'}</h2>
+            <h3>{lodging.location || 'Dirección del hospedaje'}</h3>
+            <p>{lodging.description || 'Descripción del hospedaje'}</p>
+
+            {/* Contenedor centrado para el StarRating */}
+            <div className="flex justify-center items-center w-full">
               <StarRating rating={ratings[lodging.id] || 0} />
             </div>
+          </div>
+
 
             {/* Sección de precio */}
             <div className={styles.priceContainer}>
