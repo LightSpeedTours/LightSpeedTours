@@ -8,7 +8,6 @@ import {
     BelongsToMany,
     Unique,
     HasMany,
-    AllowNull,
 } from 'sequelize-typescript';
 import Service from './ServiceModel';
 import Comment from './CommentModel';

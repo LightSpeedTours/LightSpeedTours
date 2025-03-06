@@ -3,6 +3,7 @@ import Button from '../../../shared/components/Button';
 import StarRating from '../../../shared/components/StarRating';
 import styles from './Info.module.css';
 import type { Lodging, Service, LodgingService } from "../utils/LodgingsTypes";
+import planetsImages from '../../../shared/utils/planetsImagesLists'; 
 
 
 interface InfoProps {
@@ -25,9 +26,9 @@ export default function Info({ planet, planetInfo }: InfoProps) {
             {/* Sección de imágenes */}
             <div className={styles.imageContainer}>
               <img
-              src={`/app/shared/assets/${lodging.name.replace(/\s+/g, "-").toLowerCase()}.png`}
+              src={`/app/shared/assets/hospedajes/${lodging.name.replace(/\s+/g, "-").toLowerCase()}.png`}
               alt={lodging.name || "Imagen del hospedaje"}
-              className={styles.tourImage}
+              className={styles.image}
             />
 
             </div>
@@ -45,7 +46,7 @@ export default function Info({ planet, planetInfo }: InfoProps) {
             <div className={styles.priceContainer}>
               <h2>Precio</h2>
               <h2>${lodging.cost || 'Información del precio no disponible'}</h2>
-              <p>Precio por noche</p>
+              <p>Valor por noche por persona</p>
               <a href='/hotelReservation'>
               <Button text="Reservar" type="button" />
               </a>
@@ -53,7 +54,22 @@ export default function Info({ planet, planetInfo }: InfoProps) {
           </div>
         ))
       ) : (
-        <div>Selecciona un planeta</div>
+          <div className={styles.planetsImagesContainer}>
+              {Object.entries(planetsImages).map(([planetName, imageUrl]) => (
+              <a
+                key={planetName}
+                href={`/hotels?planet=${planetName.toLowerCase()}`}
+                aria-label={`Ver hospedajes en ${planetName}`}
+              >
+                <button className="rounded-full bg-[#2C2C2C] flex-shrink-0 overflow-hidden border-2 border-[#FFE81F] transition-transform hover:scale-110">
+                  <img
+                    src={imageUrl}
+                    alt={planetName}
+                    className="w-full h-full object-cover"
+                  />
+                </button>
+              </a>))}
+        </div>
       )}
     </div>
   );

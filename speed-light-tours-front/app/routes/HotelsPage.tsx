@@ -39,6 +39,7 @@ export default function HotelsPage() {
 
           const data = await response.json();
           setPlanetInfo(Array.isArray(data) ? data : []);
+
         } catch (error) {
           console.error("Error al obtener la información:", error);
           setPlanetInfo([]);
@@ -86,8 +87,8 @@ export default function HotelsPage() {
           setStartDate={setStartDate}
           endDate={endDate}
           setEndDate={setEndDate}
-          selectedRooms={selectedRooms}
-          setSelectedRooms={setSelectedRooms}
+          selectedPeople={selectedRooms}
+          setSelectedPeople={setSelectedRooms}
         />
       </div>
       <div className={styles.contentContainer}>
