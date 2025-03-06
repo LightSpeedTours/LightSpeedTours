@@ -1,11 +1,10 @@
-.searchContainer {
-  display: flex;
-  flex-wrap: wrap;
-  position: relative;
-  width: 100%;
-  padding: 20px;
-}
 
+.searchButton {
+  position: absolute;
+  top: 0px;
+  right: 20px;
+  z-index: 5;
+}
 .buttonStyle {
   padding: 0px;
   color: black;
@@ -15,27 +14,36 @@
   text-align: center;
   transition: background 0.3s;
 }
-
-.entryDateSelector {
-  position: absolute;
-  top: 0px;
+.searchContainer {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  width: 100%;
+  padding: 20px;
 }
+
 
 .entryDateSelector,
 .leaveDateSelector,
-.people{
+.people {
   position: absolute;
   top: 0px;
+  z-index: 5;
 }
 
 .entryDateSelector {
   left: 20px;
+  z-index: 70;
 }
+
 .leaveDateSelector {
-  left: 180px;
+  left: 250px;
+  z-index: 60;
 }
-.people{
-  left: 350px;
+
+.people {
+  left: 450px;
+  z-index: 40;
 }
 
 .calendarWrapper,
@@ -46,25 +54,25 @@
   border-radius: 8px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 10;
-  
 }
 
+
 input[type="date"] {
-  font-family: 'Press Start 2P', sans-serif; /* Usa la misma fuente retro-futurista */
+  font-family: 'Press Start 2P', sans-serif;
   font-size: 1rem;
   color: white;
   background-color: transparent;
   border: 1px solid #ffe81f;
   border-radius: 5px;
   padding: 5px 10px;
-  width: auto; /* Ajuste automático al tamaño del texto */
+  width: auto;
   box-sizing: border-box;
 }
-
 
 .peopleDropdown {
   border: 1px solid #ffe81f;
   width: auto;
+  z-index: 10;
 }
 
 .peopleOption {
@@ -79,48 +87,67 @@ input[type="date"] {
 }
 
 .peopleOption:hover {
-  background-color: #f0f0f0;
+  background-color: black;
 }
 
 .planeta {
   position: absolute;
   left: 330px;
   top: 80px;
+  z-index: 1;
 }
 
-.typeBar {
-  position: absolute;
-  top: 0px;
-  right: 20px;
-  padding: 8px;
-  border: 1px solid #ffe81f;
-  border-radius: 8px;
-  width: 300px;
-  text-align: center;
-  background-color: #1a1a1a;
-}
 
-.searchButton {
-  position: absolute;
-  top: 0px;
-  right: 20px;
+
+@media (max-width: 1024px) {
+  .entryDateSelector {
+    left: 10px;
+    z-index: 60;
+  }
+
+  .leaveDateSelector {
+    left: 200px;
+    z-index: 50;
+  }
+
+  .people {
+    left: 400px;
+    z-index: 40;
+  }
 }
 
 @media (max-width: 768px) {
   .entryDateSelector,
   .leaveDateSelector,
-  .rooms,
-  .typeBar,
+  .people,
   .searchButton {
     position: static;
     width: 100%;
     margin-bottom: 10px;
+    z-index: 5;
+  }
+  .entryDateSelector {
+    z-index: 60;
+  }
+
+  .leaveDateSelector {
+    z-index: 50;
+  }
+
+  .people {
+    z-index: 40;
   }
 
   .searchContainer {
     display: flex;
     flex-direction: column;
-    align-items: left;
+    align-items: flex-start;
+    min-height: auto;
   }
 
+  .planeta{position: static;
+    width: 100%;
+    margin-bottom: 10px;
+    z-index: 5;}
 }
+
