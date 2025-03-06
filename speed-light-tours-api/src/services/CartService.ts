@@ -3,6 +3,8 @@ import Reservation from '../models/ReservationModel';
 import Order from '../models/OrderModel';
 import { makeErrorResponse } from '../utils/ErrorHandler';
 import { Transaction } from 'sequelize';
+import Lodging from '../models/LodgingModel';
+import Tour from '../models/TourModel';
 
 /**
  * ✅ Obtener el carrito del usuario autenticado con sus reservas
@@ -10,7 +12,23 @@ import { Transaction } from 'sequelize';
 export const getUserCart = async (userId: number) => {
     let cart = await Cart.findOne({
         where: { userId },
-        include: [Reservation],
+        include: [
+            {
+                model: Reservation,
+                include: [
+                    {
+                        model: Lodging,
+                        attributes: ['name', 'planet', 'location', 'description'],
+                        required: false,
+                    },
+                    {
+                        model: Tour,
+                        attributes: ['name', 'planet', 'description'],
+                        required: false,
+                    },
+                ],
+            },
+        ],
     });
     if (!cart) {
         cart = await Cart.create({ userId: userId, totalPrice: 0 });
@@ -24,7 +42,23 @@ export const getUserCart = async (userId: number) => {
 export const getUserOrders = async (userId: number) => {
     return await Order.findOne({
         where: { userId },
-        include: ['reservations'],
+        include: [
+            {
+                model: Reservation,
+                include: [
+                    {
+                        model: Lodging,
+                        attributes: ['name', 'planet', 'location', 'description'],
+                        required: false,
+                    },
+                    {
+                        model: Tour,
+                        attributes: ['name', 'planet', 'description'],
+                        required: false,
+                    },
+                ],
+            },
+        ],
     });
 };
 
