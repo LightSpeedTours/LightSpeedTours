@@ -12,7 +12,6 @@ import Lodging from './LodgingModel';
 import Tour from './TourModel';
 import LodgingService from './LodgingServiceModel';
 import TourService from './TourServiceModel';
-import { STATUS } from '../utils/types/EnumTypes';
 
 @Table({ tableName: 'services', timestamps: false })
 export default class Service extends Model {
