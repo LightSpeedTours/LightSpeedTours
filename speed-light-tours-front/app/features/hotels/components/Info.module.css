@@ -3,7 +3,7 @@
 .infoContainer {
   padding: 0px;
   position: absolute;
-  top: 400px;
+  top: 420px;
   left: 320px;
   margin-right: 20px;
   margin-bottom: 50px;
@@ -86,8 +86,8 @@ ul {
 .planetsImagesContainer{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    row-gap: 30px;
-    column-gap: 20px;
+    row-gap: 40px;
+    column-gap: 40px;
     width: 100%;
     padding: 20px;
 
