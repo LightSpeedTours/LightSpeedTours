@@ -2,6 +2,7 @@ import { Sequelize } from 'sequelize-typescript';
 import dotenv from 'dotenv';
 import path from 'path';
 
+
 dotenv.config();
 
 const sequelize = new Sequelize({
@@ -14,5 +15,18 @@ const sequelize = new Sequelize({
     models: [path.resolve(__dirname, '../models')],
     logging: false,
 });
+
+// (async () => {
+//     try {
+//         await sequelize.authenticate();
+//         console.log('✅ Conexión a la base de datos establecida correctamente.');
+
+//         await sequelize.sync({ alter: true });
+//         console.log('✅ Base de datos sincronizada correctamente.');
+
+//     } catch (error) {
+//         console.error('❌ Error al conectar o sincronizar la base de datos:', error);
+//     }
+// })();
 
 export default sequelize;

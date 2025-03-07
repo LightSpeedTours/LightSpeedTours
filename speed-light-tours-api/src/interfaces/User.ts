@@ -1,6 +1,6 @@
 import {USER_ROLS, GENDER} from '../utils/types/EnumTypes'
 
-export interface User{
+export interface IUser{
     rol: typeof USER_ROLS,
     id: string;
     name: string,

@@ -1,8 +1,8 @@
-// controllers/AuthController.ts
 import { Request, Response, NextFunction } from 'express';
 import AuthService from '../services/AuthService';
 import { handleErrorResponse, makeErrorResponse, successResponse } from '../utils/ErrorHandler';
-
+import User from '../models/UserModel';
+import { promises } from 'dns';
 export class AuthController {
   private authService: AuthService;
 
@@ -10,11 +10,12 @@ export class AuthController {
     this.authService = new AuthService();
   }
 
-  async login(req: Request, res: Response) {
+  // Usa una función de flecha para preservar el contexto de 'this'
+  login = async (req: Request, res: Response) : Promise<void> => {
     try {
       const { email, password } = req.body;
-
-      // Validate input
+      
+      // Middleware: Validate input
       if (!email || !password) {
         makeErrorResponse(400, 'Email and password are required');
       }
@@ -29,10 +30,25 @@ export class AuthController {
     }   
   }
 
-  async signin(req: Request, res: Response){
+  signin = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { name, user_name, email, password, date_of_birth, gender, ocupation, contact } = req.body;
 
-  }
+      // Validate required fields
+      if (!name || !user_name || !email || !password || !date_of_birth) {
+        throw makeErrorResponse(400, 'All required fields must be provided');
+      }
 
+      // Call signup service
+      const token = await this.authService.signup(name, user_name, email, password, date_of_birth, gender, ocupation, contact);
+
+      // Return successful signup response
+      successResponse(res, { token }, 'User registered successfully');
+    } catch (error) {
+      handleErrorResponse(res, error);
+    }
+  };
   
-
 }
+  
+export default new AuthController();

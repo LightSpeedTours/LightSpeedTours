@@ -23,14 +23,14 @@ export class User extends Model {
     type: DataType.STRING,
     allowNull: false
   })
-  declare nombre: string;
+  declare name: string;
 
   @Unique
   @Column({
     type: DataType.STRING,
     allowNull: false
   })
-  declare nombre_usuario: string;
+  declare user_name: string;
 
   @Unique
   @Column({
@@ -40,43 +40,43 @@ export class User extends Model {
       isEmail: true
     }
   })
-  declare correo: string;
+  declare email: string;
 
   @Column({
     type: DataType.DATEONLY,
     allowNull: false
   })
-  declare fecha_nacimiento: Date;
+  declare date_of_birth: Date;
 
   @Column({
     type: DataType.STRING,
     allowNull: false
   })
-  declare contraseña: string;
+  declare password: string;
 
   @Column({
     type: DataType.ENUM(...Object.values(GENDER)),
     allowNull: true
   })
-  genero?: string;
+  gender?: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: true
   })
-  ocupacion?: string;
+  ocupation?: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: true
   })
-  telefono?: string;
+  contact?: string;
 
   // Método para validar la contraseña (será útil para autenticación)
-  async validarContraseña(contraseñaPlana: string): Promise<boolean> {
-    const bcrypt = require('bcryptjs');
-    return await bcrypt.compare(contraseñaPlana, this.contraseña);
-  }
+  // async validatePassword(plainPassword: string): Promise<boolean> {
+  //   return await bcrypt.compare(plainPassword, this.password);
+  // }
+  
 }
 
 export default User;
