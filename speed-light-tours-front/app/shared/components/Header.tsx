@@ -24,7 +24,7 @@ export default function Header() {
       <div className="w-full px-4 py-3 flex justify-between items-center bg-[#1A1A1A]">
         {/* Logo y Nombre */}
         <div className="flex items-center gap-4">
-          <Link to="/landingPage" className="flex items-center gap-4">
+          <Link to="/" className="flex items-center gap-4">
             <span className="name">Light Speed Tours</span>
             <div className="w-12 h-12">
               <img
@@ -46,7 +46,7 @@ export default function Header() {
           <Link to="/reservations">
             <Button text="Mis reservas" />
           </Link>
-          <Link to="/profile">
+          <Link to="/login">
             <button className="text-[#FFE81F] p-2 rounded hover:bg-[#2C2C2C] transition-colors">
               <User className="h-5 w-5" />
             </button>
@@ -65,7 +65,7 @@ export default function Header() {
       {/* Menú desplegable en móviles */}
       {menuOpen && (
         <div className="md:hidden bg-[#1A1A1A] flex flex-col items-center gap-4 p-4 border-y border-[#2C2C2C]">
-          <Link to="/landingPage">
+          <Link to="/">
             <Button text="Inicio" />
           </Link>
           <Link to="/tours">
@@ -101,7 +101,7 @@ export default function Header() {
       {/* Bottom Navigation */}
       <div className="w-full bg-[#1A1A1A] px-4 py-4 flex flex-col md:flex-row justify-between items-center">
         <div className="flex flex-wrap justify-center gap-4">
-          <Link to="/landingPage">
+          <Link to="/">
             <Button text="Inicio" />
           </Link>
           <Link to="/hotels">
