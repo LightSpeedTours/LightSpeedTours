@@ -1,6 +1,4 @@
 import { User, KeyRound, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
-
 export default function Login() {
   return (
     <div className="grid min-h-screen grid-cols-1 lg:grid-cols-2">

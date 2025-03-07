@@ -3,6 +3,7 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 
+
 interface Promotion {
   id: string;
   price: string;

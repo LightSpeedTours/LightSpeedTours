@@ -4,6 +4,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from '../../../shared/components/Button';
 
+
+//Estado inicial de las busquedas (similar al de los filtros)
 interface SearchProps {
   selectedServices: string[];
   setSelectedServices: React.Dispatch<React.SetStateAction<string[]>>;
@@ -28,6 +30,7 @@ export default function Search({
   const [showStartCalendar, setShowStartCalendar] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
+  //Ocultar calendarios al hacer clic por fuerta
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -43,18 +46,7 @@ export default function Search({
     };
   }, []);
 
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const handleSubmit = () => {
-    if (searchTerm.trim() === '') {
-      alert('Por favor ingresa un término de búsqueda');
-      return;
-    }
-    console.log('Buscando:', searchTerm);
-  };
-
+  //Funcion para reiniciar filtros
   const resetFilters = () => {
     setSearchTerm('');
     setStartDate(undefined);
@@ -66,6 +58,7 @@ export default function Search({
 
   return (
     <div className={styles.searchContainer}>
+      {/* Calendario de entrada*/}
       <div className={styles.entryDateSelector} onClick={(e) => e.stopPropagation()}>
         <Button
           onClick={() => setShowStartCalendar(!showStartCalendar)}
@@ -87,7 +80,7 @@ export default function Search({
           </div>
         )}
       </div>
-
+      {/* Limpiar filtros */}
       <div className={styles.searchButton}>
         <Button text="Limpiar filtros" type="button" onClick={resetFilters} />
       </div>

@@ -1,5 +1,4 @@
 import { Calendar } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 export default function SignupPage() {
   return (
@@ -122,16 +121,15 @@ export default function SignupPage() {
 
             {/* Submit Button */}
             <div className="mt-8">
-                <Link to="/">
-                  <button
-                    type="submit"
-                    className="w-full rounded-md bg-[#FFE81F] py-2 px-4 text-black font-semibold hover:bg-[#FFD700] 
+              <button
+                type="submit"
+                className="w-full rounded-md bg-[#FFE81F] py-2 px-4 text-black font-semibold hover:bg-[#FFD700] 
                 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#FFE81F] focus:ring-offset-2 
                 focus:ring-offset-[#2C2C2C]"
-                  >
-                    Crear cuenta
-                  </button>
-                </Link>
+              >
+                Crear cuenta
+              </button>
+
             </div>
           </form>
         </div>
