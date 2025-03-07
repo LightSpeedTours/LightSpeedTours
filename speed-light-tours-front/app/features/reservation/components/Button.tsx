@@ -1,12 +1,6 @@
 import React from 'react';
+import type { ButtonProps } from '../utils/ReservationTypes';
 import './button.css';
-
-interface ButtonProps {
-  children: React.ReactNode;
-  variant: 'outline' | 'destructive';
-  className?: string;
-  onClick?: () => void;
-}
 
 const Button: React.FC<ButtonProps> = ({ children, variant, className, onClick }) => {
   const baseStyle = 'button';

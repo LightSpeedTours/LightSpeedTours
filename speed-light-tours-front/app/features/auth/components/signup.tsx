@@ -1,4 +1,5 @@
 import { Calendar } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const starWarsColors = {
   primary: '#FFE81F', // Star Wars Yellow
@@ -136,12 +137,14 @@ export default function SignupPage() {
 
             {/* Submit Button */}
             <div className="mt-8">
-              <button
-                type="submit"
-                className="w-full rounded-md bg-[#FFE81F] py-2 px-4 text-black font-semibold hover:bg-[#FFD700] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#FFE81F] focus:ring-offset-2 focus:ring-offset-[#2C2C2C]"
-              >
-                Crear cuenta
-              </button>
+                <Link to="/">
+                  <button
+                    type="submit"
+                    className="w-full rounded-md bg-[#FFE81F] py-2 px-4 text-black font-semibold hover:bg-[#FFD700] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#FFE81F] focus:ring-offset-2 focus:ring-offset-[#2C2C2C]"
+                  >
+                    Crear cuenta
+                  </button>
+                </Link>
             </div>
           </form>
         </div>

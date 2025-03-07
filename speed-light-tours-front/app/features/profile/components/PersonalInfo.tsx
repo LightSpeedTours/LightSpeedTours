@@ -1,17 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './personalInfo.css';
-import DarthVader from 'app/shared/assets/Darth-Vader.png';
+import 'app/features/reservation/components/button.css';
 import Button from 'app/features/reservation/components/Button';
+import EditModal from './EditModal';
 
-const PersonalInfo: React.FC = () => {
+import type { AccountDetailsProps } from '../utils/types';
+
+interface PersonalInfoProps {
+  accountDetails: AccountDetailsProps;
+}
+
+const PersonalInfo: React.FC<PersonalInfoProps> = ({ accountDetails }) => {
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [profileImage, setProfileImage] = useState(accountDetails.profileImage);
+
+  const handleEditClick = () => {
+    setModalOpen(true);
+  };
+
+  const handleSave = (updatedDetails: AccountDetailsProps) => {
+    setProfileImage(updatedDetails.profileImage);
+  };
+
   return (
     <div className="profile-details">
       <div className="personal-pic">
-        <img src={DarthVader} alt="Profile" className="profile-pic" />
+        <img src={profileImage} alt="Profile" className="profile-pic" />
       </div>
-      <Button className="button" variant="outline">
+      <Button className="button" variant="outline" onClick={handleEditClick}>
         Editar
       </Button>
+      <EditModal
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        onSave={handleSave}
+        accountDetails={accountDetails}
+      />
     </div>
   );
 };

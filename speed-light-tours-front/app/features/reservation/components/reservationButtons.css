@@ -1,0 +1,42 @@
+.button-group{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1.5vw;
+}
+
+.time-limit-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	justify-content: left;
+	align-items: left;
+	gap: 3vw;
+}
+
+.countdown {
+	font-weight: 600;
+	color: #2d3748;
+	text-align: center;
+	margin-bottom: 12%;
+}
+
+.modify-button,
+.destructive-button {
+	margin: 8px 0;
+}
+
+.time-limit {
+	font-size: 0.75rem;
+	color: #a0aec0;
+	display: inline-block;
+	margin-left: 12%;
+}
+
+@media (prefers-color-scheme: dark) {
+	.countdown {
+		color: #e2e8f0;
+	}
+
+	.time-limit {
+		color: #cbd5e0;
+	}
+}

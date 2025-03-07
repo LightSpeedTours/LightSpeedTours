@@ -1,15 +1,6 @@
 import React from 'react';
 import './accountDetails.css';
-
-interface AccountDetailsProps {
-  name: string;
-  username: string;
-  email: string;
-  password: string;
-  date: string;
-  gender: string;
-  occupation: string;
-}
+import type { AccountDetailsProps } from '../utils/types';
 
 const AccountDetails: React.FC<AccountDetailsProps> = ({
   name,
