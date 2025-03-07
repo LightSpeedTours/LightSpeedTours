@@ -65,8 +65,8 @@ const TourForm: React.FC<Pick<TourFormProps, 'cost' | 'id' | 'duration' | 'quant
       entityId: id,
       quantity: parseInt(attendees, 10),
       subtotal: calculateTotal(),
-      startDate: selectedDate?.toISOString() || '',
-      endDate: getEndDate()?.toISOString() || '', // TODO: Adjust endDate if needed
+      startDate: selectedDate || new Date(),
+      endDate: getEndDate() || new Date(), 
     };
 
     try {

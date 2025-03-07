@@ -58,8 +58,8 @@ const TourBookingForm: React.FC<Pick<TourProps, 'cost' | 'id' | 'duration'>> = (
       entityId: id,
       quantity: parseInt(attendees, 10),
       subtotal: calculateTotal(),
-      startDate: selectedDate?.toISOString() || '',
-      endDate: getEndDate()?.toISOString() || '', // TODO: Adjust endDate if needed
+      startDate: selectedDate || new Date(),
+      endDate: getEndDate() || new Date(), // TODO: Adjust endDate if needed
     };
 
     try {

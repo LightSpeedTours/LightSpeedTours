@@ -90,8 +90,8 @@ const LodgingForm: React.FC<Pick<LodgingFormProps, 'cost' | 'id' | 'quantity' | 
         entityId: id,
         quantity: parseInt(guests, 10),
         subtotal: calculateTotal(),
-        startDate: selectedDates[0]?.toISOString() || '',
-        endDate: selectedDates[1]?.toISOString() || '',
+        startDate: selectedDates[0] || new Date(),
+        endDate: selectedDates[1] || new Date(),
       };
   
       try {
