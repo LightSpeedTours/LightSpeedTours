@@ -3,6 +3,7 @@ import RatingSlider from "../../../shared/components/RatingSlider";
 import styles from "./ToursFilters.module.css";
 import type { Tour } from "../utils/ToursTypes";
 
+//Estado inicial de los filtros
 interface FiltersProps {
   tours: Tour[];
   selectedServices: string[];
@@ -28,11 +29,10 @@ export default function Filters({
   setSelectedPlanets,
   resetFilters,
 }: FiltersProps) {
-  const servicesList = ["WiFi", "Desayuno", "Guía turístico", "Transporte"];
-  const [priceRange, setPriceRange] = useState<number>(200);
+  const [priceRange, setPriceRange] = useState<number>(maxPrice);
   const [planetsList, setPlanetsList] = useState<string[]>([]);
 
-  // Obtener la lista de planetas únicos desde los tours
+  //Obtener la lista de planetas únicos 
   useEffect(() => {
     if (tours.length > 0) {
       const uniquePlanets = Array.from(
@@ -42,19 +42,19 @@ export default function Filters({
     }
   }, [tours]);
 
-  // Sincroniza el precio máximo si cambia externamente
+  //Sincronizar el precio máximo si cambia externamente
   useEffect(() => {
     setPriceRange(maxPrice);
   }, [maxPrice]);
 
-  // Cambio del filtro de precio
+  //Seleccion de precios
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newPrice = Number(event.target.value);
     setPriceRange(newPrice);
     setMaxPrice(newPrice);
   };
 
-  // Cambio del filtro de planetas
+  //Seleccion de planetas
   const handlePlanetChange = (planet: string) => {
     setSelectedPlanets((prev) =>
       prev.includes(planet)
@@ -63,16 +63,8 @@ export default function Filters({
     );
   };
 
-  // Cambio del filtro de servicios
-  const handleServiceChange = (service: string) => {
-    setSelectedServices((prev) =>
-      prev.includes(service)
-        ? prev.filter((s) => s !== service)
-        : [...prev, service]
-    );
-  };
 
-  // Alternar "Seleccionar todos" o "Deseleccionar todos" los planetas
+  //"Seleccionar todos" o "Deseleccionar todos" los planetas
   const toggleSelectAllPlanets = () => {
     if (selectedPlanets.length === planetsList.length) {
       setSelectedPlanets([]);
@@ -85,7 +77,7 @@ export default function Filters({
     <div className={styles.filtersContainer}>
       <h2>Filtros</h2>
 
-      {/* Filtro por Planetas */}
+      {/* Filtro por planetas */}
       <div className={styles.filtroSection}>
         <h3>Planetas</h3>
         <div className={styles.checkboxGroup}>
@@ -118,30 +110,13 @@ export default function Filters({
         </div>
       </div>
 
-      {/* Filtro por Servicios */}
-      <div className={styles.filtroSection}>
-        <h3>Servicios</h3>
-        <div className={styles.checkboxGroup}>
-          {servicesList.map((service) => (
-            <label key={service}>
-              <input
-                type="checkbox"
-                checked={selectedServices.includes(service)}
-                onChange={() => handleServiceChange(service)}
-              />
-              {service}
-            </label>
-          ))}
-        </div>
-      </div>
-
       {/* Filtro por Precio */}
       <div className={styles.filtroSection}>
         <h3>Precio Máximo: ${priceRange}</h3>
         <input
           type="range"
           min="0"
-          max="200" // Ampliar el rango si es necesario
+          max="200" 
           value={priceRange}
           onChange={handlePriceChange}
           className={styles.priceSlider}

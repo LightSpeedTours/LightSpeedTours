@@ -4,6 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from '../../../shared/components/Button';
 
+//Estado inicial de las busquedas (similar al de los filtros)
 interface SearchProps {
   selectedLocations: string[];
   setSelectedLocations: React.Dispatch<React.SetStateAction<string[]>>;
@@ -38,6 +39,7 @@ export default function Search({
   const [isOpen, setIsOpen] = useState(false);
   const [planet, setPlanet] = useState<string | null>(null);
 
+  //Extraer el nombre del planeta
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
@@ -46,7 +48,7 @@ export default function Search({
     }
   }, []);
 
-  // Cerrar calendarios y dropdown al hacer clic fuera
+  //Cerrar calendarios y dropdown al hacer clic fuera
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement;
@@ -70,16 +72,19 @@ export default function Search({
     };
   }, []);
 
+  //Seleccionar la cantidad de huespedes
   const handleSelect = (people: number) => {
     setSelectedPeople(people);
     setIsOpen(false);
   };
 
+  //Poner la primera letra en mayuscula
   const capitalizeFirstLetter = (text: string | null) => {
     if (!text) return null;
     return text.charAt(0).toUpperCase() + text.slice(1);
   };
 
+  //Funcion que reinicia los filtros a su valor inicial
   const resetFilters = () => {
     setStartDate(undefined);
     setEndDate(undefined);
@@ -92,9 +97,11 @@ export default function Search({
   return (
     <div className={styles.searchContainer}>
       <div className={styles.planeta}>
+        {/* Muestra el nombre del planeta */}
         <h1>{capitalizeFirstLetter(planet) || 'Planeta'}</h1>
       </div>
 
+      {/* Calendario de entrada*/}
       <div className={styles.entryDateSelector} onClick={(e) => e.stopPropagation()}>
         <Button
           onClick={() => {
@@ -122,7 +129,8 @@ export default function Search({
           </div>
         )}
       </div>
-
+      
+      {/* Calendario de salida*/}
       <div className={styles.leaveDateSelector} onClick={(e) => e.stopPropagation()}>
         <Button
           onClick={() => {
@@ -152,6 +160,7 @@ export default function Search({
         )}
       </div>
 
+      {/* Selector de huespedes*/}
       <div className={styles.people} onClick={(e) => e.stopPropagation()}>
         <Button
           onClick={() => {setIsOpen(!isOpen); setShowEndCalendar(false); setShowEndCalendar(false) }}
@@ -169,6 +178,7 @@ export default function Search({
         )}
       </div>
 
+      {/* Limpiar los filtros*/}
       <div className={styles.searchButton}>
         <Button text="Limpiar filtros" type="button" onClick={resetFilters} />
       </div>

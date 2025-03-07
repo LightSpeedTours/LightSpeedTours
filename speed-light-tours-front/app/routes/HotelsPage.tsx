@@ -10,16 +10,17 @@ export default function HotelsPage() {
   const [planet, setPlanet] = useState<string | null>(null);
   const [planetInfo, setPlanetInfo] = useState<Lodging[]>([]);
   const [loading, setLoading] = useState(true);
+
+  //Estados para los filtros
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
   const [selectedRooms, setSelectedRooms] = useState<number | null>(null);
-
-  // Estados para los filtros
   const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [rating, setRating] = useState<number>(0);
-  const [maxPrice, setMaxPrice] = useState<number>(1000); // Nuevo estado para el precio máximo
+  const [maxPrice, setMaxPrice] = useState<number>(200); 
 
+  //Obtener informacion y creacion de links a partir del nombre del planeta
   useEffect(() => {
     if (typeof window !== "undefined") {
       const fetchData = async () => {
@@ -52,7 +53,7 @@ export default function HotelsPage() {
     }
   }, []);
 
-  // Filtro de alojamientos basado en la localidad, servicios, puntuación y precio máximo
+  //Filtros
   const filteredLodgings = planetInfo.filter((lodging) => {
     const matchesLocation =
       selectedLocations.length === 0 || selectedLocations.includes(lodging.location);
@@ -72,9 +73,10 @@ export default function HotelsPage() {
   });
 
   if (loading) {
-    return <div>Cargando información...</div>;
+    return <div className={styles.loading}>Cargando información...</div>;
   }
 
+  //Divs e informacion que debe mostrarse dependiendo de los filtros
   return (
     <main className={styles.hotelsPage}>
       <Header />

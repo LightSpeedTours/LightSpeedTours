@@ -31,12 +31,13 @@ export default function Info({ planetInfo }: InfoProps) {
 
             </div>
 
-            {/* Detalles */}
+            {/* Seccion de informacion */}
             <div className={styles.detailsContainer}>
               <h2>{tour.name || "Tour sin nombre"}</h2>
               <h3>{tour.route || "Ruta no especificada"}</h3>
               <p>{tour.description || "Descripción no disponible"}</p>
-              {/* Contenedor centrado para el StarRating */}
+
+              {/* Rating */}
             <div className="flex justify-center items-center w-full">
               <StarRating rating={ratings[tour.id] || 0} />
             </div>

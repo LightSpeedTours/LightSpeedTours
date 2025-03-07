@@ -3,6 +3,8 @@ import styles from "./Filters.module.css";
 import RatingSlider from "../../../shared/components/RatingSlider";
 import type { Lodging } from "../utils/LodgingsTypes";
 
+
+//Estado inicial de los filtros
 interface FiltersProps {
   lodgings: Lodging[];
   selectedLocations: string[];
@@ -28,22 +30,23 @@ export default function Filters({
 }: FiltersProps) {
   const [locations, setLocations] = useState<string[]>([]);
   const [services, setServices] = useState<string[]>([]);
-  const [priceRange, setPriceRange] = useState<number>(200); // Precio inicial
+  const [priceRange, setPriceRange] = useState<number>(200); 
 
   useEffect(() => {
-    // Extraer las ubicaciones únicas
+    //Extraer las localidades únicas
     const uniqueLocations = Array.from(
       new Set(lodgings.map((lodging) => lodging.location))
     );
     setLocations(uniqueLocations);
 
-    // Extraer los servicios únicos
+    //Extraer los servicios únicos
     const allServices = lodgings.flatMap((lodging) =>
       lodging.services ? lodging.services.map((service) => service.name) : []
     );
     setServices(Array.from(new Set(allServices)));
   }, [lodgings]);
 
+  //Seleccion de localidades
   const handleLocationChange = (loc: string) => {
     setSelectedLocations(
       selectedLocations.includes(loc)
@@ -52,6 +55,7 @@ export default function Filters({
     );
   };
 
+  //Seleccion de servicios
   const handleServiceChange = (service: string) => {
     setSelectedServices(
       selectedServices.includes(service)
@@ -60,6 +64,7 @@ export default function Filters({
     );
   };
 
+  //Seleccion de precios
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newPrice = Number(event.target.value);
     setPriceRange(newPrice);
@@ -86,7 +91,7 @@ export default function Filters({
               </label>
             ))
           ) : (
-            <p>No hay locaciones disponibles</p>
+            <p>Selecciona un planeta para ver sus localidades</p>
           )}
         </div>
       </div>
@@ -107,7 +112,7 @@ export default function Filters({
               </label>
             ))
           ) : (
-            <p>No hay servicios disponibles</p>
+            <p>Selecciona un planeta para ver sus servicios</p>
           )}
         </div>
       </div>
@@ -125,6 +130,7 @@ export default function Filters({
           className={styles.priceSlider}
         />
       </div>
+
       {/* Filtro por Puntuación */}
       <div className={styles.filtroSection}>
         <h3>Puntuación</h3>

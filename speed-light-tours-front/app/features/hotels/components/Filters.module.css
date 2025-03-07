@@ -26,16 +26,16 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  font-family: sans-serif; /* Fuente estilo retro-futurista */
-  color: white; /* Color amarillo (como el de los títulos de Star Wars) */
-  letter-spacing: 2px; /* Espaciado entre letras */
-  font-size: 1rem; /* Tamaño grande */
-  text-align: justify; /* Centrado del texto */ 
+  font-family: sans-serif; 
+  color: white; 
+  letter-spacing: 2px; 
+  font-size: 1rem; 
+  text-align: justify;
   padding: 10px
 }
 
 .checkboxGroup input[type="checkbox"] {
-  margin-right: 10px; /* Espacio a la derecha del checkbox */
+  margin-right: 10px; 
 }
 
 .ratingContainer {
@@ -49,25 +49,20 @@
 .priceSlider {
   width: 100%;
   margin: 10px 0;
-  accent-color: #ffe81f; /* Color del slider */
+  accent-color: #ffe81f; 
 }
 
 
-
-
-/* Estilo general para los checkboxes */
 .checkboxGroup label {
   display: block;
   font-size: 16px;
-  cursor: pointer; /* Cambia el color de fondo cuando está seleccionado */
+  cursor: pointer; 
   border-color: #ff6600;
 }
 
 
-
-/* Marca de verificación */
 .checkboxGroup input[type="checkbox"]:checked + span::after {
-  content: '\2713'; /* El símbolo de checkmark */
+  content: '\2713'; 
   position: absolute;
   left: 4px;
   top: 1px;
