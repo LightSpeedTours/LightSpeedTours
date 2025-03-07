@@ -79,6 +79,7 @@ const ReservationList: React.FC = () => {
                 onCancelClick={openCancelModal}
                 info={{
                   id: reservation.entityType === 'tour' ? reservation.tour?.id || 1 : reservation.lodging?.id || 1,
+                  reservationId: reservation.id,
                   cost: reservation.subtotal/reservation.quantity,
                   quantity: reservation.quantity,
                   isOpen: false, 

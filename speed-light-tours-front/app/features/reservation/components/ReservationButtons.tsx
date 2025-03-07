@@ -36,6 +36,7 @@ const ReservationButtons: React.FC<ReservationButtonsProps> = ({
       </div>
       {service === 'lodging' ? (
         <LodgingModal 
+        reservationId={info.reservationId}
         id={info.id} 
         cost={info.cost} 
         quantity={info.quantity} 
@@ -46,6 +47,7 @@ const ReservationButtons: React.FC<ReservationButtonsProps> = ({
       />
       ) : (
         <TourModal 
+        reservationId={info.reservationId}
         id={info.id} 
         cost={info.cost} 
         quantity={info.quantity} 
