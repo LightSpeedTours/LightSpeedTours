@@ -7,7 +7,7 @@ const authController = new AuthController();
 
 const router = Router();
 // Login endpoint
-router.post('/login', authController.login);  // registrarse
-router.post('/signin', validateSignin, authController.signin)                        // logearse
+router.post('/login', authController.login); // registrarse
+router.post('/signin', validateSignin, authController.signin); // logearse
 
-export default router; 
+export default router;

@@ -1,15 +1,16 @@
 import type { CommentPayload, Order } from '../utils/ReservationTypes';
 
 export const API_URL = 'http://localhost:3000'; // Ajusta según tu backend
+const BEARER_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkdW1teUBleGFtcGxlLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzQxMzY0OTU5LCJleHAiOjE3NDE0NTEzNTl9.OlqMelDSzz-Lurdsgi1PAoNhIQ8qJi8lncfVZXed2TA'; // TODO: Reemplazar por token real
 
 /**
  * Obtiene todas las fechas reservadas de un hospedaje o tour específico
  * @param lodgingId ID del hospedaje
  * @returns Lista de fechas reservadas
  */
-export const fetchReservedDates = async (lodgingId: number): Promise<Date[]> => {
+export const fetchReservedDates = async (entityType:String, entityId: number): Promise<Date[]> => {
   try {
-    const response = await fetch(`${API_URL}/reservations/lodging/${lodgingId}/dates`);
+    const response = await fetch(`${API_URL}/reservations/${entityType}/${entityId}/dates`);
     if (!response.ok) throw new Error('Error al obtener las reservas');
 
     const data: CommentPayload[] = await response.json();
@@ -43,6 +44,7 @@ export const createReservation = async (reservation: CommentPayload) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${BEARER_TOKEN}`,
       },
       body: JSON.stringify(reservation),
     });
@@ -64,6 +66,9 @@ export const deleteReservation = async (reservationId: number) => {
   try {
     const response = await fetch(`${API_URL}/reservations/${reservationId}`, {
       method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${BEARER_TOKEN}`,
+      },
     });
 
     if (!response.ok) throw new Error('Error al eliminar la reserva');
@@ -86,6 +91,7 @@ export const updateReservation = async (reservationId: number, updatedReservatio
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${BEARER_TOKEN}`,
       },
       body: JSON.stringify(updatedReservation),
     });
@@ -106,7 +112,13 @@ export const updateReservation = async (reservationId: number, updatedReservatio
  */
 export const fetchUserOrders = async (userId: number): Promise<Order> => {
   try {
-    const response = await fetch(`${API_URL}/cart/orders?userId=${userId}`);
+    const response = await fetch(`${API_URL}/cart/orders?userId=${userId}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${BEARER_TOKEN}`,
+      },
+    });
+
     if (!response.ok) throw new Error('Error al obtener las órdenes');
 
     return await response.json();

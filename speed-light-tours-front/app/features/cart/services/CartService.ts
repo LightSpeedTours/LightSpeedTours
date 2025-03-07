@@ -37,7 +37,7 @@ export const removeCartItem = async (itemId: number) => {
     console.error('Error eliminando el elemento del carrito:', error);
     return null;
   }
-};
+}; 
 
 /**
  * ✅ Pagar el carrito

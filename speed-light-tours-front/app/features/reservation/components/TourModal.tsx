@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import type { TourFormProps } from '../utils/ReservationTypes';
 import './lodgingModal.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -8,17 +7,19 @@ import {
 } from '../../reservation/services/reservationService';
 import InputField from '~/shared/components/InputField';
 import Button from '~/shared/components/Button';
+import type { FormProps } from '../utils/ReservationTypes';
 
-const TourForm: React.FC<Pick<TourFormProps, 'cost' | 'id' | 'duration' | 'quantity' | 'isOpen' | 'onClose'>> = ({
+const TourForm: React.FC<FormProps> = ({
   cost,
   id,
-  duration,
   quantity,
   isOpen,
   onClose,
+  startDate,
+  endDate,
 }) => {
 
-  const [attendees, setAttendees] = useState<string>('1');
+  const [attendees, setAttendees] = useState<number>(quantity);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -26,7 +27,7 @@ const TourForm: React.FC<Pick<TourFormProps, 'cost' | 'id' | 'duration' | 'quant
   const calculateTotal = () => {
     if (!selectedDate) return 0;
 
-    const attendeesNum = parseInt(attendees, 10) || 1;
+    const attendeesNum = attendees || 1;
     const basePrice = attendeesNum * cost;
     const serviceFee = basePrice * 0.1;
 
@@ -36,7 +37,7 @@ const TourForm: React.FC<Pick<TourFormProps, 'cost' | 'id' | 'duration' | 'quant
   const getEndDate = () => {
     if (!selectedDate) return null;
     const endDate = new Date(selectedDate);
-    endDate.setHours(endDate.getHours() + duration);
+    endDate.setHours(endDate.getHours());
     return endDate;
   };
 
@@ -45,7 +46,7 @@ const TourForm: React.FC<Pick<TourFormProps, 'cost' | 'id' | 'duration' | 'quant
       setError('Debes seleccionar una fecha.');
       return false;
     }
-    if (parseInt(attendees, 10) < 1 || isNaN(parseInt(attendees, 10))) {
+    if (attendees < 1 || isNaN(attendees)) {
       setError('Debe haber al menos 1 participante.');
       return false;
     }
@@ -63,10 +64,10 @@ const TourForm: React.FC<Pick<TourFormProps, 'cost' | 'id' | 'duration' | 'quant
       userId: 1, // TODO: Obtener ID real del usuario autenticado
       entityType: 'tour',
       entityId: id,
-      quantity: parseInt(attendees, 10),
+      quantity: attendees,
       subtotal: calculateTotal(),
-      startDate: selectedDate?.toISOString() || '',
-      endDate: getEndDate()?.toISOString() || '', // TODO: Adjust endDate if needed
+      startDate: selectedDate || new Date(),
+      endDate: getEndDate() || new Date(), 
     };
 
     try {
@@ -74,7 +75,7 @@ const TourForm: React.FC<Pick<TourFormProps, 'cost' | 'id' | 'duration' | 'quant
       alert('Reserva realizada con éxito!');
 
       setSelectedDate(null);
-      setAttendees('1');
+      setAttendees(1);
     } catch (err) {
       setError('Hubo un problema con la reserva. Intenta nuevamente.');
     } finally {
@@ -119,8 +120,8 @@ const TourForm: React.FC<Pick<TourFormProps, 'cost' | 'id' | 'duration' | 'quant
               <label htmlFor="guests">Participantes</label>
               <InputField
                 type="number"
-                value={attendees}
-                onChange={(e) => setAttendees(e.target.value)}
+                value={attendees.toString()}
+                onChange={(e) => setAttendees(Number(e.target.value))}
                 placeholder="# de participantes"
                 minLength={1}
                 required

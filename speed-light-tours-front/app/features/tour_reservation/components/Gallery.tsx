@@ -1,9 +1,9 @@
 import React from 'react';
 import ImageGallery from 'react-image-gallery';
-import type { GalleryProps } from './types';
 import 'react-image-gallery/styles/css/image-gallery.css';
+import type { TourProps } from '../utils/types';
 
-const Gallery: React.FC<GalleryProps> = ({ images }) => {
+const Gallery: React.FC<Pick<TourProps, 'images'>> = ({ images }) => {
   const galleryImages = images.map((image) => ({
     original: image,
     thumbnail: image,

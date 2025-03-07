@@ -16,4 +16,4 @@ const Gallery: React.FC<Pick<LodgingProps, 'images'>> = ({ images }) => {
   );
 };
 
-export default Gallery;
+export default Gallery; 
