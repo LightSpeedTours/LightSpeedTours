@@ -13,10 +13,9 @@ export const makeErrorResponse = (status: number, entity?: string) => {
     //         ? HttpResponses[status](entity)
     //         : HttpResponses[status];
 
-
-        const message = entity; // COMENTAR EN PRODUCCION
+    const message = entity; // COMENTAR EN PRODUCCION
     return { status, message };
 };
 
-export const successResponse = (res: Response, data: any, message: string) => 
+export const successResponse = (res: Response, data: any, message: string) =>
     res.status(200).json({ message, data });

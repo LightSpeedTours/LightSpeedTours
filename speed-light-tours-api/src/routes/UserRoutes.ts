@@ -2,7 +2,6 @@ import { Router } from 'express';
 import { UserController } from '../controllers/userController';
 import { authenticateUser, decodeUserPayload } from '../middlewares/UserMiddleware';
 
-
 const router = Router();
 router.get('/me', authenticateUser, UserController.getUser);
 /* 
@@ -41,6 +40,5 @@ router.put('/update', authenticateUser, decodeUserPayload, UserController.update
     }
 }
 */
-
 
 export default router;

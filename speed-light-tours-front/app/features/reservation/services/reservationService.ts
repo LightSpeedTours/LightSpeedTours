@@ -96,7 +96,7 @@ export const updateReservation = async (reservationId: number, updatedReservatio
   } catch (error) {
     console.error('Error actualizando la reserva:', error);
     throw error;
-  }
+  } 
 };
 
 
