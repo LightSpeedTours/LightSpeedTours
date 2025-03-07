@@ -8,6 +8,7 @@ interface InputFieldProps {
   minLength?: number;
   maxLength?: number;
   required?: boolean;
+  min?: number;
 }
 
 const InputField: React.FC<InputFieldProps> = ({

@@ -1,7 +1,7 @@
 import type { CommentPayload, Order } from '../utils/ReservationTypes';
 
 export const API_URL = 'http://localhost:3000'; // Ajusta según tu backend
-const BEARER_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkdW1teUBleGFtcGxlLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzQxMzY0OTU5LCJleHAiOjE3NDE0NTEzNTl9.OlqMelDSzz-Lurdsgi1PAoNhIQ8qJi8lncfVZXed2TA'; // TODO: Reemplazar por token real
+const BEARER_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkdW1teUBleGFtcGxlLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzQxMzcxNzEyLCJleHAiOjE3NDE0NTgxMTJ9.RwaUaiTF8KPyiQX1lmm36fhj2EG3LT0eXzl8GBAEwE0';
 
 /**
  * Obtiene todas las fechas reservadas de un hospedaje o tour específico

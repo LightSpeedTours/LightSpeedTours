@@ -100,6 +100,7 @@ const TourBookingForm: React.FC<Pick<TourProps, 'cost' | 'id' | 'duration'>> = (
           onChange={(e) => setAttendees(e.target.value)}
           placeholder="# de participantes"
           minLength={1}
+          min={1}
           required
         />
       </div>

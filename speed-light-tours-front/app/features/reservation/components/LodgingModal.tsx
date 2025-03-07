@@ -151,17 +151,22 @@ const LodgingForm: React.FC<FormProps> = ({
               dateFormat="MM/dd/yyyy"
             />
           </div>
-          <div className="input-group">
+            <div className="input-group">
             <label htmlFor="guests">Huéspedes</label>
             <InputField
               type="number"
               value={guests.toString()}
-              onChange={(e) => setGuests(Number(e.target.value))}
+              onChange={(e) => {
+              const value = Number(e.target.value);
+              if (value >= 1) {
+                setGuests(value);
+              }
+              }}
               placeholder="# de huéspedes"
-              minLength={1}
+              min={1}
               required
             />
-          </div>
+            </div>
           <div className="price-section">
             <div className="price-title">
               <h3>Precio</h3>

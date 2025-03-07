@@ -3,11 +3,13 @@ import './lodgingModal.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {
+  fetchReservedDates,
   createReservation,
-} from '../../reservation/services/reservationService';
+}  from '../../reservation/services/reservationService';
 import InputField from '~/shared/components/InputField';
 import Button from '~/shared/components/Button';
 import type { FormProps } from '../utils/ReservationTypes';
+import { set } from 'node_modules/react-datepicker/dist/date_utils';
 
 const TourForm: React.FC<FormProps> = ({
   cost,
@@ -20,6 +22,7 @@ const TourForm: React.FC<FormProps> = ({
 }) => {
 
   const [attendees, setAttendees] = useState<number>(quantity);
+  const [dateReserved, setDateReserved] = useState<Date[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -73,7 +76,8 @@ const TourForm: React.FC<FormProps> = ({
     try {
       await createReservation(reservationData);
       alert('Reserva realizada con éxito!');
-
+      const updatedDates = await fetchReservedDates('tour', id);
+      setDateReserved(updatedDates);
       setSelectedDate(null);
       setAttendees(1);
     } catch (err) {
@@ -109,8 +113,9 @@ const TourForm: React.FC<FormProps> = ({
                 <label htmlFor="departure">Fecha del tour</label>
                 <DatePicker
                   selected={selectedDate}
-                  onChange={(date) => setSelectedDate(date)}
+                  onChange={(update) => setSelectedDate(update)}
                   minDate={new Date()}
+                  excludeDates={dateReserved}
                   className="mt-2 p-2 border rounded w-full"
                   placeholderText="MM/DD/YYYY"
                 />
@@ -125,6 +130,7 @@ const TourForm: React.FC<FormProps> = ({
                 placeholder="# de participantes"
                 minLength={1}
                 required
+                min={1}
               />
             </div>
             <div className="price-section">
