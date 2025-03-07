@@ -86,7 +86,7 @@ export default function Filters({
               </label>
             ))
           ) : (
-            <p>No hay locaciones disponibles</p>
+            <p>Selecciona un planeta para ver sus localidades</p>
           )}
         </div>
       </div>
@@ -107,7 +107,7 @@ export default function Filters({
               </label>
             ))
           ) : (
-            <p>No hay servicios disponibles</p>
+            <p>Selecciona un planeta para ver sus servicios</p>
           )}
         </div>
       </div>

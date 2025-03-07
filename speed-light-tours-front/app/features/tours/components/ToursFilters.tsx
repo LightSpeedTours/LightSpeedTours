@@ -118,23 +118,6 @@ export default function Filters({
         </div>
       </div>
 
-      {/* Filtro por Servicios */}
-      <div className={styles.filtroSection}>
-        <h3>Servicios</h3>
-        <div className={styles.checkboxGroup}>
-          {servicesList.map((service) => (
-            <label key={service}>
-              <input
-                type="checkbox"
-                checked={selectedServices.includes(service)}
-                onChange={() => handleServiceChange(service)}
-              />
-              {service}
-            </label>
-          ))}
-        </div>
-      </div>
-
       {/* Filtro por Precio */}
       <div className={styles.filtroSection}>
         <h3>Precio Máximo: ${priceRange}</h3>
