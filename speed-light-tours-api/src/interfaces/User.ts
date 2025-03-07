@@ -7,8 +7,8 @@ export interface IUser{
     user_name: string,
     password: string,
     email: string,
-    date_of_birth: Date | string,
-    gender: typeof GENDER,
-    telefono: string
+    date_of_birth?: Date | string,
+    gender?: typeof GENDER,
+    contact?: string
 
 }

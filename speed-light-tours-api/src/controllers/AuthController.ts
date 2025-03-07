@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import AuthService from '../services/AuthService';
 import { handleErrorResponse, makeErrorResponse, successResponse } from '../utils/ErrorHandler';
-import User from '../models/UserModel';
-import { promises } from 'dns';
+
 export class AuthController {
   private authService: AuthService;
 

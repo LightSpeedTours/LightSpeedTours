@@ -6,7 +6,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-
 class AuthService {
   async login(email: string, password: string): Promise<string> {
     try {
@@ -81,7 +80,7 @@ class AuthService {
         role: user.rol
       },
       process.env.JWT_SECRET || 'secretKey', // Usar variable de entorno segura
-      { expiresIn: '1h' }
+      { expiresIn: '24h' }
     );
   }
 }
