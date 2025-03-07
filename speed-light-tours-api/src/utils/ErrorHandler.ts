@@ -14,3 +14,6 @@ export const makeErrorResponse = (status: number, entity?: string) => {
 
     return { status, message };
 };
+
+export const successResponse = (res: Response, data: any, message: string) => 
+    res.status(200).json({ message, data });

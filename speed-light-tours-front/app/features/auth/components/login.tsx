@@ -1,5 +1,4 @@
 import { User, KeyRound, ArrowRight } from 'lucide-react';
-import { starWarsColors } from 'app/shared/utils/colorsTheme';
 import { Link } from 'react-router-dom';
 
 export default function Login() {
@@ -12,7 +11,7 @@ export default function Login() {
           className="w-full aspect-square object-cover"
         />
       </div>
-      <div className="flex items-center justify-center bg-[${starWarsColors.mediumGray}] px-4 py-12">
+      <div className="flex items-center justify-center bg-[#2C2C2C] px-4 py-12">
         <div className="w-full max-w-md space-y-8">
           <div className="space-y-6">
             <div className="space-y-2">
