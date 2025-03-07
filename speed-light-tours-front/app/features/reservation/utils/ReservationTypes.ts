@@ -9,6 +9,24 @@ export interface Reservation {
   subtotal: number;
   startDate: string;
   endDate: string;
+  tour?: {
+    name: string;
+    planet: string;
+    description: string;
+  };
+  lodging?: {
+    name: string;
+    planet: string;
+    location: string;
+    description: string;
+  };
+}
+
+export interface Order {
+  id: number;
+  userId: number;
+  totalAmount: number;
+  reservations: Reservation[];
 }
 
 export interface CommentPayload {
@@ -17,8 +35,8 @@ export interface CommentPayload {
   entityId: number;
   quantity: number;
   subtotal: number;
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
 }
 
 export interface CancelConfirmationModalProps {
@@ -32,6 +50,7 @@ export interface ButtonProps {
   variant: 'outline' | 'destructive';
   className?: string;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 export interface LodgingFormProps {
@@ -43,13 +62,13 @@ export interface LodgingFormProps {
 }
 
 export interface ReservationCardProps {
-service: string;
-price: string;
-description: string;
-location: string;
-dates: string;
-people: string;
-imageSrc: string;
+  service: string;
+  price: string;
+  description: string;
+  location: string;
+  dates: string;
+  people: string;
+  imageSrc: string;
 }
 
 export interface TourFormProps {
@@ -64,5 +83,6 @@ export interface TourFormProps {
 export interface ReservationButtonsProps {
   service: string;
   countDown: string;
+  daysLeft: number;
   onCancelClick: () => void;
 }

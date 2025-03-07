@@ -1,4 +1,4 @@
-import type { CommentPayload } from '../utils/ReservationTypes';
+import type { CommentPayload, Order } from '../utils/ReservationTypes';
 
 export const API_URL = 'http://localhost:3000'; // Ajusta según tu backend
 
@@ -99,4 +99,19 @@ export const updateReservation = async (reservationId: number, updatedReservatio
   }
 };
 
+/**
+ * Obtiene todas las órdenes de un usuario
+ * @param userId ID del usuario
+ * @returns Lista de órdenes
+ */
+export const fetchUserOrders = async (userId: number): Promise<Order> => {
+  try {
+    const response = await fetch(`${API_URL}/cart/orders?userId=${userId}`);
+    if (!response.ok) throw new Error('Error al obtener las órdenes');
 
+    return await response.json();
+  } catch (error) {
+    console.error('Error obteniendo las órdenes:', error);
+    throw error;
+  }
+};
