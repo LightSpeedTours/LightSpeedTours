@@ -77,6 +77,16 @@ const ReservationList: React.FC = () => {
                 countDown={countdown}
                 daysLeft={daysLeft}
                 onCancelClick={openCancelModal}
+                info={{
+                  id: reservation.entityType === 'tour' ? reservation.tour?.id || 1 : reservation.lodging?.id || 1,
+                  reservationId: reservation.id,
+                  cost: reservation.subtotal/reservation.quantity,
+                  quantity: reservation.quantity,
+                  isOpen: false, 
+                  onClose: () => {},
+                  startDate: new Date(reservation.startDate),
+                  endDate: new Date(reservation.endDate),
+                }}
               />
             </div>
           );

@@ -10,11 +10,13 @@ export interface Reservation {
   startDate: string;
   endDate: string;
   tour?: {
+    id: number
     name: string;
     planet: string;
     description: string;
   };
   lodging?: {
+    id: number;
     name: string;
     planet: string;
     location: string;
@@ -29,14 +31,14 @@ export interface Order {
   reservations: Reservation[];
 }
 
-export interface CommentPayload {
+export interface ReservationPayload {
   userId: number;
   entityType: string;
   entityId: number;
   quantity: number;
   subtotal: number;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
 }
 
 export interface CancelConfirmationModalProps {
@@ -53,11 +55,14 @@ export interface ButtonProps {
   disabled?: boolean;
 }
 
-export interface LodgingFormProps {
-  cost: number;
+export interface FormProps {
+  reservationId: number;
   id: number;
+  cost: number;
   quantity: number;
   isOpen: boolean;
+  startDate: Date;
+  endDate: Date;
   onClose: () => void;
 }
 
@@ -71,18 +76,10 @@ export interface ReservationCardProps {
   imageSrc: string;
 }
 
-export interface TourFormProps {
-  id: number;
-  cost: number;
-  duration: number;
-  quantity: number;
-  isOpen: boolean;
-  onClose: () => void;
-}
-
 export interface ReservationButtonsProps {
   service: string;
   countDown: string;
   daysLeft: number;
   onCancelClick: () => void;
+  info: FormProps;
 }

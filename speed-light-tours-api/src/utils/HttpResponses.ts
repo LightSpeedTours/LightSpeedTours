@@ -8,5 +8,4 @@ export const HttpResponses: Record<number, string | ((entity?: string) => string
     500: 'Error interno del servidor. Inténtelo de nuevo más tarde o contacte al soporte técnico.',
     200: 'OK',
     201: 'Created',
-
-  };
+};
