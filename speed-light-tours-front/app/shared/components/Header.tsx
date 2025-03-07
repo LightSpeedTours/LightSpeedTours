@@ -5,6 +5,7 @@ import Button from './Button';
 import InputField from './InputField';
 import planetsImages from '../utils/planetsImagesLists'; 
 import "../styles/global.css"; // Sin la variable 'styles'
+import { Link } from 'react-router-dom';
 
 
 export default function Header() {
@@ -23,7 +24,7 @@ export default function Header() {
       <div className="w-full px-4 py-3 flex justify-between items-center bg-[#1A1A1A]">
         {/* Logo y Nombre */}
         <div className="flex items-center gap-4">
-          <a href="/landingPage" className="flex items-center gap-4">
+          <Link to="/landingPage" className="flex items-center gap-4">
             <span className="name">Light Speed Tours</span>
             <div className="w-12 h-12">
               <img
@@ -32,24 +33,24 @@ export default function Header() {
                 className="w-full h-full object-cover"
               />
             </div>
-          </a>
+          </Link>
         </div>
 
         {/* Menú en pantallas grandes */}
         <div className="hidden md:flex items-center gap-4">
-          <a href="/cart">
+          <Link to="/cart">
             <button className="text-[#FFE81F] p-2 rounded hover:bg-[#2C2C2C] transition-colors">
               <ShoppingCart className="h-5 w-5" />
             </button>
-          </a>
-          <a href="/reservations">
+          </Link>
+          <Link to="/reservations">
             <Button text="Mis reservas" />
-          </a>
-          <a href="/profile">
+          </Link>
+          <Link to="/profile">
             <button className="text-[#FFE81F] p-2 rounded hover:bg-[#2C2C2C] transition-colors">
               <User className="h-5 w-5" />
             </button>
-          </a>
+          </Link>
         </div>
 
         {/* Botón de menú hamburguesa en pantallas pequeñas */}
@@ -64,15 +65,15 @@ export default function Header() {
       {/* Menú desplegable en móviles */}
       {menuOpen && (
         <div className="md:hidden bg-[#1A1A1A] flex flex-col items-center gap-4 p-4 border-y border-[#2C2C2C]">
-          <a href="/landingPage">
+          <Link to="/landingPage">
             <Button text="Inicio" />
-          </a>
-          <a href="/tours">
+          </Link>
+          <Link to="/tours">
             <Button text="Tours" />
-          </a>
-          <a href="/hotels">
+          </Link>
+          <Link to="/hotels">
             <Button text="Hospedajes" />
-          </a>
+          </Link>
         </div>
       )}
 
@@ -80,9 +81,9 @@ export default function Header() {
       <div className="w-full bg-[#1A1A1A] py-4 flex justify-center border-y border-[#2C2C2C] overflow-x-auto px-4">
         <div className="flex gap-2">
         {Object.entries(planetsImages).map(([planetName, imageUrl]) => (
-        <a
+        <Link
           key={planetName}
-          href={`/hotels?planet=${planetName.toLowerCase()}`}
+          to={`/hotels?planet=${planetName.toLowerCase()}`}
           aria-label={`Ver hospedajes en ${planetName}`}
         >
           <button className="w-10 h-10 rounded-full bg-[#2C2C2C] flex-shrink-0 overflow-hidden border-2 border-[#FFE81F] transition-transform hover:scale-110">
@@ -92,7 +93,7 @@ export default function Header() {
               className="w-full h-full object-cover"
             />
           </button>
-        </a>
+        </Link>
       ))}
         </div>
       </div>
@@ -100,15 +101,15 @@ export default function Header() {
       {/* Bottom Navigation */}
       <div className="w-full bg-[#1A1A1A] px-4 py-4 flex flex-col md:flex-row justify-between items-center">
         <div className="flex flex-wrap justify-center gap-4">
-          <a href="/landingPage">
+          <Link to="/landingPage">
             <Button text="Inicio" />
-          </a>
-          <a href="/hotels">
+          </Link>
+          <Link to="/hotels">
             <Button text="Hospedajes" />
-          </a>
-          <a href="/tours">
+          </Link>
+          <Link to="/tours">
             <Button text="Tours" />
-          </a>
+          </Link>
         </div>
         <div className="flex items-center gap-4 mt-4 md:mt-0">
           <Button text="Buscar" />

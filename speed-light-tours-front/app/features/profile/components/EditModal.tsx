@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Button from '../../reservation/components/Button';
 import './editModal.css';
 import DarthVader from 'app/shared/assets/profile/vader.jpg';
 import LukeSkywalker from 'app/shared/assets/profile/luke.jpg';
@@ -76,15 +77,7 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, onSave, accountD
           <label>
             Nombre de usuario:
             <input type="text" name="username" value={updatedDetails.username} onChange={handleInputChange} />
-          </label>
-          <label>
-            Correo:
-            <input type="email" name="email" value={updatedDetails.email} onChange={handleInputChange} />
-          </label>
-          <label>
-            Contraseña:
-            <input type="password" name="password" value={updatedDetails.password} onChange={handleInputChange} />
-          </label>
+          </label>   
           <label>
             Fecha de nacimiento:
             <input type="date" name="date" value={updatedDetails.date} onChange={handleInputChange} />
@@ -97,8 +90,12 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, onSave, accountD
             Ocupación:
             <input type="text" name="occupation" value={updatedDetails.occupation} onChange={handleInputChange} />
           </label>
-          <button type="button" onClick={handleSave}>Guardar</button>
-          <button type="button" onClick={onClose}>Cancelar</button>
+          <Button className="button" variant="outline" onClick={handleSave}>
+            Guardar
+          </Button>
+          <Button className="button" variant="destructive" onClick={handleSave}>
+            Cancelar
+          </Button>
         </form>
       </div>
     </div>
