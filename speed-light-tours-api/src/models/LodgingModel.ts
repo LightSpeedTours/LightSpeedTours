@@ -28,7 +28,7 @@ export default class Lodging extends Model {
     @Column({ type: DataType.STRING, allowNull: false })
     declare planet: string;
 
-    @Column({ type: DataType.STRING, allowNull: false })
+    @Column({ type: DataType.STRING })
     declare location: string;
 
     @Column(DataType.TEXT)

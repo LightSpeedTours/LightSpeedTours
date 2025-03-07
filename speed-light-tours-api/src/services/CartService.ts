@@ -15,51 +15,91 @@ export const getUserCart = async (userId: number) => {
         include: [
             {
                 model: Reservation,
-                include: [
-                    {
-                        model: Lodging,
-                        attributes: ['name', 'planet', 'location', 'description'],
-                        required: false,
-                    },
-                    {
-                        model: Tour,
-                        attributes: ['name', 'planet', 'description'],
-                        required: false,
-                    },
-                ],
             },
         ],
     });
+
     if (!cart) {
         cart = await Cart.create({ userId: userId, totalPrice: 0 });
     }
-    return cart;
+
+    // Obtener entidades asociadas en una segunda consulta
+    const reservationsWithEntities = await Promise.all(
+        cart.reservations.map(async (reservation) => {
+            let entity = null;
+            if (reservation.entityType === 'lodging') {
+                entity = await Lodging.findOne({
+                    where: { id: reservation.entityId },
+                    attributes: ['name', 'planet', 'location', 'description'],
+                });
+            } else if (reservation.entityType === 'tour') {
+                entity = await Tour.findOne({
+                    where: { id: reservation.entityId },
+                    attributes: ['name', 'planet', 'description'],
+                });
+            }
+
+            return {
+                ...reservation.get({ plain: true }),
+                [reservation.entityType]: entity,
+            };
+        }),
+    );
+
+    return {
+        id: cart.id,
+        userId: cart.userId,
+        totalPrice: cart.totalPrice,
+        reservations: reservationsWithEntities,
+    };
 };
 
 /**
  * ✅ Obtener todas las órdenes de un usuario
  */
 export const getUserOrders = async (userId: number) => {
-    return await Order.findOne({
+    let order = await Order.findOne({
         where: { userId },
         include: [
             {
                 model: Reservation,
-                include: [
-                    {
-                        model: Lodging,
-                        attributes: ['name', 'planet', 'location', 'description'],
-                        required: false,
-                    },
-                    {
-                        model: Tour,
-                        attributes: ['name', 'planet', 'description'],
-                        required: false,
-                    },
-                ],
             },
         ],
     });
+
+    if (!order) {
+        order = await Order.create({ userId: userId, totalPrice: 0 });
+    }
+
+    // Obtener entidades asociadas en una segunda consulta
+    const reservationsWithEntities = await Promise.all(
+        order.reservations.map(async (reservation) => {
+            let entity = null;
+            if (reservation.entityType === 'lodging') {
+                entity = await Lodging.findOne({
+                    where: { id: reservation.entityId },
+                    attributes: ['name', 'planet', 'location', 'description'],
+                });
+            } else if (reservation.entityType === 'tour') {
+                entity = await Tour.findOne({
+                    where: { id: reservation.entityId },
+                    attributes: ['name', 'planet', 'description'],
+                });
+            }
+
+            return {
+                ...reservation.get({ plain: true }),
+                [reservation.entityType]: entity,
+            };
+        }),
+    );
+
+    return {
+        id: order.id,
+        userId: order.userId,
+        totalAmount: order.totalAmount,
+        reservations: reservationsWithEntities,
+    };
 };
 
 /**
