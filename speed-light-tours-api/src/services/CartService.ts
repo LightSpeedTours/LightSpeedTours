@@ -78,12 +78,12 @@ export const getUserOrders = async (userId: number) => {
             if (reservation.entityType === 'lodging') {
                 entity = await Lodging.findOne({
                     where: { id: reservation.entityId },
-                    attributes: ['name', 'planet', 'location', 'description'],
+                    attributes: ['id', 'name', 'planet', 'location', 'description'],
                 });
             } else if (reservation.entityType === 'tour') {
                 entity = await Tour.findOne({
                     where: { id: reservation.entityId },
-                    attributes: ['name', 'planet', 'description'],
+                    attributes: ['id', 'name', 'planet', 'description'],
                 });
             }
 

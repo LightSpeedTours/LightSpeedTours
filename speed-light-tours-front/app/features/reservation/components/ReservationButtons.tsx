@@ -9,6 +9,7 @@ const ReservationButtons: React.FC<ReservationButtonsProps> = ({
   service,
   countDown,
   onCancelClick,
+  info,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
@@ -34,9 +35,25 @@ const ReservationButtons: React.FC<ReservationButtonsProps> = ({
         </div>
       </div>
       {service === 'lodging' ? (
-        <LodgingModal isOpen={isModalOpen} onClose={closeModal} />
+        <LodgingModal 
+        id={info.id} 
+        cost={info.cost} 
+        quantity={info.quantity} 
+        isOpen={isModalOpen} 
+        onClose={closeModal}
+        startDate={info.startDate}
+        endDate={info.endDate} 
+      />
       ) : (
-        <TourModal isOpen={isModalOpen} onClose={closeModal} />
+        <TourModal 
+        id={info.id} 
+        cost={info.cost} 
+        quantity={info.quantity} 
+        isOpen={isModalOpen} 
+        onClose={closeModal}
+        startDate={info.startDate}
+        endDate={info.endDate}  
+        />
       )}
     </>
   );
