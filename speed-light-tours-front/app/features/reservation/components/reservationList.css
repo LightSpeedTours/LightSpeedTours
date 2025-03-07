@@ -23,3 +23,9 @@
     color: #f7fafc;
   }
 }
+
+@media (max-width: 768px) {
+  .reservation-list {
+    grid-template-columns: 1fr;
+  }
+}

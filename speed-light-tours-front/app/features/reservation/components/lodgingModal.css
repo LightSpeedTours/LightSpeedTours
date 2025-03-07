@@ -8,6 +8,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+  overflow-y: auto;
 }
 
 .no-scroll {
@@ -17,11 +18,12 @@
 .modal-content {
 	background-color: white;
 	padding: 7vh;
-	width: 80vh;
-	height: 80vh;
+	width: 90vh;
+	height: 90vh;
 	border-radius: 8px;
 	display: flex;
 	flex-direction: column;
+  overflow-y: auto;
 }
 
 .modal-header {
@@ -71,6 +73,7 @@ input {
 .price-item {
   display: flex;
   justify-content: space-between;
+  padding-bottom: 1vh;
 }
 
 .total {
@@ -95,4 +98,29 @@ input {
 
 .reserve-button:hover {
   background-color: #4caf50;
+}
+
+@media (max-width: 990px) {
+  .modal-content {
+    padding: 5vh;
+    width: 90vw;
+    height: 90vh;
+  }
+  .modal-header {
+    font-size: medium;
+  }
+
+  .input-group {
+    width: 100%;
+  }
+
+  input {
+    padding: 1.5%;
+    margin-top: 1.5%;
+  }
+
+  .reserve-button {
+    padding: 8px 16px;
+    margin-top: 3vh;
+  }
 }

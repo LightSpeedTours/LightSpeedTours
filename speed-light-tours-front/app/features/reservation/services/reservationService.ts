@@ -99,19 +99,4 @@ export const updateReservation = async (reservationId: number, updatedReservatio
   }
 };
 
-/**
- * Obtiene todas las reservas asociadas a un usuario
- * @param userId ID del usuario
- * @returns Lista de reservas del usuario
- */
-export const fetchUserReservations = async (userId: number): Promise<CommentPayload[]> => {
-  try {
-    const response = await fetch(`${API_URL}/reservations/user/${userId}`);
-    if (!response.ok) throw new Error('Error al obtener las reservas del usuario');
 
-    return await response.json();
-  } catch (error) {
-    console.error('Error obteniendo reservas del usuario:', error);
-    return [];
-  }
-};

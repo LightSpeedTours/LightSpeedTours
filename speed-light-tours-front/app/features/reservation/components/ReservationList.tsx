@@ -23,6 +23,9 @@ const ReservationList: React.FC = () => {
     alert('Tu reserva ha sido cancelada');
     setCancelModalOpen(false);
   };
+
+  
+
   return (
     <div className="reservation-title">
       <h1 className="reservation-list-title">Mis Reservas</h1>

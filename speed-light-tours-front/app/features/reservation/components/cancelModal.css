@@ -1,14 +1,16 @@
 .modal-content-cancel {
   background-color: white;
   padding: 7vh;
-  width: 85vh;
-  height: 50vh;
+  width: 70vh;
+  height: 60vh;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow-y: auto;
+  word-break: break-all;
 }
 
 .return-button, .cancel-button {
@@ -32,5 +34,33 @@
 
   .close-button {
     color: #e2e8f0;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-content-cancel {
+    padding: 5vh;
+    width: 90vw;
+    height: 90vh;
+  }
+
+  .return-button, .cancel-button {
+    margin: 2vh;
+    margin-top: 4vh;
+    margin-bottom: 0;
+  }
+}
+
+@media (max-height: 500px) {
+  .modal-content-cancel {
+    padding: 5vh;
+    width: 90vw;
+    height: 90vh;
+  }
+
+  .return-button, .cancel-button {
+    margin: 2vh;
+    margin-top: 4vh;
+    margin-bottom: 0;
   }
 }
