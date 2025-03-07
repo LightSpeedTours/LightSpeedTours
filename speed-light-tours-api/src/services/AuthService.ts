@@ -48,6 +48,7 @@ class AuthService {
       if (existingUsername) {
         throw makeErrorResponse(400, 'Username is already taken');
       }
+      
 
       // Hashear la contraseña
       const hashedPassword = await bcrypt.hash(password, 10);
