@@ -11,6 +11,8 @@ interface FiltersProps {
   setSelectedServices: (services: string[]) => void;
   rating: number;
   setRating: (rating: number) => void;
+  maxPrice: number;
+  setMaxPrice: (price: number) => void;
 }
 
 export default function Filters({
@@ -21,14 +23,21 @@ export default function Filters({
   setSelectedServices,
   rating,
   setRating,
+  maxPrice,
+  setMaxPrice,
 }: FiltersProps) {
   const [locations, setLocations] = useState<string[]>([]);
   const [services, setServices] = useState<string[]>([]);
+  const [priceRange, setPriceRange] = useState<number>(200); // Precio inicial
 
   useEffect(() => {
-    const uniqueLocations = Array.from(new Set(lodgings.map((lodging) => lodging.location)));
+    // Extraer las ubicaciones únicas
+    const uniqueLocations = Array.from(
+      new Set(lodgings.map((lodging) => lodging.location))
+    );
     setLocations(uniqueLocations);
 
+    // Extraer los servicios únicos
     const allServices = lodgings.flatMap((lodging) =>
       lodging.services ? lodging.services.map((service) => service.name) : []
     );
@@ -37,27 +46,42 @@ export default function Filters({
 
   const handleLocationChange = (loc: string) => {
     setSelectedLocations(
-      selectedLocations.includes(loc) ? selectedLocations.filter((l) => l !== loc) : [...selectedLocations, loc]
+      selectedLocations.includes(loc)
+        ? selectedLocations.filter((l) => l !== loc)
+        : [...selectedLocations, loc]
     );
   };
 
   const handleServiceChange = (service: string) => {
     setSelectedServices(
-      selectedServices.includes(service) ? selectedServices.filter((s) => s !== service) : [...selectedServices, service]
+      selectedServices.includes(service)
+        ? selectedServices.filter((s) => s !== service)
+        : [...selectedServices, service]
     );
+  };
+
+  const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newPrice = Number(event.target.value);
+    setPriceRange(newPrice);
+    setMaxPrice(newPrice);
   };
 
   return (
     <div className={styles.filtersContainer}>
       <h2>Filtros</h2>
 
+      {/* Filtro por Localidad */}
       <div className={styles.filtroSection}>
         <h3>Localidad</h3>
         <div className={styles.checkboxGroup}>
           {locations.length > 0 ? (
             locations.map((loc) => (
               <label key={loc}>
-                <input type="checkbox" checked={selectedLocations.includes(loc)} onChange={() => handleLocationChange(loc)} />
+                <input
+                  type="checkbox"
+                  checked={selectedLocations.includes(loc)}
+                  onChange={() => handleLocationChange(loc)}
+                />
                 {loc}
               </label>
             ))
@@ -67,13 +91,18 @@ export default function Filters({
         </div>
       </div>
 
+      {/* Filtro por Servicios */}
       <div className={styles.filtroSection}>
         <h3>Servicios</h3>
         <div className={styles.checkboxGroup}>
           {services.length > 0 ? (
             services.map((service) => (
               <label key={service}>
-                <input type="checkbox" checked={selectedServices.includes(service)} onChange={() => handleServiceChange(service)} />
+                <input
+                  type="checkbox"
+                  checked={selectedServices.includes(service)}
+                  onChange={() => handleServiceChange(service)}
+                />
                 {service}
               </label>
             ))
@@ -83,6 +112,20 @@ export default function Filters({
         </div>
       </div>
 
+
+      {/* Filtro por Precio */}
+      <div className={styles.filtroSection}>
+        <h3>Precio Máximo: ${priceRange}</h3>
+        <input
+          type="range"
+          min="0"
+          max="200"
+          value={priceRange}
+          onChange={handlePriceChange}
+          className={styles.priceSlider}
+        />
+      </div>
+      {/* Filtro por Puntuación */}
       <div className={styles.filtroSection}>
         <h3>Puntuación</h3>
         <RatingSlider value={rating} onChange={setRating} />

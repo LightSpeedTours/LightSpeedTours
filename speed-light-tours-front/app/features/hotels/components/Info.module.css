@@ -3,7 +3,7 @@
 .infoContainer {
   padding: 0px;
   position: absolute;
-  top: 400px;
+  top: 420px;
   left: 320px;
   margin-right: 20px;
   margin-bottom: 50px;
@@ -54,27 +54,11 @@
   justify-content: space-between;
 }
 
-ul {
+.ul {
   list-style-type: disc;
   padding: 10px;
 }
 
-/* 🔹 Ajustes para pantallas pequeñas */
-@media (max-width: 768px) {
-  .gridContainer {
-    grid-template-columns: 1fr; /* Se convierte en una sola columna */
-    padding: 10px
-  }
-
-  .infoContainer {
-    position: relative; /* Evita que se superponga en móviles */
-    top: auto;
-    right: auto;
-    left: auto;
-    padding: 0px;
-    width: 100%; /* Se adapta al ancho disponible */
-  }
-}
 
 .image {
   width: 100%;
@@ -86,8 +70,8 @@ ul {
 .planetsImagesContainer{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    row-gap: 30px;
-    column-gap: 20px;
+    row-gap: 40px;
+    column-gap: 40px;
     width: 100%;
     padding: 20px;
 
@@ -96,8 +80,8 @@ ul {
 h1 {
   font-family: 'Press Start 2P', sans-serif; /* Fuente estilo retro-futurista */
   text-transform: uppercase; /* Letras mayúsculas */
-  color: #ffcc00; /* Color amarillo (como el de los títulos de Star Wars) */
-  text-shadow: 0 0 5px #ffcc00, 0 0 10px #ffcc00, 0 0 20px #ff6600, 0 0 30px #ff6600, 0 0 40px #ff6600, 0 0 50px #ff6600, 0 0 75px #ff6600; /* Efecto de resplandor */
+  color: #FFE81F; /* Color amarillo (como el de los títulos de Star Wars) */
+  text-shadow: 0 0 5px #FFE81F, 0 0 10px #FFE81F, 0 0 20px #ff6600, 0 0 30px #ff6600, 0 0 40px #ff6600, 0 0 50px #ff6600, 0 0 75px #ff6600; /* Efecto de resplandor */
   letter-spacing: 5px; /* Espaciado entre letras */
   font-size: 2rem; /* Tamaño grande */
   text-align: center; /* Centrado del texto */
@@ -108,8 +92,8 @@ h1 {
 h2 {
   font-family: 'Press Start 2P', sans-serif; /* Fuente estilo retro-futurista */
   text-transform: uppercase; /* Letras mayúsculas */
-  color: #ffcc00; /* Color amarillo (como el de los títulos de Star Wars) */
-  text-shadow: 0 0 1px #ffcc00, 0 0 10px #ffcc00, 0 0 20px #ff6600, 0 0 30px #ff6600, 0 0 40px #ff6600, 0 0 50px #ff6600, 0 0 75px #ff6600; /* Efecto de resplandor */
+  color: #FFE81F; /* Color amarillo (como el de los títulos de Star Wars) */
+  text-shadow: 0 0 1px #FFE81F, 0 0 5px #FFE81F, 0 0 10px #ff6600, 0 0 15px #ff6600, 0 0 20px #ff6600, 0 0 25px #ff6600, 0 0 40px #ff6600; /* Efecto de resplandor */
   letter-spacing: 2px; /* Espaciado entre letras */
   font-size: 1.5rem; /* Tamaño grande */
   text-align: center; /* Centrado del texto */ 
@@ -118,8 +102,8 @@ h2 {
 
 h3 {
   font-family: 'Press Start 2P', sans-serif; /* Fuente estilo retro-futurista */
-  color: #ffcc00; /* Color amarillo (como el de los títulos de Star Wars) */
- 
+  color: #FFE81F; /* Color amarillo (como el de los títulos de Star Wars) */
+
   letter-spacing: 2px; /* Espaciado entre letras */
   font-size: 1rem; /* Tamaño grande */
   text-align: center; /* Centrado del texto */ 
@@ -141,4 +125,21 @@ p {
 
 button{
   width: 100%
+}
+
+/* 🔹 Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+  .gridContainer {
+    grid-template-columns: 1fr; /* Se convierte en una sola columna */
+    padding: 10px
+  }
+
+  .infoContainer {
+    position: relative; /* Evita que se superponga en móviles */
+    top: auto;
+    right: auto;
+    left: auto;
+    padding: 0px;
+    width: 100%; /* Se adapta al ancho disponible */
+  }
 }

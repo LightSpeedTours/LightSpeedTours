@@ -18,6 +18,7 @@ export default function HotelsPage() {
   const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [rating, setRating] = useState<number>(0);
+  const [maxPrice, setMaxPrice] = useState<number>(1000); // Nuevo estado para el precio máximo
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -39,7 +40,6 @@ export default function HotelsPage() {
 
           const data = await response.json();
           setPlanetInfo(Array.isArray(data) ? data : []);
-
         } catch (error) {
           console.error("Error al obtener la información:", error);
           setPlanetInfo([]);
@@ -52,6 +52,7 @@ export default function HotelsPage() {
     }
   }, []);
 
+  // Filtro de alojamientos basado en la localidad, servicios, puntuación y precio máximo
   const filteredLodgings = planetInfo.filter((lodging) => {
     const matchesLocation =
       selectedLocations.length === 0 || selectedLocations.includes(lodging.location);
@@ -65,7 +66,9 @@ export default function HotelsPage() {
 
     const matchesRating = (lodging.rating ?? 0) >= rating;
 
-    return matchesLocation && matchesServices && matchesRating;
+    const matchesPrice = lodging.cost <= maxPrice;
+
+    return matchesLocation && matchesServices && matchesRating && matchesPrice;
   });
 
   if (loading) {
@@ -101,6 +104,8 @@ export default function HotelsPage() {
             setSelectedServices={setSelectedServices}
             rating={rating}
             setRating={setRating}
+            maxPrice={maxPrice}
+            setMaxPrice={setMaxPrice}
           />
         </aside>
         <section className={styles.infoContainer}>

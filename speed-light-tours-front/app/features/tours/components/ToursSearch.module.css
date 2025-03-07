@@ -75,17 +75,6 @@
   top: 80px;
 }
 
-.typeBar {
-  position: absolute;
-  top: 0px;
-  right: 20px;
-  padding: 8px;
-  border: 1px solid #ffe81f;
-  border-radius: 8px;
-  width: 300px;
-  text-align: center;
-  background-color: #1a1a1a;
-}
 
 .searchButton {
   position: absolute;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './ToursSearch.module.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -11,6 +11,8 @@ interface SearchProps {
   setRating: React.Dispatch<React.SetStateAction<number>>;
   startDate: Date | undefined;
   setStartDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  selectedPlanets: string[];
+  setSelectedPlanets: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export default function Search({
@@ -19,10 +21,27 @@ export default function Search({
   rating,
   setRating,
   startDate,
-  setStartDate}: SearchProps) {
-  
+  setStartDate,
+  selectedPlanets,
+  setSelectedPlanets
+}: SearchProps) {
   const [showStartCalendar, setShowStartCalendar] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest(`.${styles.calendarWrapper}`) && !target.closest(`.${styles.entryDateSelector}`)) {
+        setShowStartCalendar(false);
+      }
+    };
+
+    window.addEventListener('click', handleClickOutside);
+
+    return () => {
+      window.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -34,20 +53,20 @@ export default function Search({
       return;
     }
     console.log('Buscando:', searchTerm);
-    // petición a una API
   };
 
   const resetFilters = () => {
+    setSearchTerm('');
     setStartDate(undefined);
     setSelectedServices([]);
     setRating(0);
+    setSelectedPlanets([]);
+    setShowStartCalendar(false);
   };
-
 
   return (
     <div className={styles.searchContainer}>
-      {/* Botón de fecha de entrada */}
-      <div className={styles.entryDateSelector}>
+      <div className={styles.entryDateSelector} onClick={(e) => e.stopPropagation()}>
         <Button
           onClick={() => setShowStartCalendar(!showStartCalendar)}
           text={startDate ? `${startDate.toLocaleDateString()}` : 'Fecha'}
@@ -69,8 +88,6 @@ export default function Search({
         )}
       </div>
 
-
-      {/* Limpiar filtros */}
       <div className={styles.searchButton}>
         <Button text="Limpiar filtros" type="button" onClick={resetFilters} />
       </div>

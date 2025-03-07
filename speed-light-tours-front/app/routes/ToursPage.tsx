@@ -7,14 +7,15 @@ import styles from "../features/tours/components/ToursPage.module.css";
 import type { Tour } from "../features/tours/utils/ToursTypes";
 
 export default function ToursPage() {
-  const [planet, setPlanet] = useState<string | null>(null);
-  const [planetInfo, setPlanetInfo] = useState<Tour[]>([]);
+  const [tours, setTours] = useState<Tour[]>([]);
   const [loading, setLoading] = useState(true);
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
 
-  // Estados para los filtros
+  const [selectedPlanets, setSelectedPlanets] = useState<string[]>([]);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [rating, setRating] = useState<number>(0);
+  const [maxPrice, setMaxPrice] = useState<number>(200); // Nuevo estado para el precio máximo
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,10 +27,10 @@ export default function ToursPage() {
         }
 
         const data = await response.json();
-        setPlanetInfo(Array.isArray(data) ? data : []);
+        setTours(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Error al obtener la información:", error);
-        setPlanetInfo([]);
+        setTours([]);
       } finally {
         setLoading(false);
       }
@@ -39,7 +40,7 @@ export default function ToursPage() {
   }, []);
 
   // Aplicar filtros a los tours
-  const filteredTours = planetInfo.filter((tour) => {
+  const filteredTours = tours.filter((tour) => {
     const matchesServices =
       selectedServices.length === 0 ||
       (tour.services &&
@@ -49,42 +50,60 @@ export default function ToursPage() {
 
     const matchesRating = (tour.rating ?? 0) >= rating;
 
-    return matchesServices && matchesRating;
+    const matchesPrice = tour.cost <= maxPrice;
+
+    const matchesPlanet =
+      selectedPlanets.length === 0 ||
+      selectedPlanets.includes(tour.planet);
+
+    return matchesServices && matchesRating && matchesPrice && matchesPlanet;
   });
 
+  // Restablecer todos los filtros
   const resetFilters = () => {
     setSelectedServices([]);
     setRating(0);
+    setMaxPrice(200);
+    setSelectedPlanets([]);
   };
 
   if (loading) {
-    return <div>Cargando información...</div>;
+    return <div className="text-center text-white">Cargando información...</div>;
   }
 
   return (
     <main className={styles.ToursPage}>
       <Header />
       <div className={styles.searchContainer}>
-        <Search
+      <Search
         selectedServices={selectedServices}
         setSelectedServices={setSelectedServices}
         rating={rating}
         setRating={setRating}
         startDate={startDate}
-        setStartDate={setStartDate} />
+        setStartDate={setStartDate}
+        selectedPlanets={selectedPlanets}
+        setSelectedPlanets={setSelectedPlanets}
+      />
+
       </div>
       <div className={styles.contentContainer}>
         <aside className={styles.filtersContainer}>
           <Filters
-            selectedServices={selectedServices}
-            setSelectedServices={setSelectedServices}
-            rating={rating}
-            setRating={setRating}
-          />
-         
+          tours={tours}
+          selectedPlanets={selectedPlanets}
+          setSelectedPlanets={setSelectedPlanets}
+          selectedServices={selectedServices}
+          setSelectedServices={setSelectedServices}
+          rating={rating}
+          setRating={setRating}
+          maxPrice={maxPrice}
+          setMaxPrice={setMaxPrice}
+          resetFilters={resetFilters}
+        />
         </aside>
         <section className={styles.infoContainer}>
-          <Info planet={planet || ""} planetInfo={filteredTours} />
+          <Info planet={selectedPlanets.join(", ") || ""} planetInfo={filteredTours} />
         </section>
       </div>
     </main>

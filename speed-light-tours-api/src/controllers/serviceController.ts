@@ -1,5 +1,9 @@
 import { Request, Response } from 'express';
-import { getLodgingsByServiceId, getToursByServiceId } from '../services/serviceService';
+import {
+    getLodgingsByServiceId,
+    getToursByServiceId,
+    getAllServices,
+} from '../services/serviceService';
 import { handleErrorResponse } from '../utils/ErrorHandler';
 
 /**
@@ -26,6 +30,18 @@ export const getToursByService = async (req: Request, res: Response): Promise<vo
 
         res.status(200).json(tours);
     } catch (error) {
+        handleErrorResponse(res, error);
+    }
+};
+
+/**
+ * Controlador para obtener todos los servicios.
+ */
+export const getServices = async (_req: Request, res: Response): Promise<void> => {
+    try {
+        const services = await getAllServices();
+        res.status(200).json(services);
+    } catch (error: unknown) {
         handleErrorResponse(res, error);
     }
 };
