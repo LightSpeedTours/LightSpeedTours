@@ -5,7 +5,7 @@
   border-radius: 16px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   background-color: #f7fafc;
-  gap: 2vw;
+  gap: 3vw;
   overflow: hidden;
   word-break: break-all;
 }
@@ -32,6 +32,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  max-width: 15vw;
 }
 
 .price {
