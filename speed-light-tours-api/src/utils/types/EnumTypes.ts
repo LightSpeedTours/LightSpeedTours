@@ -14,4 +14,15 @@ export const LOCATION_TYPES = {
     ORDER: 'order',
 } as const;
 
+export const USER_ROLS = {
+    ADMIN: 'admin',
+    USER: 'user'
+} as const
+
+export const GENDER = {
+    MALE: 'male',
+    FEMALE: 'female',
+    OTHER: 'other'
+} as const;
+
 export type LocationType = (typeof LOCATION_TYPES)[keyof typeof LOCATION_TYPES];

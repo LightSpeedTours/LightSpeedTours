@@ -129,6 +129,7 @@ export default function SignupPage() {
               >
                 Crear cuenta
               </button>
+
             </div>
           </form>
         </div>
