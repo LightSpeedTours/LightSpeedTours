@@ -1,34 +1,18 @@
 import { Calendar } from 'lucide-react';
-
-const starWarsColors = {
-  primary: '#FFE81F', // Star Wars Yellow
-  secondary: '#000000', // Space Black
-  accent: '#2E67F8', // Lightsaber Blue
-  darkGray: '#1A1A1A', // Dark Background
-  mediumGray: '#2C2C2C', // Medium Background
-  lightGray: '#444444', // Light Background
-  textPrimary: '#FFFFFF', // White Text
-  textSecondary: '#CCCCCC', // Light Gray Text
-  imperial: '#FF0000', // Imperial Red
-  hover: {
-    primary: '#FFD700', // Darker Yellow
-    accent: '#1E4FCC', // Darker Blue
-    imperial: '#CC0000', // Darker Red
-  },
-};
+import { Link } from 'react-router-dom';
 
 export default function SignupPage() {
   return (
     <div
-      className="min-h-screen bg-[${starWarsColors.darkGray}] py-8 px-4"
+      className="min-h-screen bg-[#1A1A1A] py-8 px-4"
       style={{
-        background: `linear-gradient(to bottom, ${starWarsColors.secondary}, ${starWarsColors.darkGray})`,
+        background: `linear-gradient(to bottom, #000000, #1A1A1A)`,
       }}
     >
       <div className="mx-auto max-w-3xl">
         {/* Logo Section */}
         <div className="mb-8 p-8 text-center">
-          <h1 className="text-4xl font-light" style={{ color: starWarsColors.primary }}>
+          <h1 className="text-4xl font-light" style={{ color: '#FFE81F' }}>
             Speed Light Tours
           </h1>
           <p className="text-[#CCCCCC] mt-2">The galaxy is waiting for you. Join us!</p>
@@ -50,7 +34,7 @@ export default function SignupPage() {
                   type="text"
                   id="name"
                   placeholder="Input"
-                  className="w-full rounded-md border border-[#444444] bg-[${starWarsColors.darkGray}] p-2 text-[#FFFFFF] placeholder-[#CCCCCC] focus:outline-none focus:ring-2 focus:ring-[#FFE81F] focus:border-transparent"
+                  className="w-full rounded-md border border-[#444444] bg-[#1A1A1A] p-2 text-[#FFFFFF] placeholder-[#CCCCCC] focus:outline-none focus:ring-2 focus:ring-[#FFE81F] focus:border-transparent"
                 />
                 <p className="text-xs text-[#CCCCCC]">Supporting text</p>
               </div>
@@ -64,7 +48,7 @@ export default function SignupPage() {
                   type="text"
                   id="username"
                   placeholder="Input"
-                  className="w-full rounded-md border border-[#444444] bg-[${starWarsColors.darkGray}] p-2 text-[#FFFFFF] placeholder-[#CCCCCC] focus:outline-none focus:ring-2 focus:ring-[#FFE81F] focus:border-transparent"
+                  className="w-full rounded-md border border-[#444444] bg-[#1A1A1A] p-2 text-[#FFFFFF] placeholder-[#CCCCCC] focus:outline-none focus:ring-2 focus:ring-[#FFE81F] focus:border-transparent"
                 />
                 <p className="text-xs text-[#CCCCCC]">Supporting text</p>
               </div>
@@ -78,7 +62,7 @@ export default function SignupPage() {
                   type="email"
                   id="email"
                   placeholder="Input"
-                  className="w-full rounded-md border border-[#444444] bg-[${starWarsColors.darkGray}] p-2 text-[#FFFFFF] placeholder-[#CCCCCC] focus:outline-none focus:ring-2 focus:ring-[#FFE81F] focus:border-transparent"
+                  className="w-full rounded-md border border-[#444444] bg-[#1A1A1A] p-2 text-[#FFFFFF] placeholder-[#CCCCCC] focus:outline-none focus:ring-2 focus:ring-[#FFE81F] focus:border-transparent"
                 />
                 <p className="text-xs text-[#CCCCCC]">Supporting text</p>
               </div>
@@ -93,7 +77,7 @@ export default function SignupPage() {
                     type="text"
                     id="birthdate"
                     placeholder="Input"
-                    className="w-full rounded-md border border-[#444444] bg-[${starWarsColors.darkGray}] p-2 text-[#FFFFFF] placeholder-[#CCCCCC] focus:outline-none focus:ring-2 focus:ring-[#FFE81F] focus:border-transparent"
+                    className="w-full rounded-md border border-[#444444] bg-[#1A1A1A] p-2 text-[#FFFFFF] placeholder-[#CCCCCC] focus:outline-none focus:ring-2 focus:ring-[#FFE81F] focus:border-transparent"
                   />
                   <div className="absolute inset-y-0 right-3 flex items-center">
                     <Calendar className="h-5 w-5 text-[#FFE81F]" />
@@ -111,7 +95,8 @@ export default function SignupPage() {
                   type="password"
                   id="password"
                   placeholder="Input (8 caracteres, signos y mayuscula)"
-                  className="w-full rounded-md border border-[#444444] bg-[#1A1A1A] p-2 text-[#FFFFFF] placeholder-[#CCCCCC] focus:outline-none focus:ring-2 focus:ring-[#FFE81F] focus:border-transparent"
+                  className="w-full rounded-md border border-[#444444] bg-[#1A1A1A] p-2 text-[#FFFFFF] 
+                  placeholder-[#CCCCCC] focus:outline-none focus:ring-2 focus:ring-[#FFE81F] focus:border-transparent"
                 />
                 <p className="text-xs text-[#CCCCCC]">Supporting text</p>
               </div>
@@ -128,7 +113,8 @@ export default function SignupPage() {
                   type="password"
                   id="confirmPassword"
                   placeholder="Input"
-                  className="w-full rounded-md border border-[#444444] bg-[#1A1A1A] p-2 text-[#FFFFFF] placeholder-[#CCCCCC] focus:outline-none focus:ring-2 focus:ring-[#FFE81F] focus:border-transparent"
+                  className="w-full rounded-md border border-[#444444] bg-[#1A1A1A] p-2 text-[#FFFFFF] 
+                  placeholder-[#CCCCCC] focus:outline-none focus:ring-2 focus:ring-[#FFE81F] focus:border-transparent"
                 />
                 <p className="text-xs text-[#CCCCCC]">Supporting text</p>
               </div>
@@ -136,12 +122,16 @@ export default function SignupPage() {
 
             {/* Submit Button */}
             <div className="mt-8">
-              <button
-                type="submit"
-                className="w-full rounded-md bg-[#FFE81F] py-2 px-4 text-black font-semibold hover:bg-[#FFD700] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#FFE81F] focus:ring-offset-2 focus:ring-offset-[#2C2C2C]"
-              >
-                Crear cuenta
-              </button>
+                <Link to="/">
+                  <button
+                    type="submit"
+                    className="w-full rounded-md bg-[#FFE81F] py-2 px-4 text-black font-semibold hover:bg-[#FFD700] 
+                transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#FFE81F] focus:ring-offset-2 
+                focus:ring-offset-[#2C2C2C]"
+                  >
+                    Crear cuenta
+                  </button>
+                </Link>
             </div>
           </form>
         </div>

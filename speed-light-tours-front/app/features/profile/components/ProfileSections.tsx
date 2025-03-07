@@ -1,6 +1,7 @@
 import React from 'react';
-import PersonalInfo from '../components/PersonalInfo';
-import AccountDetails from '../components/AccountDetails';
+import PersonalInfo from './PersonalInfo';
+import AccountDetails from './AccountDetails';
+import ChewbaccaImage from 'app/shared/assets/profile/chewbacca.jpg'; // Assuming you have an image file
 import './profileSections.css';
 
 const ProfileSections: React.FC = () => {
@@ -12,6 +13,7 @@ const ProfileSections: React.FC = () => {
     date: '01/01/1990',
     gender: 'Masculino',
     occupation: 'Desarrollador de software',
+    profileImage: ChewbaccaImage,
   };
 
   return (
@@ -20,7 +22,7 @@ const ProfileSections: React.FC = () => {
         <h2> Mi Perfil</h2>
       </div>
       <div className="profile-info">
-        <PersonalInfo />
+        <PersonalInfo accountDetails={accountDetails} />
         <AccountDetails {...accountDetails} />
       </div>
     </div>

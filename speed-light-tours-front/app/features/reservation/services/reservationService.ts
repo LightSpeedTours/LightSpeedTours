@@ -55,3 +55,48 @@ export const createReservation = async (reservation: CommentPayload) => {
     throw error;
   }
 };
+
+/**
+ * Elimina una reserva
+ * @param reservationId ID de la reserva
+ */
+export const deleteReservation = async (reservationId: number) => {
+  try {
+    const response = await fetch(`${API_URL}/reservations/${reservationId}`, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) throw new Error('Error al eliminar la reserva');
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error eliminando la reserva:', error);
+    throw error;
+  }
+};
+
+/**
+ * Actualiza una reserva existente
+ * @param reservationId ID de la reserva
+ * @param updatedReservation Datos actualizados de la reserva
+ */
+export const updateReservation = async (reservationId: number, updatedReservation: CommentPayload) => {
+  try {
+    const response = await fetch(`${API_URL}/reservations/${reservationId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedReservation),
+    });
+
+    if (!response.ok) throw new Error('Error al actualizar la reserva');
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error actualizando la reserva:', error);
+    throw error;
+  }
+};
+
+

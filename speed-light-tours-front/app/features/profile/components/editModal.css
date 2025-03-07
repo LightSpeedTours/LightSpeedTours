@@ -1,0 +1,81 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+}
+
+.modal-content {
+  background: white;
+  padding: 1%;
+  border-radius: 8px;
+  max-width: 40vw;
+}
+
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 0,5vw;
+  margin-bottom: 1vh;
+}
+
+.carousel img {
+  width: 15%;
+  height: 15%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 50%;
+}
+
+.carousel img.selected {
+  border-color: #007bff;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+}
+
+.edit-form label {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-form input {
+  padding: 1vh;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .modal-content {
+    background: #2d3748;
+    color: white;
+  }
+
+  .edit-form input {
+    background: #2d3748;
+    color: white;
+    border: 1px solid #777;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 90vw;
+
+  }
+
+  .carousel img {
+    width: 20%;
+    height: 20%;
+  }
+}
+

@@ -5,14 +5,6 @@
   object-fit: cover;
 }
 
-button {
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  cursor: pointer;
-}
-
 .edit-button {
   background-color: #3182ce;
   color: #ffffff;

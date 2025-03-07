@@ -7,10 +7,16 @@ export const handleErrorResponse = (res: Response, error: unknown) => {
 };
 
 export const makeErrorResponse = (status: number, entity?: string) => {
-    const message =
-        typeof HttpResponses[status] === 'function'
-            ? HttpResponses[status](entity)
-            : HttpResponses[status];
+    // Comentado por CAMILO
+    // const message =
+    //     typeof HttpResponses[status] === 'function'
+    //         ? HttpResponses[status](entity)
+    //         : HttpResponses[status];
 
+
+        const message = entity; // COMENTAR EN PRODUCCION
     return { status, message };
 };
+
+export const successResponse = (res: Response, data: any, message: string) => 
+    res.status(200).json({ message, data });

@@ -1,8 +1,19 @@
 import Header from '../shared/components/Header';
 import PromotionsCarousel from '../features/landing/components/promotions-carousel';
 import FeaturedDestinations from '../features/landing/components/feature-destinations';
+import type { Route } from '../+types/root';
+
+
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: 'Light Speed Tours' },
+  ];
+}
 
 export default function LandingPage() {
+    if (typeof document === 'undefined') {
+      return null; // Return null if not in a browser environment
+    }
   return (
     <main className="min-h-screen bg-white">
       <Header />
