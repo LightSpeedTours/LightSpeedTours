@@ -33,6 +33,16 @@
   border-radius: 0px;
 }
 
+.loading{
+  font-family: 'Press Start 2P', sans-serif; 
+  text-transform: uppercase; 
+  color: #FFE81F; 
+  text-shadow: 0 0 1px #FFE81F, 0 0 5px #FFE81F, 0 0 10px #ff6600, 0 0 15px #ff6600, 0 0 20px #ff6600, 0 0 25px #ff6600, 0 0 40px #ff6600; 
+  letter-spacing: 2px; 
+  font-size: 1.5rem; 
+  text-align: center;  
+}
+
 @media (max-width: 768px) {
   .contentContainer {
     flex-direction: column;

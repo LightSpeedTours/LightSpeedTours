@@ -9,14 +9,15 @@ import type { Tour } from "../features/tours/utils/ToursTypes";
 export default function ToursPage() {
   const [tours, setTours] = useState<Tour[]>([]);
   const [loading, setLoading] = useState(true);
-  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
 
+  //Estados para los filtros
+  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
   const [selectedPlanets, setSelectedPlanets] = useState<string[]>([]);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [rating, setRating] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(200); // Nuevo estado para el precio máximo
 
-
+  //Obtener informacion
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -39,7 +40,7 @@ export default function ToursPage() {
     fetchData();
   }, []);
 
-  // Aplicar filtros a los tours
+  //Filtros
   const filteredTours = tours.filter((tour) => {
     const matchesServices =
       selectedServices.length === 0 ||
@@ -59,7 +60,7 @@ export default function ToursPage() {
     return matchesServices && matchesRating && matchesPrice && matchesPlanet;
   });
 
-  // Restablecer todos los filtros
+  //Limpiarfiltros
   const resetFilters = () => {
     setSelectedServices([]);
     setRating(0);
@@ -68,9 +69,9 @@ export default function ToursPage() {
   };
 
   if (loading) {
-    return <div className="text-center text-white">Cargando información...</div>;
+    return <div className={styles.loading}>Cargando información...</div>;
   }
-
+  //Divs e informacion que debe mostrarse dependiendo de los filtros
   return (
     <main className={styles.ToursPage}>
       <Header />
