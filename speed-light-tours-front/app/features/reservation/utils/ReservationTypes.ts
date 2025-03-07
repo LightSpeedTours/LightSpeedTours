@@ -31,14 +31,14 @@ export interface Order {
   reservations: Reservation[];
 }
 
-export interface CommentPayload {
+export interface ReservationPayload {
   userId: number;
   entityType: string;
   entityId: number;
   quantity: number;
   subtotal: number;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
 }
 
 export interface CancelConfirmationModalProps {
@@ -56,6 +56,7 @@ export interface ButtonProps {
 }
 
 export interface FormProps {
+  reservationId: number;
   id: number;
   cost: number;
   quantity: number;

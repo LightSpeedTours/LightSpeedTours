@@ -107,7 +107,6 @@ export const getUserOrders = async (userId: number) => {
  */
 export const processCartPayment = async (userId: number) => {
     return await Cart.sequelize!.transaction(async (transaction: Transaction) => {
-        // ✅ Obtener el carrito del usuario con todas sus reservas
         const cart = await Cart.findOne({
             where: { userId },
             include: [Reservation],
@@ -118,18 +117,15 @@ export const processCartPayment = async (userId: number) => {
             throw makeErrorResponse(400, 'El carrito está vacío.');
         }
 
-        // ✅ Verificar si el usuario ya tiene una orden activa
         let order = await Order.findOne({
             where: { userId },
             transaction,
         });
 
         if (order) {
-            // ✅ Si ya existe una orden, actualizar el total
             order.totalAmount += cart.totalPrice;
             await order.save({ transaction });
         } else {
-            // ✅ Si no existe, crear una nueva orden
             order = await Order.create(
                 {
                     userId,
@@ -164,14 +160,12 @@ export const processCartPayment = async (userId: number) => {
  * ✅ Eliminar un elemento específico del carrito de un usuario
  */
 export const removeItemFromCart = async (userId: number, itemId: number) => {
-    // Buscar el carrito del usuario
     const cart = await Cart.findOne({ where: { userId }, include: [Reservation] });
 
     if (!cart) {
         throw makeErrorResponse(404, 'El carrito');
     }
 
-    // Buscar la reserva específica dentro del carrito
     const reservation = await Reservation.findOne({
         where: { id: itemId, locationId: cart.id, locationType: 'cart' },
     });
@@ -183,7 +177,6 @@ export const removeItemFromCart = async (userId: number, itemId: number) => {
     const newTotalPrice = cart.totalPrice - reservation.subtotal;
     await cart.update({ totalPrice: newTotalPrice });
 
-    // Eliminar la reserva del carrito
     await reservation.destroy();
 
     return { message: 'Elemento eliminado correctamente' };

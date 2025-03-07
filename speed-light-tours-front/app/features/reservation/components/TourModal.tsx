@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {
   fetchReservedDates,
-  createReservation,
+  updateReservation,
 }  from '../../reservation/services/reservationService';
 import InputField from '~/shared/components/InputField';
 import Button from '~/shared/components/Button';
@@ -12,6 +12,7 @@ import type { FormProps } from '../utils/ReservationTypes';
 import { set } from 'node_modules/react-datepicker/dist/date_utils';
 
 const TourForm: React.FC<FormProps> = ({
+  reservationId,
   cost,
   id,
   quantity,
@@ -74,7 +75,7 @@ const TourForm: React.FC<FormProps> = ({
     };
 
     try {
-      await createReservation(reservationData);
+      await updateReservation(reservationData, reservationId);
       alert('Reserva realizada con éxito!');
       const updatedDates = await fetchReservedDates('tour', id);
       setDateReserved(updatedDates);

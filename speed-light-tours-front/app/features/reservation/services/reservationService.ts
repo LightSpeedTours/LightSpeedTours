@@ -1,4 +1,4 @@
-import type { CommentPayload, Order } from '../utils/ReservationTypes';
+import type { Order, ReservationPayload } from '../utils/ReservationTypes';
 
 export const API_URL = 'http://localhost:3000'; // Ajusta según tu backend
 const BEARER_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkdW1teUBleGFtcGxlLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzQxMzcxNzEyLCJleHAiOjE3NDE0NTgxMTJ9.RwaUaiTF8KPyiQX1lmm36fhj2EG3LT0eXzl8GBAEwE0';
@@ -13,7 +13,7 @@ export const fetchReservedDates = async (entityType:String, entityId: number): P
     const response = await fetch(`${API_URL}/reservations/${entityType}/${entityId}/dates`);
     if (!response.ok) throw new Error('Error al obtener las reservas');
 
-    const data: CommentPayload[] = await response.json();
+    const data: ReservationPayload[] = await response.json();
     return data
       .map((reservation) => {
         const start = new Date(reservation.startDate);
@@ -38,7 +38,7 @@ export const fetchReservedDates = async (entityType:String, entityId: number): P
  * Crea una nueva reserva
  * @param reservation Datos de la reserva
  */
-export const createReservation = async (reservation: CommentPayload) => {
+export const createReservation = async (reservation: ReservationPayload) => {
   try {
     const response = await fetch(`${API_URL}/reservations`, {
       method: 'POST',
@@ -85,22 +85,23 @@ export const deleteReservation = async (reservationId: number) => {
  * @param reservationId ID de la reserva
  * @param updatedReservation Datos actualizados de la reserva
  */
-export const updateReservation = async (reservationId: number, updatedReservation: CommentPayload) => {
+export const updateReservation = async (reservation: ReservationPayload, idReservation: number) => {
   try {
-    const response = await fetch(`${API_URL}/reservations/${reservationId}`, {
+    console.log(reservation);
+    const response = await fetch(`${API_URL}/reservations/${idReservation}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${BEARER_TOKEN}`,
       },
-      body: JSON.stringify(updatedReservation),
+      body: JSON.stringify(reservation),
     });
 
-    if (!response.ok) throw new Error('Error al actualizar la reserva');
+    if (!response.ok) throw new Error('Error al realizar la reserva');
 
     return await response.json();
   } catch (error) {
-    console.error('Error actualizando la reserva:', error);
+    console.error('Error creando la reserva:', error);
     throw error;
   }
 };

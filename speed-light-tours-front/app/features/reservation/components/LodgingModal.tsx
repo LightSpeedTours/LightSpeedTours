@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import type { FormProps } from '../utils/ReservationTypes';
+import type { FormProps, ReservationPayload } from '../utils/ReservationTypes';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import {
   fetchReservedDates,
-  createReservation,
+  updateReservation,
 } from '../../reservation/services/reservationService';
 import InputField from '~/shared/components/InputField';
 import Button from '~/shared/components/Button';
 import './lodgingModal.css';
 
 const LodgingForm: React.FC<FormProps> = ({
+  reservationId,
   cost,
   id,
   quantity,
@@ -93,18 +94,18 @@ const LodgingForm: React.FC<FormProps> = ({
 
     setLoading(true);
 
-    const reservationData = {
+    const reservationData:ReservationPayload = {
       userId: 1, // TODO: Obtener ID real del usuario autenticado
       entityType: 'lodging',
       entityId: id,
       quantity: guests,
       subtotal: calculateTotal(),
-      startDate: selectedDates[0] || new Date(),
-      endDate: selectedDates[1] || new Date(),
+      startDate: selectedDates[0] ? selectedDates[0].toISOString() : new Date().toISOString(),
+      endDate: selectedDates[1] ? selectedDates[1].toISOString() : new Date().toISOString(),
     };
 
     try {
-      await createReservation(reservationData);
+      await updateReservation(reservationData, reservationId);
       alert('Reserva realizada con éxito!');
 
       const updatedDates = await fetchReservedDates('lodging', id);
