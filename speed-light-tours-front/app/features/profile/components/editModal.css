@@ -12,10 +12,11 @@
 }
 
 .modal-content {
-  background: white;
+  background: #2d3748;
+  color: white;
   padding: 1%;
   border-radius: 8px;
-  max-width: 40vw;
+  max-width: 70vw;
 }
 
 .carousel {
@@ -23,11 +24,12 @@
   overflow-x: auto;
   gap: 0,5vw;
   margin-bottom: 1vh;
+  min-height: fit-content;
 }
 
 .carousel img {
-  width: 15%;
-  height: 15%;
+  width: 7vw;
+  height: auto;
   cursor: pointer;
   border: 2px solid transparent;
   border-radius: 50%;
@@ -50,32 +52,36 @@
 
 .edit-form input {
   padding: 1vh;
-  border: 1px solid #ccc;
   border-radius: 4px;
+  background: #2d3748;
+  color: white;
+  border: 1px solid #777;
 }
 
-@media (prefers-color-scheme: dark) {
-  .modal-content {
-    background: #2d3748;
-    color: white;
-  }
-
-  .edit-form input {
-    background: #2d3748;
-    color: white;
-    border: 1px solid #777;
-  }
+.edit-form select {
+  padding-top: 1.5vh;
+  padding-bottom: 1.5vh;
+  padding-left: 1vh;
+  border-radius: 4px;
+  background: #2d3748;
+  color: white;
+  border: 1px solid #777;
+  margin-top: 1vh;
 }
 
-@media (max-width: 768px) {
-  .modal-content {
-    width: 90vw;
+.button {
+  margin-top: 1vh;
+  padding: 1vh;
+}
 
+@media (max-width: 900px) {
+  .modal-content {
+    max-width: 90vw;
   }
 
   .carousel img {
-    width: 20%;
-    height: 20%;
+    width: 20vw;
+    height: auto;
   }
 }
 

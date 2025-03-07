@@ -37,7 +37,7 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, onSave, accountD
   const [selectedImage, setSelectedImage] = useState(accountDetails.profileImage);
   const [updatedDetails, setUpdatedDetails] = useState(accountDetails);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setUpdatedDetails({ ...updatedDetails, [name]: value });
   };
@@ -78,14 +78,13 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, onSave, accountD
             Nombre de usuario:
             <input type="text" name="username" value={updatedDetails.username} onChange={handleInputChange} />
           </label>   
-          <label>
-            Fecha de nacimiento:
-            <input type="date" name="date" value={updatedDetails.date} onChange={handleInputChange} />
-          </label>
-          <label>
+            <label>
             Género:
-            <input type="text" name="gender" value={updatedDetails.gender} onChange={handleInputChange} />
-          </label>
+            <select name="gender" value={updatedDetails.gender} onChange={handleInputChange}>
+              <option value="masculino">Masculino</option>
+              <option value="femenino">Femenino</option>
+            </select>
+            </label>
           <label>
             Ocupación:
             <input type="text" name="occupation" value={updatedDetails.occupation} onChange={handleInputChange} />
