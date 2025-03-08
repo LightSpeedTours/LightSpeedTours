@@ -48,7 +48,7 @@ export default function Info({ planetInfo }: InfoProps) {
               <h2>Precio</h2>
               <h2>{tour.cost ? `$${tour.cost}` : "Precio no disponible"}</h2>
               <h3>Valor por persona</h3>
-              <a href={`/tourReservation/${tour.id}`}>
+              <a href={`/tourReservation/${tour.id}`} className="flex justify-center items-center w-full">
               <Button text="Reservar" type="button" />
               </a>
             </div>

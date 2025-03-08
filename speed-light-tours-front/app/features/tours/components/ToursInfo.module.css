@@ -113,9 +113,7 @@ p {
 }
 
 
-button{
-  width: 100%
-}
+
 
 /* 🔹 Ajustes para pantallas pequeñas */
 @media (max-width: 768px) {
