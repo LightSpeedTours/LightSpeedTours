@@ -4,7 +4,7 @@ import Header from '../shared/components/OnlyHeader';
 
 const CartPage = () => {
   return (
-    <div className="w-full h-screen bg-black">
+    <div >
       {/* Header */}
       <Header />
 

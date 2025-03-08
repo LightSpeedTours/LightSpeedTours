@@ -1,20 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { ChangeEvent } from 'react';
 import { ShoppingCart, Menu, X, User } from 'lucide-react';
 import Button from './Button';
 import InputField from './InputField';
-import planetsImages from '../utils/planetsImagesLists'; 
-import "../styles/global.css"; // Sin la variable 'styles'
+import planetsImages from '../utils/planetsImagesLists';
+import "../styles/global.css";
 import { Link } from 'react-router-dom';
-
 
 export default function Header() {
   const [searchValue, setSearchValue] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const handleSearchChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  useEffect(() => {
+    const token = localStorage.getItem('token'); 
+    setIsAuthenticated(!!token); // Si hay token, está autenticado
+  }, []);
+
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setSearchValue(event.target.value);
   };
 
@@ -38,15 +41,19 @@ export default function Header() {
 
         {/* Menú en pantallas grandes */}
         <div className="hidden md:flex items-center gap-4">
-          <Link to="/cart">
-            <button className="text-[#FFE81F] p-2 rounded hover:bg-[#2C2C2C] transition-colors">
-              <ShoppingCart className="h-5 w-5" />
-            </button>
-          </Link>
-          <Link to="/reservations">
-            <Button text="Mis reservas" />
-          </Link>
-          <Link to="/login">
+          {isAuthenticated && (
+            <Link to="/cart">
+              <button className="text-[#FFE81F] p-2 rounded hover:bg-[#2C2C2C] transition-colors">
+                <ShoppingCart className="h-5 w-5" />
+              </button>
+            </Link>
+          )}
+          {isAuthenticated && (
+            <Link to="/reservations">
+              <Button text="Mis reservas" />
+            </Link>
+          )}
+          <Link to={isAuthenticated ? "/profile" : "/login"}>
             <button className="text-[#FFE81F] p-2 rounded hover:bg-[#2C2C2C] transition-colors">
               <User className="h-5 w-5" />
             </button>
@@ -65,14 +72,24 @@ export default function Header() {
       {/* Menú desplegable en móviles */}
       {menuOpen && (
         <div className="md:hidden bg-[#1A1A1A] flex flex-col items-center gap-4 p-4 border-y border-[#2C2C2C]">
-          <Link to="/">
-            <Button text="Inicio" />
-          </Link>
           <Link to="/tours">
             <Button text="Tours" />
           </Link>
           <Link to="/hotels">
             <Button text="Hospedajes" />
+          </Link>
+          {isAuthenticated && (
+            <>
+              <Link to="/reservations">
+                <Button text="Mis reservas" />
+              </Link>
+              <Link to="/cart">
+                <Button text="Carrito" />
+              </Link>
+            </>
+          )}
+          <Link to={isAuthenticated ? "/profile" : "/login"}>
+            <Button text={isAuthenticated ? "Perfil" : "Login"} />
           </Link>
         </div>
       )}
@@ -80,24 +97,19 @@ export default function Header() {
       {/* Circular Navigators (planetas) */}
       <div className="w-full bg-[#1A1A1A] py-4 flex justify-center border-y border-[#2C2C2C] overflow-x-auto px-4">
         <div className="flex gap-2">
-        {Object.entries(planetsImages).map(([planetName, imageUrl]) => (
-        <Link
-          key={planetName}
-          to={`/hotels?planet=${planetName.toLowerCase()}`}
-          aria-label={`Ver hospedajes en ${planetName}`}
-        >
-          <button className="w-10 h-10 rounded-full bg-[#2C2C2C] flex-shrink-0 overflow-hidden border-2 border-[#FFE81F] transition-transform hover:scale-110">
-            <img
-              src={imageUrl}
-              alt={planetName}
-              className="w-full h-full object-cover"
-            />
-          </button>
-        </Link>
-      ))}
+          {Object.entries(planetsImages).map(([planetName, imageUrl]) => (
+            <Link
+              key={planetName}
+              to={`/hotels?planet=${planetName.toLowerCase()}`}
+              aria-label={`Ver hospedajes en ${planetName}`}
+            >
+              <button className="w-10 h-10 rounded-full bg-[#2C2C2C] flex-shrink-0 overflow-hidden border-2 border-[#FFE81F] transition-transform hover:scale-110">
+                <img src={imageUrl} alt={planetName} className="w-full h-full object-cover" />
+              </button>
+            </Link>
+          ))}
         </div>
       </div>
-
       {/* Bottom Navigation */}
       <div className="w-full bg-[#1A1A1A] px-4 py-4 flex flex-col md:flex-row justify-between items-center">
         <div className="flex flex-wrap justify-center gap-4">

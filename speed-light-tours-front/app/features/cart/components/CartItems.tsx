@@ -56,7 +56,7 @@ const CartItems = () => {
           >
             <div>
               <h3 className="text-xl font-semibold">
-                {item.entityType === 'lodging' ? 'Hospedaje' : 'Tour'} - ID {item.entityId}
+              {item.entityType === 'lodging' ? item.lodging?.name || 'Hospedaje' : item.tour?.name || 'Tour'}
               </h3>
               <p className="text-gray-400">
                 Inicio: {new Date(item.startDate).toLocaleDateString()}
@@ -67,7 +67,6 @@ const CartItems = () => {
             </div>
             <button
               onClick={() => setConfirmDelete(item.id)}
-              className="text-red-500 font-bold hover:text-red-700"
             >
               X
             </button>

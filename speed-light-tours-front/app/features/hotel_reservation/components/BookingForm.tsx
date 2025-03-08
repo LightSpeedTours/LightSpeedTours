@@ -8,6 +8,7 @@ import {
 } from '../../reservation/services/reservationService';
 import InputField from '~/shared/components/InputField';
 import Button from '~/shared/components/Button';
+import { getAuthToken, getUserIdFromToken } from '~/shared/utils/tokenService';
 
 const BookingForm: React.FC<Pick<LodgingProps, 'cost' | 'id'>> = ({ cost, id }) => {
   const [guests, setGuests] = useState<string>('1');
@@ -75,8 +76,15 @@ const BookingForm: React.FC<Pick<LodgingProps, 'cost' | 'id'>> = ({ cost, id }) 
 
     setLoading(true);
 
+    const userId = getUserIdFromToken();
+    if (!userId) {
+      setError('Debes iniciar sesión para hacer una reserva.');
+      setLoading(false);
+      return;
+    }
+
     const reservationData = {
-      userId: 1, // TODO: Obtener ID real del usuario autenticado
+      userId: userId,
       entityType: 'lodging',
       entityId: id,
       quantity: parseInt(guests, 10),
