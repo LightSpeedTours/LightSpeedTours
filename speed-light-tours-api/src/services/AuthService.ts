@@ -21,7 +21,6 @@ class AuthService {
                 throw makeErrorResponse(401, 'Invalid credentials');
             }
 
-
             return AuthService.generateToken(user);
         } catch (error) {
             throw error;
@@ -49,7 +48,6 @@ class AuthService {
                 throw makeErrorResponse(400, 'Username is already taken');
             }
 
-
             const hashedPassword = await bcrypt.hash(password, 10);
             let foo: string | undefined = process.env.JWT_SECRET;
             console.log(foo);
@@ -65,8 +63,6 @@ class AuthService {
                 contact,
             });
 
-
-
             return AuthService.generateToken(newUser);
         } catch (error) {
             throw error;
@@ -80,7 +76,6 @@ class AuthService {
                 email: user.email,
                 role: user.rol,
             },
-
 
             process.env.JWT_SECRET || 'secretKey',
 

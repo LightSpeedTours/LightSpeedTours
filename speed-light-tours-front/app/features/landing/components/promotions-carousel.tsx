@@ -3,40 +3,47 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 
-
 interface Promotion {
   id: string;
+  name: string;
   price: string;
   location: string;
   dates: string;
   description: string;
   capacity: string;
+  imageUrl: string;
 }
 
 const promotions: Promotion[] = [
   {
     id: '1',
-    price: '$100',
+    name: 'Twin Suns Inn',
+    price: '$10',
     location: 'Tatooine',
     dates: '2024-03-08 - 2024-03-15',
     description: 'Experience the thrill of a lifetime on Tatooine!',
     capacity: '100 seats available',
+    imageUrl: 'app/shared/assets/hospedajes/twin-suns-inn.png',
   },
   {
     id: '2',
-    price: '$200',
+    name: 'Frostbite Retreat',
+    price: '$45',
     location: 'Hoth',
     dates: '2024-04-10 - 2024-04-17',
     description: 'Enjoy the icy landscapes of Hoth!',
     capacity: '50 seats available',
+    imageUrl: 'app/shared/assets/hospedajes/frostbite-retreat.png',
   },
   {
     id: '3',
-    price: '$300',
+    name:'Moonlit Retreat',
+    price: '$20',
     location: 'Endor',
     dates: '2024-05-12 - 2024-05-19',
     description: 'Explore the lush forests of Endor!',
     capacity: '75 seats available',
+    imageUrl: 'app/shared/assets/hospedajes/moonlit-retreat.png',
   },
 ];
 
@@ -62,17 +69,26 @@ export default function PromotionsCarousel() {
               transform: `translateX(-${currentIndex * 100}%)`,
             }}
           >
-            <div className="aspect-video bg-[#2C2C2C] mb-4 rounded-md border border-[#2E67F8]"></div>
+            <div
+              className="aspect-video bg-[#2C2C2C] mb-4 rounded-md border border-[#2E67F8] overflow-hidden"
+            >
+              <img
+                src={promotion.imageUrl}
+                alt={promotion.name}
+                className="w-full h-full object-cover"
+              />
+            </div>
             <div className="space-y-2">
               <div className="flex justify-between items-start">
-                <h3 className="text-xl font-bold text-[#FFE81F]">{promotion.price}</h3>
-                <div className="text-sm text-[#CCCCCC]">
-                  <p>{promotion.location}</p>
-                  <p>{promotion.dates}</p>
+                <h3 className="text-xl font-bold">{promotion.price}</h3>
+                <div className="text-sm">
+                  <h3>{promotion.name}</h3>
                 </div>
               </div>
               <p className="text-white">{promotion.description}</p>
-              <p className="text-sm text-[#CCCCCC]">{promotion.capacity}</p>
+              <p className="text-sm">{promotion.capacity}</p>
+              <p>{promotion.location}</p>
+              <p>{promotion.dates}</p>
             </div>
           </div>
         ))}
