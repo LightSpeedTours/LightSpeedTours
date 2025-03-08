@@ -79,11 +79,11 @@ export default function Login() {
           >
             LOGIN
           </button>
-          <div className="text-center">
+          {/* <div className="text-center">
             <a href="/forgot-password" className="text-sm text-gray-600 hover:text-gray-900">
               Forgot password?
             </a>
-          </div>
+          </div> */}
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <span className="w-full border-t border-[#444444]" />
