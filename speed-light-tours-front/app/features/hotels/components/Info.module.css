@@ -138,3 +138,25 @@ p {
     width: 100%; 
   }
 }
+
+
+
+/* 🔹 Responsividad en pantallas grandes */
+@media (min-width: 1200px) {
+  .infoContainer {
+    
+    max-width: 800px;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+}
