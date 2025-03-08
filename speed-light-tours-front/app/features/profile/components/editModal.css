@@ -9,21 +9,44 @@
   justify-content: center;
   align-items: center;
   overflow-y: auto;
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+    border: 3px solid rgba(0, 0, 0, 0.5);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
 }
 
 .modal-content {
   background: #2d3748;
   color: white;
-  padding: 1%;
+  padding: 1.5%;
   border-radius: 8px;
-  max-width: 70vw;
+  max-width: 90vw;
+}
+
+.modal-content h2{
+  margin: auto;
+  word-break: keep-all;
 }
 
 .carousel {
   display: flex;
   overflow-x: auto;
-  gap: 0,5vw;
+  gap: 0.5vw;
   margin-bottom: 1vh;
+  margin-top: 1vh;
   min-height: fit-content;
 }
 
@@ -42,7 +65,6 @@
 .edit-form {
   display: flex;
   flex-direction: column;
-  gap: 1vh;
 }
 
 .edit-form label {
@@ -51,27 +73,27 @@
 }
 
 .edit-form input {
-  padding: 1vh;
+  padding: 0.5vh;
   border-radius: 4px;
   background: #2d3748;
   color: white;
   border: 1px solid #777;
+  margin-top: 0.5vh;
 }
 
 .edit-form select {
-  padding-top: 1.5vh;
-  padding-bottom: 1.5vh;
-  padding-left: 1vh;
+  padding-top: 0.5vh;
+  padding-bottom: 0.5vh;
   border-radius: 4px;
   background: #2d3748;
   color: white;
   border: 1px solid #777;
-  margin-top: 1vh;
+  margin-top: 0.5vh;
 }
 
 .button {
-  margin-top: 1vh;
-  padding: 1vh;
+  margin-top: 3vh;
+  padding: 0.5vh;
 }
 
 @media (max-width: 900px) {

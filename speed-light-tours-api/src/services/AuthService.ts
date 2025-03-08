@@ -42,29 +42,28 @@ class AuthService {
             const existingUser = await User.findOne({ where: { email } });
             const existingUsername = await User.findOne({ where: { user_name } });
 
-      if (existingUser) {
-        throw makeErrorResponse(400, 'Email is already registered');
-      }
-      if (existingUsername) {
-        throw makeErrorResponse(400, 'Username is already taken');
-      }
-      
+            if (existingUser) {
+                throw makeErrorResponse(400, 'Email is already registered');
+            }
+            if (existingUsername) {
+                throw makeErrorResponse(400, 'Username is already taken');
+            }
 
-      // Hashear la contraseña
-      const hashedPassword = await bcrypt.hash(password, 10);
-      let foo: string | undefined = process.env.JWT_SECRET
-      console.log(foo)
-      // Crear nuevo usuario
-      const newUser = await User.create({
-        name,
-        user_name,
-        email,
-        password: hashedPassword,
-        date_of_birth,
-        gender,
-        ocupation,
-        contact
-      });
+            // Hashear la contraseña
+            const hashedPassword = await bcrypt.hash(password, 10);
+            let foo: string | undefined = process.env.JWT_SECRET;
+            console.log(foo);
+            // Crear nuevo usuario
+            const newUser = await User.create({
+                name,
+                user_name,
+                email,
+                password: hashedPassword,
+                date_of_birth,
+                gender,
+                ocupation,
+                contact,
+            });
 
             // Generar y devolver JWT
             return AuthService.generateToken(newUser);

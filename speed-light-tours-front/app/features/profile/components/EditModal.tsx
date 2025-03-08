@@ -67,7 +67,6 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, onSave, accountD
           <img src={DarthMaul} alt="Darth Maul" onClick={() => setSelectedImage(DarthMaul)} className={selectedImage === DarthMaul ? 'selected' : ''} />
           <img src={Padme} alt="Padme" onClick={() => setSelectedImage(Padme)} className={selectedImage === Padme ? 'selected' : ''} />
           <img src={Trooper} alt="Trooper" onClick={() => setSelectedImage(Trooper)} className={selectedImage === Trooper ? 'selected' : ''} />
-          {/* Add more images as needed */}
         </div>
         <form className="edit-form">
           <label>
@@ -83,6 +82,7 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, onSave, accountD
             <select name="gender" value={updatedDetails.gender} onChange={handleInputChange}>
               <option value="masculino">Masculino</option>
               <option value="femenino">Femenino</option>
+              <option value="otro">Otro</option>
             </select>
             </label>
           <label>

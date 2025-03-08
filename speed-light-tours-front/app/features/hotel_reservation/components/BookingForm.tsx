@@ -19,7 +19,7 @@ const BookingForm: React.FC<Pick<LodgingProps, 'cost' | 'id'>> = ({ cost, id }) 
   useEffect(() => {
     const getReservedDates = async () => {
       try {
-        const reservedDates = await fetchReservedDates('lodging','lodging',id);
+        const reservedDates = await fetchReservedDates('lodging',id);
         setDatesReserved(reservedDates);
       } catch (err) {
         console.error('Error al obtener fechas reservadas:', err);
@@ -81,15 +81,15 @@ const BookingForm: React.FC<Pick<LodgingProps, 'cost' | 'id'>> = ({ cost, id }) 
       entityId: id,
       quantity: parseInt(guests, 10),
       subtotal: calculateTotal(),
-      startDate: selectedDates[0] || new Date(),
-      endDate: selectedDates[1] || new Date(),
+      startDate: (selectedDates[0] || new Date()).toISOString(),
+      endDate: (selectedDates[1] || new Date()).toISOString(),
     };
 
     try {
       await createReservation(reservationData);
       alert('Reserva realizada con éxito!');
 
-      const updatedDates = await fetchReservedDates('lodging','lodging', id);
+      const updatedDates = await fetchReservedDates('lodging', id);
       setDatesReserved(updatedDates);
       setSelectedDates([null, null]);
       setGuests('1');

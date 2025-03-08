@@ -59,38 +59,45 @@ const ReservationList: React.FC = () => {
     <div className="reservation-title">
       <h1 className="reservation-list-title">Mis Reservas</h1>
       <div>
-        {orders?.reservations.map((reservation: Reservation) => {
-          const { countdown, daysLeft } = calculateCountdown(reservation.startDate);
-          return (
-            <div className="reservation-list" key={reservation.id}>
-              <ReservationCard
-                service={reservation.entityType === 'tour' ? reservation.tour?.name || 'Tour' : reservation.lodging?.name || 'Lodging'}
-                price={`$${reservation.subtotal}`}
-                description={reservation.entityType === 'tour' ? reservation.tour?.description || '' : reservation.lodging?.description || ''}
-                location={reservation.entityType === 'tour' ? reservation.tour?.planet || '' : `${reservation.lodging?.planet || ''}, ${reservation.lodging?.location || ''}`}
-                dates={reservation.entityType === 'tour' ? new Date(reservation.startDate).toLocaleDateString() : `${new Date(reservation.startDate).toLocaleDateString()} - ${new Date(reservation.endDate).toLocaleDateString()}`}
-                people={`${reservation.quantity}`}
-                imageSrc={reservation.entityType === 'tour' ? sunImage : worldImage}
-              />
-              <ReservationButtons
-                service={reservation.entityType}
-                countDown={countdown}
-                daysLeft={daysLeft}
-                onCancelClick={openCancelModal}
-                info={{
-                  id: reservation.entityType === 'tour' ? reservation.tour?.id || 1 : reservation.lodging?.id || 1,
-                  reservationId: reservation.id,
-                  cost: reservation.subtotal/reservation.quantity,
-                  quantity: reservation.quantity,
-                  isOpen: false, 
-                  onClose: () => {},
-                  startDate: new Date(reservation.startDate),
-                  endDate: new Date(reservation.endDate),
-                }}
-              />
-            </div>
-          );
-        })}
+        {orders?.reservations.length ? (
+          orders.reservations.map((reservation: Reservation) => {
+            const { countdown, daysLeft } = calculateCountdown(reservation.startDate);
+            return (
+              <div className="reservation-list" key={reservation.id}>
+                <ReservationCard
+                  service={reservation.entityType === 'tour' ? reservation.tour?.name || 'Tour' : reservation.lodging?.name || 'Lodging'}
+                  price={`$${reservation.subtotal}`}
+                  description={reservation.entityType === 'tour' ? reservation.tour?.description || '' : reservation.lodging?.description || ''}
+                  location={reservation.entityType === 'tour' ? reservation.tour?.planet || '' : `${reservation.lodging?.planet || ''}, ${reservation.lodging?.location || ''}`}
+                  dates={reservation.entityType === 'tour' ? new Date(reservation.startDate).toLocaleDateString() : `${new Date(reservation.startDate).toLocaleDateString()} - ${new Date(reservation.endDate).toLocaleDateString()}`}
+                  people={`${reservation.quantity}`}
+                  imageSrc={reservation.entityType === 'tour' ? sunImage : worldImage}
+                />
+                <ReservationButtons
+                  service={reservation.entityType}
+                  countDown={countdown}
+                  daysLeft={daysLeft}
+                  onCancelClick={openCancelModal}
+                  info={{
+                    id: reservation.entityType === 'tour' ? reservation.tour?.id || 1 : reservation.lodging?.id || 1,
+                    reservationId: reservation.id,
+                    cost: reservation.subtotal/reservation.quantity,
+                    quantity: reservation.quantity,
+                    isOpen: false, 
+                    onClose: () => {},
+                    startDate: new Date(reservation.startDate),
+                    endDate: new Date(reservation.endDate),
+                  }}
+                />
+              </div>
+            );
+          })
+        ) : (
+          <div className="no-reservations">
+            <p>No tienes reservas</p>
+            <p>¡Reserva tu próximo viaje ahora!</p>
+          </div>
+        )}
         <CancelModal
           isOpen={isCancelModalOpen}
           onClose={closeCancelModal}
