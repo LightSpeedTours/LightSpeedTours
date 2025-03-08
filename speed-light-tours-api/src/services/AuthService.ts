@@ -65,8 +65,6 @@ class AuthService {
                 contact,
             });
 
-
-
             return AuthService.generateToken(newUser);
         } catch (error) {
             throw error;
@@ -80,10 +78,7 @@ class AuthService {
                 email: user.email,
                 role: user.rol,
             },
-
-
             process.env.JWT_SECRET || 'secretKey',
-
             { expiresIn: '24h' },
         );
     }
