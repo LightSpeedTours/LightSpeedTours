@@ -14,7 +14,7 @@ export default function Header() {
 
   useEffect(() => {
     const token = localStorage.getItem('token'); 
-    setIsAuthenticated(!!token);
+    setIsAuthenticated(!!token); // Si hay token, está autenticado
   }, []);
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -41,29 +41,23 @@ export default function Header() {
 
         {/* Menú en pantallas grandes */}
         <div className="hidden md:flex items-center gap-4">
-          {isAuthenticated ? (
-            <>
-              <Link to="/cart">
-                <button className="text-[#FFE81F] p-2 rounded hover:bg-[#2C2C2C] transition-colors">
-                  <ShoppingCart className="h-5 w-5" />
-                </button>
-              </Link>
-              <Link to="/reservations">
-                <Button text="Mis reservas" />
-              </Link>
-              <Link to="/profile">
-                <button className="text-[#FFE81F] p-2 rounded hover:bg-[#2C2C2C] transition-colors">
-                  <User className="h-5 w-5" />
-                </button>
-              </Link>
-            </>
-          ) : (
-            <Link to="/login">
+          {isAuthenticated && (
+            <Link to="/cart">
               <button className="text-[#FFE81F] p-2 rounded hover:bg-[#2C2C2C] transition-colors">
-                <User className="h-5 w-5" />
+                <ShoppingCart className="h-5 w-5" />
               </button>
             </Link>
           )}
+          {isAuthenticated && (
+            <Link to="/reservations">
+              <Button text="Mis reservas" />
+            </Link>
+          )}
+          <Link to={isAuthenticated ? "/profile" : "/login"}>
+            <button className="text-[#FFE81F] p-2 rounded hover:bg-[#2C2C2C] transition-colors">
+              <User className="h-5 w-5" />
+            </button>
+          </Link>
         </div>
 
         {/* Botón de menú hamburguesa en pantallas pequeñas */}
@@ -84,7 +78,7 @@ export default function Header() {
           <Link to="/hotels">
             <Button text="Hospedajes" />
           </Link>
-          {isAuthenticated ? (
+          {isAuthenticated && (
             <>
               <Link to="/reservations">
                 <Button text="Mis reservas" />
@@ -92,15 +86,11 @@ export default function Header() {
               <Link to="/cart">
                 <Button text="Carrito" />
               </Link>
-              <Link to="/profile">
-                <Button text="Perfil" />
-              </Link>
             </>
-          ) : (
-            <Link to="/login">
-              <Button text="Login" />
-            </Link>
           )}
+          <Link to={isAuthenticated ? "/profile" : "/login"}>
+            <Button text={isAuthenticated ? "Perfil" : "Login"} />
+          </Link>
         </div>
       )}
 
@@ -118,6 +108,38 @@ export default function Header() {
               </button>
             </Link>
           ))}
+        </div>
+      </div>
+      {/* Bottom Navigation */}
+      <div className="w-full bg-[#1A1A1A] px-4 py-4 flex flex-col md:flex-row justify-between items-center">
+        <div className="flex flex-wrap justify-center gap-4">
+          <Link to="/">
+            <Button text="Inicio" />
+          </Link>
+          <Link to="/hotels">
+            <Button text="Hospedajes" />
+          </Link>
+          <Link to="/tours">
+            <Button text="Tours" />
+          </Link>
+        </div>
+        <div className="flex items-center gap-4 mt-4 md:mt-0">
+          <Button text="Buscar" />
+          <div className="relative w-64">
+            <InputField
+              value={searchValue}
+              onChange={handleSearchChange}
+              placeholder="Nombre del planeta"
+            />
+            {searchValue && (
+              <button
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-[#FFE81F] hover:text-[#FFD700]"
+                onClick={() => setSearchValue('')}
+              >
+                ×
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </header>

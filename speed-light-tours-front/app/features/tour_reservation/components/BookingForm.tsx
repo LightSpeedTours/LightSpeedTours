@@ -5,6 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { createReservation } from '../../reservation/services/reservationService';
 import InputField from '~/shared/components/InputField';
 import Button from '~/shared/components/Button';
+import { getUserIdFromToken } from '~/shared/utils/tokenService';
 
 const TourBookingForm: React.FC<Pick<TourProps, 'cost' | 'id' | 'duration'>> = ({
   cost,
@@ -52,14 +53,21 @@ const TourBookingForm: React.FC<Pick<TourProps, 'cost' | 'id' | 'duration'>> = (
 
     setLoading(true);
 
+    const userId = getUserIdFromToken();
+    if (!userId) {
+      setError('Debes iniciar sesión para hacer una reserva.');
+      setLoading(false);
+      return;
+    }
+
     const reservationData = {
-      userId: 1, // TODO: Obtener ID real del usuario autenticado
+      userId: userId,
       entityType: 'tour',
       entityId: id,
       quantity: parseInt(attendees, 10),
       subtotal: calculateTotal(),
-      startDate: selectedDate || new Date(),
-      endDate: getEndDate() || new Date(), // TODO: Adjust endDate if needed
+      startDate: (selectedDate || new Date()).toISOString(),
+      endDate: (getEndDate() || new Date()).toISOString(),
     };
 
     try {
