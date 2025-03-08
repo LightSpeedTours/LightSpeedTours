@@ -145,7 +145,7 @@ p {
 
 
 /* 🔹 Responsividad en pantallas grandes */
-@media (min-width: 1200px) {
+@media (min-width: 2000px) {
   .infoContainer {
     
     max-width: 800px;
