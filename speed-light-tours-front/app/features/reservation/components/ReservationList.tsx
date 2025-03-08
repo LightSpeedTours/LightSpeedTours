@@ -5,8 +5,8 @@ import './reservationList.css';
 import CancelModal from './CancelModal';
 import { fetchUserOrders } from '../services/reservationService';
 import type { Order, Reservation } from '../utils/ReservationTypes';
-import sunImage from 'app/shared/assets/sun.jpg';
-import worldImage from 'app/shared/assets/world.jpg';
+import ewokVillage from 'app/shared/assets/hospedajes/ewok-village.png';
+import wookieVillage from 'app/shared/assets/tours/wookie-culture.png';
 
 const ReservationList: React.FC = () => {
   const [isCancelModalOpen, setCancelModalOpen] = useState(false);
@@ -71,7 +71,7 @@ const ReservationList: React.FC = () => {
                   location={reservation.entityType === 'tour' ? reservation.tour?.planet || '' : `${reservation.lodging?.planet || ''}, ${reservation.lodging?.location || ''}`}
                   dates={reservation.entityType === 'tour' ? new Date(reservation.startDate).toLocaleDateString() : `${new Date(reservation.startDate).toLocaleDateString()} - ${new Date(reservation.endDate).toLocaleDateString()}`}
                   people={`${reservation.quantity}`}
-                  imageSrc={reservation.entityType === 'tour' ? sunImage : worldImage}
+                  imageSrc={reservation.entityType === 'tour' ? ewokVillage : wookieVillage}
                 />
                 <ReservationButtons
                   service={reservation.entityType}

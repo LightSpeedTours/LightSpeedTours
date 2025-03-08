@@ -103,7 +103,8 @@ export default function Header() {
           href={`/hotels?planet=${planetName.toLowerCase()}`}
           aria-label={`Ver hospedajes en ${planetName}`}
         >
-          <button className="w-10 h-10 rounded-full bg-[#2C2C2C] flex-shrink-0 overflow-hidden border-2 border-[#FFE81F] transition-transform hover:scale-110">
+          <button className="w-full h-10 rounded-full bg-[#2C2C2C] flex-shrink-0 overflow-hidden 
+          border-2 border-[#FFE81F] transition-transform hover:scale-110">
             <img
               src={imageUrl}
               alt={planetName}
