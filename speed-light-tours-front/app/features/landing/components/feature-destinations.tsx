@@ -95,13 +95,13 @@ export default function FeaturedDestinations() {
             <div className="space-y-2">
               <div className="flex justify-between items-start">
                 <p className="font-bold text-[#FFE81F]">{destination.price}</p>
-                <div className="text-sm text-[#CCCCCC]">
+                <div>
                   <p>{destination.location}</p>
                   <p>{destination.dates}</p>
                 </div>
               </div>
               <p className="text-white">{destination.description}</p>
-              <p className="text-sm text-[#CCCCCC]">{destination.capacity}</p>
+              <p >{destination.capacity}</p>
             </div>
           </div>
         ))}
