@@ -6,6 +6,7 @@ import Lodging from '../models/LodgingModel';
 import Cart from '../models/CartModel';
 import { hasOverlappingReservation } from '../utils/ReservationUtils';
 import { EntityType } from '../utils/types/EnumTypes';
+import Order from '../models/OrderModel';
 
 /**
  * ✅ Obtener todas las reservas de un usuario
@@ -112,6 +113,20 @@ export const updateReservation = async (
             }
 
             if (reservation.locationType === 'order' && additionalCost > 0) {
+                const order = await Order.findByPk(reservation.locationId, { transaction });
+                if (order) {
+                    order.totalAmount -= reservation.subtotal;
+                    await order.save({ transaction });
+
+                    const remainingReservations = await Reservation.findAll({
+                        where: { locationId: order.id, locationType: 'order' },
+                        transaction,
+                    });
+                    if (remainingReservations.length === 0) {
+                        await order.destroy({ transaction });
+                    }
+                }
+
                 let cart = await Cart.findOne({
                     where: { userId: reservation.userId },
                     transaction,

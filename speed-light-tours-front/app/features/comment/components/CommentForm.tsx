@@ -4,6 +4,7 @@ import InputField from '../../../shared/components/InputField';
 import Button from '../../../shared/components/Button';
 import RatingSlider from '../../../shared/components/RatingSlider';
 import type { CommentPayload } from '../utils/CommentTypes';
+import { getUserIdFromToken } from '~/shared/utils/tokenService';
 
 const CommentForm = ({
   parentId,
@@ -33,9 +34,14 @@ const CommentForm = ({
     }
 
     setError('');
+    const userId = getUserIdFromToken();
+    if (!userId) {
+      setError('No se pudo obtener el usuario. Inicia sesión nuevamente.');
+      return;
+    }
 
     const newComment: CommentPayload = {
-      userId: 1, //TODO: Cambiar por el usuario actual
+      userId: userId,
       entityType: entityType,
       entityId: entityId,
       rating: isReply ? undefined : rating,

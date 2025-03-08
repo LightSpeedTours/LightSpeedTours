@@ -3,8 +3,8 @@ import { type RouteConfig, index, route } from '@react-router/dev/routes';
 
 export default [
   index('routes/LandingPage.tsx'),
-  route('/tourReservation', 'routes/TourReservationPage.tsx'),
-  route('/hotelReservation', 'routes/HotelReservationPage.tsx'),
+  route('/tourReservation/:id', 'routes/TourReservationPage.tsx'),
+  route('/hotelReservation/:id', 'routes/HotelReservationPage.tsx'),
   route('/reservations', 'routes/ReservationsPage.tsx'),
   route('/profile', 'routes/ProfilePage.tsx'),
   route('/hotels', 'routes/HotelsPage.tsx'),

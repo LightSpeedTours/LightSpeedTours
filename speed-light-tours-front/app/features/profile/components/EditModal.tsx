@@ -14,38 +14,55 @@ import Emperor from 'app/shared/assets/profile/emperor.jpg';
 import DarthMaul from 'app/shared/assets/profile/maul.jpg';
 import Padme from 'app/shared/assets/profile/padme.jpg';
 import Trooper from 'app/shared/assets/profile/trooper.jpg';
+import { updateUserProfile } from '../services/userServices';
 
 interface EditModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (updatedDetails: AccountDetailsProps) => void;
-  accountDetails: AccountDetailsProps;
+  accountDetails: {
+    name: string;
+    username: string;
+    gender: string;
+    occupation: string;
+    profileImage: string;
+  };
 }
 
-interface AccountDetailsProps {
-  name: string;
-  username: string;
-  email: string;
-  password: string;
-  date: string;
-  gender: string;
-  occupation: string;
-  profileImage: string;
-}
-
-const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, onSave, accountDetails }) => {
+const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, accountDetails }) => {
   const [selectedImage, setSelectedImage] = useState(accountDetails.profileImage);
   const [updatedDetails, setUpdatedDetails] = useState(accountDetails);
+  const [error, setError] = useState('');
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
-    setUpdatedDetails({ ...updatedDetails, [name]: value });
+    setUpdatedDetails((prevDetails) => ({
+      ...prevDetails,
+      [name]: value,
+    }));
   };
 
-  const handleSave = () => {
-    onSave({ ...updatedDetails, profileImage: selectedImage });
-    onClose();
+  const handleSave = async (e?: React.FormEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
+  
+    if (!updatedDetails.name || !updatedDetails.username) {
+      setError('El nombre y el nombre de usuario son obligatorios.');
+      return;
+    }
+  
+    setError('');
+  
+    const response = await updateUserProfile(updatedDetails);
+    if (response) {
+      onClose();
+    } else {
+      setError('Hubo un problema al actualizar la información.');
+    }
   };
+  
 
   if (!isOpen) return null;
 
@@ -67,33 +84,33 @@ const EditModal: React.FC<EditModalProps> = ({ isOpen, onClose, onSave, accountD
           <img src={DarthMaul} alt="Darth Maul" onClick={() => setSelectedImage(DarthMaul)} className={selectedImage === DarthMaul ? 'selected' : ''} />
           <img src={Padme} alt="Padme" onClick={() => setSelectedImage(Padme)} className={selectedImage === Padme ? 'selected' : ''} />
           <img src={Trooper} alt="Trooper" onClick={() => setSelectedImage(Trooper)} className={selectedImage === Trooper ? 'selected' : ''} />
-          {/* Add more images as needed */}
         </div>
+        {error && <p className="error-text">{error}</p>}
         <form className="edit-form">
           <label>
             Nombre:
-            <input type="text" name="name" value={updatedDetails.name} onChange={handleInputChange} />
+            <input type="text" name="name" value={updatedDetails.name} onChange={handleInputChange} required />
           </label>
           <label>
             Nombre de usuario:
-            <input type="text" name="username" value={updatedDetails.username} onChange={handleInputChange} />
-          </label>   
-          <label>
-            Fecha de nacimiento:
-            <input type="date" name="date" value={updatedDetails.date} onChange={handleInputChange} />
+            <input type="text" name="username" value={updatedDetails.username} onChange={handleInputChange} required />
           </label>
           <label>
             Género:
-            <input type="text" name="gender" value={updatedDetails.gender} onChange={handleInputChange} />
+            <select name="gender" value={updatedDetails.gender} onChange={handleInputChange}>
+              <option value="masculino">Masculino</option>
+              <option value="femenino">Femenino</option>
+              <option value="otro">Otro</option>
+            </select>
           </label>
           <label>
             Ocupación:
             <input type="text" name="occupation" value={updatedDetails.occupation} onChange={handleInputChange} />
           </label>
-          <Button className="button" variant="outline" onClick={handleSave}>
+          <Button className="button" variant="outline" onClick={() => handleSave()}>
             Guardar
           </Button>
-          <Button className="button" variant="destructive" onClick={handleSave}>
+          <Button className="button" variant="destructive" onClick={onClose}>
             Cancelar
           </Button>
         </form>

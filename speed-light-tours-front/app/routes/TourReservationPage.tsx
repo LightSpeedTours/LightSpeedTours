@@ -7,16 +7,21 @@ import mainImage from '../shared/assets/imagenp.jpeg';
 import image1 from '../shared/assets/imagen1.jpeg';
 import image2 from '../shared/assets/imagen2.jpeg';
 import image3 from '../shared/assets/imagen3.jpeg';
+import { useParams } from 'react-router';
 
 const TourReservationPage = () => {
+  const { id } = useParams();
+
   const [tour, setTour] = useState<TourProps | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchTour = async () => {
+      if (!id) return;
+
       try {
-        const data = await getTourById(1); // TODO: Cargar el ID correcto al seleccionar un tour de la lista
+        const data = await getTourById(Number(id));
         setTour({
           id: data.id,
           name: data.name,

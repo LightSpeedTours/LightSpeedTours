@@ -7,16 +7,21 @@ import mainImage from '../shared/assets/imagenp.jpeg';
 import image1 from '../shared/assets/imagen1.jpeg';
 import image2 from '../shared/assets/imagen2.jpeg';
 import image3 from '../shared/assets/imagen3.jpeg';
+import { useParams } from 'react-router';
 
-const HotelReservationPage = () => {
+const HotelReservationPage = () => { 
+  const { id } = useParams();
+
   const [hotel, setHotel] = useState<LodgingProps | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchHotel = async () => {
+      if (!id) return;
+
       try {
-        const data = await getLodgingById(1); // TODO: al hacer click en la lista de hospedajes se debe cargar el id del hospedaje
+        const data = await getLodgingById(Number(id));
         setHotel({
           id: data.id,
           name: data.name,

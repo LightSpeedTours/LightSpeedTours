@@ -49,7 +49,7 @@ export default function Info({ planet, planetInfo }: InfoProps) {
               <h2>Precio</h2>
               <h2>${lodging.cost || 'Información del precio no disponible'}</h2>
               <p>Valor por noche por persona</p>
-              <a href='/hotelReservation'>
+              <a href={`/hotelReservation/${lodging.id}`}>
               <Button text="Reservar" type="button" />
               </a>
             </div>

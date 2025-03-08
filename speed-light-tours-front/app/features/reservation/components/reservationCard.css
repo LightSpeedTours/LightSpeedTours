@@ -5,7 +5,7 @@
   border-radius: 16px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   background-color: #f7fafc;
-  gap: 2vw;
+  gap: 3vw;
   overflow: hidden;
   word-break: break-all;
 }
@@ -32,10 +32,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  max-width: 15vw;
 }
 
 .price {
-  font-size: 0.875rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: #718096;
   margin-bottom: 8px;
@@ -81,6 +82,9 @@
 @media (max-width: 900px) {
   .reservation-card {
     grid-template-columns: 1fr;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
   }
 
   .service-title,
@@ -89,8 +93,13 @@
   .reservation-info {
     justify-content: center;
     align-items: center;
-    text-align: center;
+    text-align: center;    
   }
+
+  .price-description {
+    max-width: 100%;
+  }
+
   .service-image {
     width: 30%;
     margin: 0 auto;

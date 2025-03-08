@@ -14,7 +14,7 @@ export default function Login() {
       setError(''); // Limpiar errores previos
       const token = await loginUser(email, password);
       localStorage.setItem('token', token); // Guardar el token en localStorage
-      navigate('/profile'); // Redirigir al perfil del usuario
+      navigate('/landingPage'); // Redirigir al perfil del usuario
     } catch (error) {
       setError(error instanceof Error ? error.message : String(error));
     }

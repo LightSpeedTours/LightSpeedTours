@@ -3,9 +3,9 @@ import lodgingRoutes from './LodgingRoutes';
 import tourRoutes from './TourRoutes';
 import reservationRoutes from './ReservationRoutes';
 import cartRoutes from './CartRoutes';
-import authRoutes from './AuthRoutes'
+import authRoutes from './AuthRoutes';
 import serviceRoutes from './serviceRoutes';
-import userRoutes from './UserRoutes'
+import userRoutes from './UserRoutes';
 
 import { Router } from 'express';
 

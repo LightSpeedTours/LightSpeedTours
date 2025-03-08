@@ -1,14 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReservationCard from './ReservationCard';
 import ReservationButtons from './ReservationButtons';
 import './reservationList.css';
 import CancelModal from './CancelModal';
+import { fetchUserOrders } from '../services/reservationService';
+import type { Order, Reservation } from '../utils/ReservationTypes';
 import sunImage from 'app/shared/assets/sun.jpg';
 import worldImage from 'app/shared/assets/world.jpg';
-import brainImage from 'app/shared/assets/brain.jpg';
 
 const ReservationList: React.FC = () => {
   const [isCancelModalOpen, setCancelModalOpen] = useState(false);
+  const [orders, setOrders] = useState<Order | null>(null);
+
+  useEffect(() => {
+    const getUserOrders = async () => {
+      try {
+        const userId = 1; // TODO: Replace with actual user ID
+        const fetchedOrders = await fetchUserOrders(userId);
+        setOrders(fetchedOrders);
+      } catch (error) {
+        console.error('Error fetching user orders:', error);
+      }
+    };
+
+    getUserOrders();
+  }, []);
 
   const openCancelModal = () => {
     setCancelModalOpen(true);
@@ -24,54 +40,64 @@ const ReservationList: React.FC = () => {
     setCancelModalOpen(false);
   };
 
-  
+  const calculateCountdown = (startDate: string) => {
+    const start = new Date(startDate);
+    const now = new Date();
+    const diffTime = Math.abs(start.getTime() - now.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    const months = Math.floor(diffDays / 30);
+    const days = diffDays % 30;
+
+    return {
+      countdown: `${months > 0 ? `${months} meses ` : ''}${days} días`,
+      daysLeft: diffDays,
+    };
+  };
 
   return (
     <div className="reservation-title">
       <h1 className="reservation-list-title">Mis Reservas</h1>
-      <div className="reservation-list">
-        <ReservationCard
-          service="Reserva 1"
-          price="$100"
-          description="Descripción del reserva 1"
-          location="Ubicación 1"
-          dates="01/01/2025 - 02/01/2025"
-          people="2"
-          imageSrc={sunImage}
-        />
-        <ReservationButtons
-          service="lodging"
-          countDown="3 días"      
-          onCancelClick={openCancelModal}
-        />
-        <ReservationCard
-          service="Reserva 2"
-          price="$200"
-          description="Descripción del Reserva 2"
-          location="Ubicación 2"
-          dates="03/01/2025 - 04/01/2025"
-          people="4"
-          imageSrc={worldImage}
-        />
-        <ReservationButtons
-          service="tour"
-          countDown="3 días"     
-          onCancelClick={openCancelModal}
-        />
-        <ReservationCard
-          service="Reserva 3"
-          price="$300"
-          description="Descripción del reserva 3"
-          location="Ubicación 3"
-          dates="05/01/2025 - 06/01/2025"
-          people="6"
-          imageSrc={brainImage}
-        />
-        <ReservationButtons
-          service="lodging"
-          countDown="3 días"       
-          onCancelClick={openCancelModal}
-        />
+      <div>
+        {orders?.reservations.length ? (
+          orders.reservations.map((reservation: Reservation) => {
+            const { countdown, daysLeft } = calculateCountdown(reservation.startDate);
+            return (
+              <div className="reservation-list" key={reservation.id}>
+                <ReservationCard
+                  service={reservation.entityType === 'tour' ? reservation.tour?.name || 'Tour' : reservation.lodging?.name || 'Lodging'}
+                  price={`$${reservation.subtotal}`}
+                  description={reservation.entityType === 'tour' ? reservation.tour?.description || '' : reservation.lodging?.description || ''}
+                  location={reservation.entityType === 'tour' ? reservation.tour?.planet || '' : `${reservation.lodging?.planet || ''}, ${reservation.lodging?.location || ''}`}
+                  dates={reservation.entityType === 'tour' ? new Date(reservation.startDate).toLocaleDateString() : `${new Date(reservation.startDate).toLocaleDateString()} - ${new Date(reservation.endDate).toLocaleDateString()}`}
+                  people={`${reservation.quantity}`}
+                  imageSrc={reservation.entityType === 'tour' ? sunImage : worldImage}
+                />
+                <ReservationButtons
+                  service={reservation.entityType}
+                  countDown={countdown}
+                  daysLeft={daysLeft}
+                  onCancelClick={openCancelModal}
+                  info={{
+                    id: reservation.entityType === 'tour' ? reservation.tour?.id || 1 : reservation.lodging?.id || 1,
+                    reservationId: reservation.id,
+                    cost: reservation.subtotal/reservation.quantity,
+                    quantity: reservation.quantity,
+                    isOpen: false, 
+                    onClose: () => {},
+                    startDate: new Date(reservation.startDate),
+                    endDate: new Date(reservation.endDate),
+                  }}
+                />
+              </div>
+            );
+          })
+        ) : (
+          <div className="no-reservations">
+            <p>No tienes reservas</p>
+            <p>¡Reserva tu próximo viaje ahora!</p>
+          </div>
+        )}
         <CancelModal
           isOpen={isCancelModalOpen}
           onClose={closeCancelModal}
