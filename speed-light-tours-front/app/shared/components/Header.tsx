@@ -1,20 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { ChangeEvent } from 'react';
 import { ShoppingCart, Menu, X, User } from 'lucide-react';
 import Button from './Button';
 import InputField from './InputField';
-import planetsImages from '../utils/planetsImagesLists'; 
-import "../styles/global.css"; // Sin la variable 'styles'
+import planetsImages from '../utils/planetsImagesLists';
+import "../styles/global.css";
 import { Link } from 'react-router-dom';
-
 
 export default function Header() {
   const [searchValue, setSearchValue] = useState('');
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const handleSearchChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  useEffect(() => {
+    const token = localStorage.getItem('token'); 
+    setIsAuthenticated(!!token);
+  }, []);
+
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setSearchValue(event.target.value);
   };
 
@@ -38,19 +41,29 @@ export default function Header() {
 
         {/* Menú en pantallas grandes */}
         <div className="hidden md:flex items-center gap-4">
-          <Link to="/cart">
-            <button className="text-[#FFE81F] p-2 rounded hover:bg-[#2C2C2C] transition-colors">
-              <ShoppingCart className="h-5 w-5" />
-            </button>
-          </Link>
-          <Link to="/reservations">
-            <Button text="Mis reservas" />
-          </Link>
-          <Link to="/login">
-            <button className="text-[#FFE81F] p-2 rounded hover:bg-[#2C2C2C] transition-colors">
-              <User className="h-5 w-5" />
-            </button>
-          </Link>
+          {isAuthenticated ? (
+            <>
+              <Link to="/cart">
+                <button className="text-[#FFE81F] p-2 rounded hover:bg-[#2C2C2C] transition-colors">
+                  <ShoppingCart className="h-5 w-5" />
+                </button>
+              </Link>
+              <Link to="/reservations">
+                <Button text="Mis reservas" />
+              </Link>
+              <Link to="/profile">
+                <button className="text-[#FFE81F] p-2 rounded hover:bg-[#2C2C2C] transition-colors">
+                  <User className="h-5 w-5" />
+                </button>
+              </Link>
+            </>
+          ) : (
+            <Link to="/login">
+              <button className="text-[#FFE81F] p-2 rounded hover:bg-[#2C2C2C] transition-colors">
+                <User className="h-5 w-5" />
+              </button>
+            </Link>
+          )}
         </div>
 
         {/* Botón de menú hamburguesa en pantallas pequeñas */}
@@ -65,69 +78,46 @@ export default function Header() {
       {/* Menú desplegable en móviles */}
       {menuOpen && (
         <div className="md:hidden bg-[#1A1A1A] flex flex-col items-center gap-4 p-4 border-y border-[#2C2C2C]">
-          <Link to="/">
-            <Button text="Inicio" />
-          </Link>
           <Link to="/tours">
             <Button text="Tours" />
           </Link>
           <Link to="/hotels">
             <Button text="Hospedajes" />
           </Link>
+          {isAuthenticated ? (
+            <>
+              <Link to="/reservations">
+                <Button text="Mis reservas" />
+              </Link>
+              <Link to="/cart">
+                <Button text="Carrito" />
+              </Link>
+              <Link to="/profile">
+                <Button text="Perfil" />
+              </Link>
+            </>
+          ) : (
+            <Link to="/login">
+              <Button text="Login" />
+            </Link>
+          )}
         </div>
       )}
 
       {/* Circular Navigators (planetas) */}
       <div className="w-full bg-[#1A1A1A] py-4 flex justify-center border-y border-[#2C2C2C] overflow-x-auto px-4">
         <div className="flex gap-2">
-        {Object.entries(planetsImages).map(([planetName, imageUrl]) => (
-        <Link
-          key={planetName}
-          to={`/hotels?planet=${planetName.toLowerCase()}`}
-          aria-label={`Ver hospedajes en ${planetName}`}
-        >
-          <button className="w-10 h-10 rounded-full bg-[#2C2C2C] flex-shrink-0 overflow-hidden border-2 border-[#FFE81F] transition-transform hover:scale-110">
-            <img
-              src={imageUrl}
-              alt={planetName}
-              className="w-full h-full object-cover"
-            />
-          </button>
-        </Link>
-      ))}
-        </div>
-      </div>
-
-      {/* Bottom Navigation */}
-      <div className="w-full bg-[#1A1A1A] px-4 py-4 flex flex-col md:flex-row justify-between items-center">
-        <div className="flex flex-wrap justify-center gap-4">
-          <Link to="/">
-            <Button text="Inicio" />
-          </Link>
-          <Link to="/hotels">
-            <Button text="Hospedajes" />
-          </Link>
-          <Link to="/tours">
-            <Button text="Tours" />
-          </Link>
-        </div>
-        <div className="flex items-center gap-4 mt-4 md:mt-0">
-          <Button text="Buscar" />
-          <div className="relative w-64">
-            <InputField
-              value={searchValue}
-              onChange={handleSearchChange}
-              placeholder="Nombre del planeta"
-            />
-            {searchValue && (
-              <button
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-[#FFE81F] hover:text-[#FFD700]"
-                onClick={() => setSearchValue('')}
-              >
-                ×
+          {Object.entries(planetsImages).map(([planetName, imageUrl]) => (
+            <Link
+              key={planetName}
+              to={`/hotels?planet=${planetName.toLowerCase()}`}
+              aria-label={`Ver hospedajes en ${planetName}`}
+            >
+              <button className="w-10 h-10 rounded-full bg-[#2C2C2C] flex-shrink-0 overflow-hidden border-2 border-[#FFE81F] transition-transform hover:scale-110">
+                <img src={imageUrl} alt={planetName} className="w-full h-full object-cover" />
               </button>
-            )}
-          </div>
+            </Link>
+          ))}
         </div>
       </div>
     </header>
