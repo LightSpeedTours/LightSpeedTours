@@ -12,62 +12,63 @@ interface Destination {
   price: string;
   description: string;
   capacity: string;
+  imageUrl: string;
 }
 
 const destinations: Destination[] = [
   {
     id: 1,
-    name: 'Tatooine Desert Adventure',
-    location: 'Tatooine, Outer Rim',
-    dates: 'Dec 20 - Dec 27',
-    price: '$2,500',
-    description: 'Experience the thrill of the Tatooine desert with this incredible adventure.',
-    capacity: '4 people',
+    name: 'Tatooine Dunes',
+    location: 'Tatooine, Mos Eisley',
+    dates: '27/07/2025',
+    price: '$80',
+    description: 'Explora las dunas de Tatooine partiendo desde Mos Eisley con alimentación incluida, recogida en el hotel y snack al atardecer.',
+    capacity: '4 personas',
+    imageUrl: 'app/shared/assets/tours/tatooine-dunes.png',
+    
   },
   {
     id: 2,
-    name: 'Hoth Ice Planet Expedition',
-    location: 'Hoth, Outer Rim',
-    dates: 'Jan 10 - Jan 17',
-    price: '$3,000',
-    description: 'Embark on an unforgettable expedition to the icy planet of Hoth.',
-    capacity: '6 people',
+    name: 'Echo Ice Tour',
+    location: 'Hoth, Echo Base',
+    dates: '10/06/2025',
+    price: '$70',
+    description: 'Recorre la base helada en Echo Base con transporte, comida caliente y snack de bienvenida.',
+    capacity: '6 personas',
+    imageUrl: 'app/shared/assets/tours/echo-ice-tour.png',
   },
+ 
   {
     id: 3,
-    name: 'Dagobah Swamp Tour',
-    location: 'Dagobah, Outer Rim',
-    dates: 'Feb 15 - Feb 22',
-    price: '$1,800',
-    description: 'Explore the mysterious swamps of Dagobah with this guided tour.',
-    capacity: '2 people',
+    name: 'Ewok Tour',
+    location: 'Endor, Bright Tree Village',
+    dates: '27/04/2025',
+    price: '$65',
+    description: 'Explora Bright Tree Village con alimentación incluida, recogida en el hotel y un snack típico Ewok.',
+    capacity: '8 personas',
+    imageUrl: 'app/shared/assets/tours/ewok-tour.png'
   },
+ 
   {
     id: 4,
-    name: 'Endor Forest Trek',
-    location: 'Endor, Outer Rim',
-    dates: 'Mar 20 - Mar 27',
-    price: '$2,200',
-    description: 'Trek through the lush forests of Endor on this exciting adventure.',
-    capacity: '8 people',
+    name: 'Theed Palace',
+    location: 'Naboo, Theed',
+    dates: '22/05/2025',
+    price: '$100',
+    description: 'Descubre la arquitectura de Theed, con alimentación, transporte de ida y vuelta y visita guiada al palacio.',
+    capacity: '2 personas',
+    imageUrl: 'app/shared/assets/tours/theed-palace.png'
   },
+
   {
     id: 5,
-    name: 'Mustafar Volcano Hike',
-    location: 'Mustafar, Outer Rim',
-    dates: 'Apr 10 - Apr 17',
-    price: '$2,800',
-    description: 'Hike across the fiery landscapes of Mustafar.',
-    capacity: '4 people',
-  },
-  {
-    id: 6,
-    name: 'Naboo Lakeside Retreat',
-    location: 'Naboo, Mid Rim',
-    dates: 'May 15 - May 22',
-    price: '$3,500',
-    description: 'Relax and rejuvenate at this luxurious lakeside retreat on Naboo.',
-    capacity: '2 people',
+    name: 'Upper City Tour',
+    location: 'Coruscant, Upper City',
+    dates: '15/03/2025',
+    price: '$120',
+    description: 'Descubre las vistas de Upper City con alimentación incluida, recogida y regreso al hotel, y snack.',
+    capacity: '5 personas',
+    imageUrl: 'app/shared/assets/tours/upper-city-tour.png'
   },
 ];
 
@@ -91,17 +92,24 @@ export default function FeaturedDestinations() {
             className="bg-[#1A1A1A] rounded-lg p-4 border border-[#2E67F8] hover:border-[#FFE81F] transition-colors"
           >
             <h3 className="text-lg font-semibold mb-2 text-[#FFE81F]">{destination.name}</h3>
-            <div className="aspect-video bg-[#2C2C2C] mb-4 rounded-md border border-[#2E67F8]"></div>
+            <div className="aspect-video bg-[#2C2C2C] mb-4 rounded-md border border-[#2E67F8]">
+            <img
+                src={destination.imageUrl}
+                alt={destination.name}
+                className="w-full h-full object-cover rounded"
+              />
+            </div>
             <div className="space-y-2">
               <div className="flex justify-between items-start">
-                <p className="font-bold text-[#FFE81F]">{destination.price}</p>
-                <div>
-                  <p>{destination.location}</p>
-                  <p>{destination.dates}</p>
+                <h3 className="font-bold text-[#FFE81F]">{destination.price} por persona</h3>
+                <div className="text-sm text-[#CCCCCC]">
+                <h3>{destination.name}</h3>
                 </div>
               </div>
               <p className="text-white">{destination.description}</p>
-              <p >{destination.capacity}</p>
+              <p className="text-sm text-[#CCCCCC]">{destination.capacity}</p>
+              <p>{destination.location}</p>
+              <h3>{destination.dates}</h3>
             </div>
           </div>
         ))}
