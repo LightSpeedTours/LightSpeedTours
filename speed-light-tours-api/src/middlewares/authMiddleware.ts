@@ -3,6 +3,8 @@ import { makeErrorResponse, handleErrorResponse } from '../utils/ErrorHandler';
 
 export const validateSignin = (req: Request, res: Response, next: NextFunction): void => {
     try {
+
+
         const { name, user_name, email, password, date_of_birth } = req.body;
         const errors: Record<string, string> = {};
 
@@ -27,6 +29,7 @@ export const validateSignin = (req: Request, res: Response, next: NextFunction):
         }
 
         next();
+
     } catch (error) {
         handleErrorResponse(res, error);
     }
