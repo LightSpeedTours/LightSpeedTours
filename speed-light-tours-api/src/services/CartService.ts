@@ -15,51 +15,91 @@ export const getUserCart = async (userId: number) => {
         include: [
             {
                 model: Reservation,
-                include: [
-                    {
-                        model: Lodging,
-                        attributes: ['name', 'planet', 'location', 'description'],
-                        required: false,
-                    },
-                    {
-                        model: Tour,
-                        attributes: ['name', 'planet', 'description'],
-                        required: false,
-                    },
-                ],
             },
         ],
     });
+
     if (!cart) {
         cart = await Cart.create({ userId: userId, totalPrice: 0 });
     }
-    return cart;
+
+    // Obtener entidades asociadas en una segunda consulta
+    const reservationsWithEntities = await Promise.all(
+        cart.reservations.map(async (reservation) => {
+            let entity = null;
+            if (reservation.entityType === 'lodging') {
+                entity = await Lodging.findOne({
+                    where: { id: reservation.entityId },
+                    attributes: ['name', 'planet', 'location', 'description'],
+                });
+            } else if (reservation.entityType === 'tour') {
+                entity = await Tour.findOne({
+                    where: { id: reservation.entityId },
+                    attributes: ['name', 'planet', 'description'],
+                });
+            }
+
+            return {
+                ...reservation.get({ plain: true }),
+                [reservation.entityType]: entity,
+            };
+        }),
+    );
+
+    return {
+        id: cart.id,
+        userId: cart.userId,
+        totalPrice: cart.totalPrice,
+        reservations: reservationsWithEntities,
+    };
 };
 
 /**
  * ✅ Obtener todas las órdenes de un usuario
  */
 export const getUserOrders = async (userId: number) => {
-    return await Order.findOne({
+    let order = await Order.findOne({
         where: { userId },
         include: [
             {
                 model: Reservation,
-                include: [
-                    {
-                        model: Lodging,
-                        attributes: ['name', 'planet', 'location', 'description'],
-                        required: false,
-                    },
-                    {
-                        model: Tour,
-                        attributes: ['name', 'planet', 'description'],
-                        required: false,
-                    },
-                ],
             },
         ],
     });
+
+    if (!order) {
+        order = await Order.create({ userId: userId, totalPrice: 0 });
+    }
+
+    // Obtener entidades asociadas en una segunda consulta
+    const reservationsWithEntities = await Promise.all(
+        order.reservations.map(async (reservation) => {
+            let entity = null;
+            if (reservation.entityType === 'lodging') {
+                entity = await Lodging.findOne({
+                    where: { id: reservation.entityId },
+                    attributes: ['id', 'name', 'planet', 'location', 'description'],
+                });
+            } else if (reservation.entityType === 'tour') {
+                entity = await Tour.findOne({
+                    where: { id: reservation.entityId },
+                    attributes: ['id', 'name', 'planet', 'description'],
+                });
+            }
+
+            return {
+                ...reservation.get({ plain: true }),
+                [reservation.entityType]: entity,
+            };
+        }),
+    );
+
+    return {
+        id: order.id,
+        userId: order.userId,
+        totalAmount: order.totalAmount,
+        reservations: reservationsWithEntities,
+    };
 };
 
 /**
@@ -67,7 +107,6 @@ export const getUserOrders = async (userId: number) => {
  */
 export const processCartPayment = async (userId: number) => {
     return await Cart.sequelize!.transaction(async (transaction: Transaction) => {
-        // ✅ Obtener el carrito del usuario con todas sus reservas
         const cart = await Cart.findOne({
             where: { userId },
             include: [Reservation],
@@ -78,18 +117,15 @@ export const processCartPayment = async (userId: number) => {
             throw makeErrorResponse(400, 'El carrito está vacío.');
         }
 
-        // ✅ Verificar si el usuario ya tiene una orden activa
         let order = await Order.findOne({
             where: { userId },
             transaction,
         });
 
         if (order) {
-            // ✅ Si ya existe una orden, actualizar el total
             order.totalAmount += cart.totalPrice;
             await order.save({ transaction });
         } else {
-            // ✅ Si no existe, crear una nueva orden
             order = await Order.create(
                 {
                     userId,
@@ -124,14 +160,12 @@ export const processCartPayment = async (userId: number) => {
  * ✅ Eliminar un elemento específico del carrito de un usuario
  */
 export const removeItemFromCart = async (userId: number, itemId: number) => {
-    // Buscar el carrito del usuario
     const cart = await Cart.findOne({ where: { userId }, include: [Reservation] });
 
     if (!cart) {
         throw makeErrorResponse(404, 'El carrito');
     }
 
-    // Buscar la reserva específica dentro del carrito
     const reservation = await Reservation.findOne({
         where: { id: itemId, locationId: cart.id, locationType: 'cart' },
     });
@@ -143,7 +177,6 @@ export const removeItemFromCart = async (userId: number, itemId: number) => {
     const newTotalPrice = cart.totalPrice - reservation.subtotal;
     await cart.update({ totalPrice: newTotalPrice });
 
-    // Eliminar la reserva del carrito
     await reservation.destroy();
 
     return { message: 'Elemento eliminado correctamente' };

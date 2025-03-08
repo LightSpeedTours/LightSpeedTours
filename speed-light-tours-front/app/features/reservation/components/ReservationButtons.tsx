@@ -9,6 +9,7 @@ const ReservationButtons: React.FC<ReservationButtonsProps> = ({
   service,
   countDown,
   onCancelClick,
+  info,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
@@ -16,34 +17,48 @@ const ReservationButtons: React.FC<ReservationButtonsProps> = ({
 
   return (
     <>
-    <div className="reservation-buttons">
-      <p className="countdown">{countDown}</p>
-      <div className="button-container">
-        <div className="button-group">
-          <Button className="modify-button" variant="outline" onClick={openModal}>
-          Modificar reserva
-          </Button>
-          <Button className="destructive-button" variant="destructive" onClick={onCancelClick}>
-          Cancelar
-          </Button>
-        </div>
-        <div className="time-limit-container">
-          <p className="time-limit">
-          Válido hasta 1 semana antes.
-          </p>
-          <p className="time-limit">
-          Válido hasta 3 días antes.
-          </p>        
+      <div className="reservation-buttons">
+        <p className="countdown">{countDown}</p>
+        <div className="button-container">
+          <div className="button-group">
+            <Button className="modify-button" variant="outline" onClick={openModal}>
+              Modificar reserva
+            </Button>
+            <Button className="destructive-button" variant="destructive" onClick={onCancelClick}>
+              Cancelar
+            </Button>
+          </div>
+          <div className="time-limit-container">
+            <p className="time-limit">Válido hasta 1 semana antes.</p>
+            <p className="time-limit">Válido hasta 3 días antes.</p>
+          </div>
         </div>
       </div>
-    </div>
-    {service === 'lodging' ? (
-    <LodgingModal isOpen={isModalOpen} onClose={closeModal} />
-    ) : (
-    <TourModal isOpen={isModalOpen} onClose={closeModal} />
-    )}
+      {service === 'lodging' ? (
+        <LodgingModal 
+        reservationId={info.reservationId}
+        id={info.id} 
+        cost={info.cost} 
+        quantity={info.quantity} 
+        isOpen={isModalOpen} 
+        onClose={closeModal}
+        startDate={info.startDate}
+        endDate={info.endDate} 
+      />
+      ) : (
+        <TourModal 
+        reservationId={info.reservationId}
+        id={info.id} 
+        cost={info.cost} 
+        quantity={info.quantity} 
+        isOpen={isModalOpen} 
+        onClose={closeModal}
+        startDate={info.startDate}
+        endDate={info.endDate}  
+        />
+      )}
     </>
-  );  
+  );
 };
 
 export default ReservationButtons;

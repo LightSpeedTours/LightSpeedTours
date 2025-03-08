@@ -15,7 +15,7 @@ export default function LandingPage() {
       return null; // Return null if not in a browser environment
     }
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen">
       <Header />
       <div className="container mx-auto px-4 py-8 space-y-12">
         <section>

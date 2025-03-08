@@ -31,8 +31,17 @@ export class AuthController {
 
     signin = async (req: Request, res: Response): Promise<void> => {
         try {
-            const { name, user_name, email, password, date_of_birth, gender, ocupation, contact } =
-                req.body;
+
+            const {
+                name,
+                user_name,
+                email,
+                password,
+                date_of_birth,
+                gender = null,
+                ocupation = null,
+                contact = null,
+            } = req.body;
 
             // Validate required fields
             if (!name || !user_name || !email || !password || !date_of_birth) {

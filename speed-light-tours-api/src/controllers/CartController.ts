@@ -6,16 +6,15 @@ import {
     removeItemFromCart,
 } from '../services/CartService';
 import { handleErrorResponse } from '../utils/ErrorHandler';
+import { CustomRequest } from '../utils/types/CustomRequest';
 
 /**
  * ✅ Obtener el carrito del usuario autenticado
  */
-export const getUserCartController = async (req: Request, res: Response) => {
+export const getUserCartController = async (req: CustomRequest, res: Response) => {
     try {
-        //TODO: dejar de mockear un usuario
-        //const userId = req.user.id;
-        //const cart = await getUserCart(userId);
-        const cart = await getUserCart(1);
+        const userId = req.user!.id;
+        const cart = await getUserCart(userId);
         if (!cart) {
             res.status(200).json({ message: 'El carrito está vacío' });
             return;
@@ -30,13 +29,10 @@ export const getUserCartController = async (req: Request, res: Response) => {
 /**
  * ✅ Pagar el carrito
  */
-export const payCartController = async (req: Request, res: Response) => {
+export const payCartController = async (req: CustomRequest, res: Response) => {
     try {
-        //TODO: dejar de mockear un usuario
-
-        // const userId = req.user.id;
-        // const order = await processCartPayment(userId);
-        const order = await processCartPayment(1);
+        const userId = req.user!.id;
+        const order = await processCartPayment(userId);
 
         res.status(200).json({ message: 'Pago exitoso', order });
     } catch (error) {
@@ -44,13 +40,10 @@ export const payCartController = async (req: Request, res: Response) => {
     }
 };
 
-export const getUserOrdersController = async (req: Request, res: Response) => {
+export const getUserOrdersController = async (req: CustomRequest, res: Response) => {
     try {
-        //TODO: dejar de mockear un usuario
-
-        // const userId = Number(req.user.id);
-        // const orders = await getOrdersByUser(userId);
-        const orders = await getUserOrders(1);
+        const userId = Number(req.user!.id);
+        const orders = await getUserOrders(userId);
 
         res.status(200).json(orders);
     } catch (error) {
@@ -61,11 +54,9 @@ export const getUserOrdersController = async (req: Request, res: Response) => {
 /**
  * ✅ Eliminar un elemento del carrito de un usuario autenticado
  */
-export const removeCartItemController = async (req: Request, res: Response) => {
+export const removeCartItemController = async (req: CustomRequest, res: Response) => {
     try {
-        //TODO: dejar de mockear un usuario
-        // const userId = req.user.id;
-        const userId = 1;
+        const userId = req.user!.id;
         const { itemId } = req.params;
 
         if (!itemId) {

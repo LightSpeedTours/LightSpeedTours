@@ -8,6 +8,7 @@ import {
     getReservationDatesByEntityController,
 } from '../controllers/ReservationController';
 import { validateEntityType, validateReservation } from '../middlewares/ReservationMiddleware';
+import { authenticateUser } from '../middlewares/UserMiddleware';
 
 const router = Router();
 
@@ -18,9 +19,9 @@ router.get(
     getReservationDatesByEntityController,
 );
 
-router.post('/', validateReservation, createReservationController);
-router.put('/:id', validateReservation, updateReservationController);
-router.delete('/:id', deleteReservationController);
-router.delete('/expired', cleanExpiredReservationsController);
+router.post('/', authenticateUser, validateReservation, createReservationController);
+router.put('/:id', authenticateUser, validateReservation, updateReservationController);
+router.delete('/:id', authenticateUser, deleteReservationController);
+router.delete('/expired', authenticateUser, cleanExpiredReservationsController);
 
 export default router;

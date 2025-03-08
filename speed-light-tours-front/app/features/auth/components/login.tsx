@@ -1,5 +1,25 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { User, KeyRound, ArrowRight } from 'lucide-react';
+import { loginUser } from '../services/authService';
+
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    try {
+      setError(''); // Limpiar errores previos
+      const token = await loginUser(email, password);
+      localStorage.setItem('token', token); // Guardar el token en localStorage
+      navigate('/landingPage'); // Redirigir al perfil del usuario
+    } catch (error) {
+      setError(error instanceof Error ? error.message : String(error));
+    }
+  };
+
   return (
     <div className="grid min-h-screen grid-cols-1 lg:grid-cols-2">
       <div className="hidden lg:block">
@@ -14,7 +34,7 @@ export default function Login() {
           <div className="space-y-6">
             <div className="space-y-2">
               <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-                Nombre de usuario
+                Ingresa tu correo electrónico
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-3 flex items-center">
@@ -24,10 +44,12 @@ export default function Login() {
                   id="username"
                   type="text"
                   placeholder="Input"
-                  className="w-full rounded-md border border-gray-300 pl-10 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full rounded-md border border-gray-300 pl-10 py-2 px-3 focus:outline-none focus:ring-2 
+                  focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
-              <p className="text-xs text-gray-500">Supporting text</p>
             </div>
             <div className="space-y-2">
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
@@ -41,13 +63,20 @@ export default function Login() {
                   id="password"
                   type="password"
                   placeholder="Input"
-                  className="w-full rounded-md border border-gray-300 pl-10 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full rounded-md border border-gray-300 pl-10 py-2 px-3 focus:outline-none focus:ring-2 
+                  focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
-              <p className="text-xs text-gray-500">Supporting text</p>
             </div>
           </div>
-          <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline">
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+          <button
+            onClick={handleLogin}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md 
+            focus:outline-none focus:shadow-outline"
+          >
             LOGIN
           </button>
           <div className="text-center">
@@ -63,10 +92,13 @@ export default function Login() {
               <span className="bg-[#1A1A1A] px-2 text-[#CCCCCC]">Or</span>
             </div>
           </div>
-          <Link to="/signUp" className="w-full bg-blue-600 flex items-center justify-center hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline">
+          <button
+            onClick={() => navigate('/signUp')}
+            className="w-full bg-blue-600 flex items-center justify-center hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
+          >
             Create an account
             <ArrowRight className="ml-2 h-4 w-4" />
-          </Link>
+          </button>
         </div>
       </div>
     </div>
