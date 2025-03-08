@@ -2,39 +2,34 @@ import { Request, Response, NextFunction } from 'express';
 import { makeErrorResponse, handleErrorResponse } from '../utils/ErrorHandler';
 
 export const validateSignin = (req: Request, res: Response, next: NextFunction): void => {
-    try {
-        const { name, user_name, email, password, date_of_birth, gender, ocupation, contact } =
-            req.body;
+  try {
+    const { name, user_name, email, password, date_of_birth } = req.body;
+    const errors: Record<string, string> = {};
 
-        // Verificar campos obligatorios
-        if (!name || !user_name || !email || !password || !date_of_birth) {
-            throw makeErrorResponse(
-                400,
-                'All required fields must be provided: name, user_name, email, password, date_of_birth',
-            );
-        }
+    if (!name) errors.name = 'El nombre es obligatorio.';
+    if (!user_name) errors.user_name = 'El nombre de usuario es obligatorio.';
+    if (!email) errors.email = 'El correo electrónico es obligatorio.';
+    if (!password) errors.password = 'La contraseña es obligatoria.';
+    if (!date_of_birth) errors.date_of_birth = 'La fecha de nacimiento es obligatoria.';
 
-        // Validar email
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            throw makeErrorResponse(400, 'Invalid email format');
-        }
-
-        // Validar date_of_birth (Formato YYYY-MM-DD y que sea una fecha válida)
-        if (isNaN(Date.parse(date_of_birth))) {
-            throw makeErrorResponse(400, 'Invalid date_of_birth format (Expected: YYYY-MM-DD)');
-        }
-
-        if (ocupation && ocupation.length > 100) {
-            throw makeErrorResponse(400, 'Ocupation must be less than 100 characters');
-        }
-
-        if (contact && !/^\+?\d{7,15}$/.test(contact)) {
-            throw makeErrorResponse(400, 'Invalid contact format (Must be a valid phone number)');
-        }
-
-        next(); // Pasar al controlador si todas las validaciones son correctas
-    } catch (error) {
-        handleErrorResponse(res, error);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (email && !emailRegex.test(email)) {
+      errors.email = 'Formato de correo electrónico inválido.';
     }
+
+    if (date_of_birth && isNaN(Date.parse(date_of_birth))) {
+      errors.date_of_birth = 'Formato de fecha inválido. Debe ser YYYY-MM-DD.';
+    }
+
+    if (Object.keys(errors).length > 0) {
+
+      res.status(400).json({ success: false, errors: errors });
+      return;
+    }
+
+    next(); 
+  } catch (error) {
+    handleErrorResponse(res, error);
+  }
 };
+

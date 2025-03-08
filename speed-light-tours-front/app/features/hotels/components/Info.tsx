@@ -8,7 +8,7 @@ import planetsImages from '../../../shared/utils/planetsImagesLists';
 
 interface InfoProps {
   planet: string | null;
-  planetInfo: Lodging[]; // Mejor que "any"
+  planetInfo: Lodging[]; 
 }
 
 export default function Info({ planet, planetInfo }: InfoProps) {
@@ -30,21 +30,19 @@ export default function Info({ planet, planetInfo }: InfoProps) {
               alt={lodging.name || "Imagen del hospedaje"}
               className={styles.image}
             />
-
             </div>
 
-
+            {/* Sección de informacion */}
             <div className={styles.detailsContainer}>
             <h2>{lodging.name || 'Hospedaje'}</h2>
             <h3>{lodging.location || 'Dirección del hospedaje'}</h3>
             <p>{lodging.description || 'Descripción del hospedaje'}</p>
 
-            {/* Contenedor centrado para el StarRating */}
+            {/* Rating */}
             <div className="flex justify-center items-center w-full">
               <StarRating rating={ratings[lodging.id] || 0} />
             </div>
           </div>
-
 
             {/* Sección de precio */}
             <div className={styles.priceContainer}>
@@ -57,7 +55,7 @@ export default function Info({ planet, planetInfo }: InfoProps) {
             </div>
           </div>
         ))
-      ) : (
+      ) : ( //Si no hay ningun planeta seleccionado, se muestra una lista de planetas
           <div className={styles.planetsImagesContainer}>
               {Object.entries(planetsImages).map(([planetName, imageUrl]) => (
               <a
