@@ -49,7 +49,7 @@ const TourReservationPage = () => {
   if (!tour) return <p className="text-center text-gray-500">No hay información disponible.</p>;
 
   return (
-    <main className="min-h-screen bg-white dark:bg-gray-900">
+    <main>
       <Header />
       <TourReservation {...tour} />
     </main>
