@@ -20,7 +20,7 @@ const destinations: Destination[] = [
     id: 1,
     name: 'Tatooine Dunes',
     location: 'Tatooine, Mos Eisley',
-    dates: 'July 27',
+    dates: '27/07/2025',
     price: '$80',
     description: 'Explora las dunas de Tatooine partiendo desde Mos Eisley con alimentación incluida, recogida en el hotel y snack al atardecer.',
     capacity: '4 personas',
@@ -31,7 +31,7 @@ const destinations: Destination[] = [
     id: 2,
     name: 'Echo Ice Tour',
     location: 'Hoth, Echo Base',
-    dates: 'June 10',
+    dates: '10/06/2025',
     price: '$70',
     description: 'Recorre la base helada en Echo Base con transporte, comida caliente y snack de bienvenida.',
     capacity: '6 personas',
@@ -42,7 +42,7 @@ const destinations: Destination[] = [
     id: 3,
     name: 'Ewok Tour',
     location: 'Endor, Bright Tree Village',
-    dates: 'April 27',
+    dates: '27/04/2025',
     price: '$65',
     description: 'Explora Bright Tree Village con alimentación incluida, recogida en el hotel y un snack típico Ewok.',
     capacity: '8 personas',
@@ -53,7 +53,7 @@ const destinations: Destination[] = [
     id: 4,
     name: 'Theed Palace',
     location: 'Naboo, Theed',
-    dates: 'May 22',
+    dates: '22/05/2025',
     price: '$100',
     description: 'Descubre la arquitectura de Theed, con alimentación, transporte de ida y vuelta y visita guiada al palacio.',
     capacity: '2 personas',
@@ -64,7 +64,7 @@ const destinations: Destination[] = [
     id: 5,
     name: 'Upper City Tour',
     location: 'Coruscant, Upper City',
-    dates: 'March 15',
+    dates: '15/03/2025',
     price: '$120',
     description: 'Descubre las vistas de Upper City con alimentación incluida, recogida y regreso al hotel, y snack.',
     capacity: '5 personas',
@@ -101,7 +101,7 @@ export default function FeaturedDestinations() {
             </div>
             <div className="space-y-2">
               <div className="flex justify-between items-start">
-                <h3 className="font-bold text-[#FFE81F]">{destination.price}</h3>
+                <h3 className="font-bold text-[#FFE81F]">{destination.price} por persona</h3>
                 <div className="text-sm text-[#CCCCCC]">
                 <h3>{destination.name}</h3>
                 </div>
@@ -109,7 +109,7 @@ export default function FeaturedDestinations() {
               <p className="text-white">{destination.description}</p>
               <p className="text-sm text-[#CCCCCC]">{destination.capacity}</p>
               <p>{destination.location}</p>
-              <p>{destination.dates}</p>
+              <h3>{destination.dates}</h3>
             </div>
           </div>
         ))}

@@ -20,9 +20,9 @@ const promotions: Promotion[] = [
     name: 'Twin Suns Inn',
     price: '$10',
     location: 'Tatooine',
-    dates: '2024-03-08 - 2024-03-15',
-    description: 'Experience the thrill of a lifetime on Tatooine!',
-    capacity: '100 seats available',
+    dates: '03/05/2025 - 03/152025',
+    description: 'Inn desértico sencillo en Mos Eisley, cuenta con desayuno tradicional, aire acondicionado, TV y una terraza para disfrutar de los dos soles.',
+    capacity: '100 personas',
     imageUrl: 'app/shared/assets/hospedajes/twin-suns-inn.png',
   },
   {
@@ -30,9 +30,9 @@ const promotions: Promotion[] = [
     name: 'Frostbite Retreat',
     price: '$45',
     location: 'Hoth',
-    dates: '2024-04-10 - 2024-04-17',
-    description: 'Enjoy the icy landscapes of Hoth!',
-    capacity: '50 seats available',
+    dates: '10/04/2025 - 17/04/2025',
+    description: 'Retiro acogedor en Frostbite Outpost que incluye desayuno, Wi‑Fi, aire acondicionado, sala de juegos, ideal para familias.',
+    capacity: '50 personas',
     imageUrl: 'app/shared/assets/hospedajes/frostbite-retreat.png',
   },
   {
@@ -40,9 +40,9 @@ const promotions: Promotion[] = [
     name:'Moonlit Retreat',
     price: '$20',
     location: 'Endor',
-    dates: '2024-05-12 - 2024-05-19',
-    description: 'Explore the lush forests of Endor!',
-    capacity: '75 seats available',
+    dates: '12/05/2025 - 19/05/2025',
+    description: 'Retiro íntimo en Bright Tree Village que ofrece desayuno, aire acondicionado y acceso a senderos naturales para explorar.',
+    capacity: '25 personas',
     imageUrl: 'app/shared/assets/hospedajes/moonlit-retreat.png',
   },
 ];
@@ -80,7 +80,7 @@ export default function PromotionsCarousel() {
             </div>
             <div className="space-y-2">
               <div className="flex justify-between items-start">
-                <h3 className="text-xl font-bold">{promotion.price}</h3>
+                <h3 className="text-xl font-bold">{promotion.price} por persona</h3>
                 <div className="text-sm">
                   <h3>{promotion.name}</h3>
                 </div>
@@ -88,7 +88,7 @@ export default function PromotionsCarousel() {
               <p className="text-white">{promotion.description}</p>
               <p className="text-sm">{promotion.capacity}</p>
               <p>{promotion.location}</p>
-              <p>{promotion.dates}</p>
+              <h3>{promotion.dates}</h3>
             </div>
           </div>
         ))}
