@@ -9,6 +9,7 @@ import {
 import InputField from '~/shared/components/InputField';
 import Button from '~/shared/components/Button';
 import './lodgingModal.css';
+import { getUserIdFromToken } from '~/shared/utils/tokenService';
 
 const LodgingForm: React.FC<FormProps> = ({
   reservationId,
@@ -93,9 +94,14 @@ const LodgingForm: React.FC<FormProps> = ({
     if (!validateFields()) return;
 
     setLoading(true);
+    const userId = getUserIdFromToken();
+    if (!userId) {
+      setError('No se pudo obtener el usuario. Inicia sesión nuevamente.');
+      return;
+    }
 
     const reservationData:ReservationPayload = {
-      userId: 1, // TODO: Obtener ID real del usuario autenticado
+      userId: userId,
       entityType: 'lodging',
       entityId: id,
       quantity: guests,

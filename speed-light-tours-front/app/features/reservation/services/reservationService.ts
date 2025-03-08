@@ -1,14 +1,17 @@
+import { getAuthToken } from '~/shared/utils/tokenService';
 import type { Order, ReservationPayload } from '../utils/ReservationTypes';
 
 export const API_URL = 'http://localhost:3000'; // Ajusta según tu backend
-const BEARER_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJkdW1teUBleGFtcGxlLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzQxMzcxNzEyLCJleHAiOjE3NDE0NTgxMTJ9.RwaUaiTF8KPyiQX1lmm36fhj2EG3LT0eXzl8GBAEwE0';
+
+
 
 /**
  * Obtiene todas las fechas reservadas de un hospedaje o tour específico
- * @param lodgingId ID del hospedaje
+ * @param entityType Tipo de entidad (lodging o tour)
+ * @param entityId ID del hospedaje o tour
  * @returns Lista de fechas reservadas
  */
-export const fetchReservedDates = async (entityType:String, entityId: number): Promise<Date[]> => {
+export const fetchReservedDates = async (entityType: string, entityId: number): Promise<Date[]> => {
   try {
     const response = await fetch(`${API_URL}/reservations/${entityType}/${entityId}/dates`);
     if (!response.ok) throw new Error('Error al obtener las reservas');
@@ -40,11 +43,14 @@ export const fetchReservedDates = async (entityType:String, entityId: number): P
  */
 export const createReservation = async (reservation: ReservationPayload) => {
   try {
+    const token = getAuthToken();
+    if (!token) throw new Error('No hay token de autenticación');
+
     const response = await fetch(`${API_URL}/reservations`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${BEARER_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(reservation),
     });
@@ -64,10 +70,13 @@ export const createReservation = async (reservation: ReservationPayload) => {
  */
 export const deleteReservation = async (reservationId: number) => {
   try {
+    const token = getAuthToken();
+    if (!token) throw new Error('No hay token de autenticación');
+
     const response = await fetch(`${API_URL}/reservations/${reservationId}`, {
       method: 'DELETE',
       headers: {
-        'Authorization': `Bearer ${BEARER_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -82,26 +91,28 @@ export const deleteReservation = async (reservationId: number) => {
 
 /**
  * Actualiza una reserva existente
- * @param reservationId ID de la reserva
- * @param updatedReservation Datos actualizados de la reserva
+ * @param idReservation ID de la reserva
+ * @param reservation Datos actualizados de la reserva
  */
 export const updateReservation = async (reservation: ReservationPayload, idReservation: number) => {
   try {
-    console.log(reservation);
+    const token = getAuthToken();
+    if (!token) throw new Error('No hay token de autenticación');
+
     const response = await fetch(`${API_URL}/reservations/${idReservation}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${BEARER_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(reservation),
     });
 
-    if (!response.ok) throw new Error('Error al realizar la reserva');
+    if (!response.ok) throw new Error('Error al actualizar la reserva');
 
     return await response.json();
   } catch (error) {
-    console.error('Error creando la reserva:', error);
+    console.error('Error actualizando la reserva:', error);
     throw error;
   }
 };
@@ -113,10 +124,13 @@ export const updateReservation = async (reservation: ReservationPayload, idReser
  */
 export const fetchUserOrders = async (userId: number): Promise<Order> => {
   try {
+    const token = getAuthToken();
+    if (!token) throw new Error('No hay token de autenticación');
+
     const response = await fetch(`${API_URL}/cart/orders?userId=${userId}`, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${BEARER_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 

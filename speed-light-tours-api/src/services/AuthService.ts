@@ -21,7 +21,6 @@ class AuthService {
                 throw makeErrorResponse(401, 'Invalid credentials');
             }
 
-            // Generar y devolver JWT
             return AuthService.generateToken(user);
         } catch (error) {
             throw error;
@@ -42,31 +41,27 @@ class AuthService {
             const existingUser = await User.findOne({ where: { email } });
             const existingUsername = await User.findOne({ where: { user_name } });
 
-      if (existingUser) {
-        throw makeErrorResponse(400, 'Email is already registered');
-      }
-      if (existingUsername) {
-        throw makeErrorResponse(400, 'Username is already taken');
-      }
-      
+            if (existingUser) {
+                throw makeErrorResponse(400, 'Email is already registered');
+            }
+            if (existingUsername) {
+                throw makeErrorResponse(400, 'Username is already taken');
+            }
 
-      // Hashear la contraseña
-      const hashedPassword = await bcrypt.hash(password, 10);
-      let foo: string | undefined = process.env.JWT_SECRET
-      console.log(foo)
-      // Crear nuevo usuario
-      const newUser = await User.create({
-        name,
-        user_name,
-        email,
-        password: hashedPassword,
-        date_of_birth,
-        gender,
-        ocupation,
-        contact
-      });
+            const hashedPassword = await bcrypt.hash(password, 10);
+            let foo: string | undefined = process.env.JWT_SECRET;
+            console.log(foo);
+            const newUser = await User.create({
+                name,
+                user_name,
+                email,
+                password: hashedPassword,
+                date_of_birth,
+                gender,
+                ocupation,
+                contact,
+            });
 
-            // Generar y devolver JWT
             return AuthService.generateToken(newUser);
         } catch (error) {
             throw error;
@@ -80,7 +75,7 @@ class AuthService {
                 email: user.email,
                 role: user.rol,
             },
-            process.env.JWT_SECRET || 'secretKey', // Usar variable de entorno segura
+            process.env.JWT_SECRET || 'secretKey',
             { expiresIn: '24h' },
         );
     }

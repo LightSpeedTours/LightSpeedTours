@@ -8,8 +8,8 @@ import {
 }  from '../../reservation/services/reservationService';
 import InputField from '~/shared/components/InputField';
 import Button from '~/shared/components/Button';
-import type { FormProps } from '../utils/ReservationTypes';
-import { set } from 'node_modules/react-datepicker/dist/date_utils';
+import type { FormProps, ReservationPayload } from '../utils/ReservationTypes';
+import { getUserIdFromToken } from '~/shared/utils/tokenService';
 
 const TourForm: React.FC<FormProps> = ({
   reservationId,
@@ -63,15 +63,20 @@ const TourForm: React.FC<FormProps> = ({
     if (!validateFields()) return;
 
     setLoading(true);
+    const userId = getUserIdFromToken();
+    if (!userId) {
+      setError('No se pudo obtener el usuario. Inicia sesión nuevamente.');
+      return;
+    }
 
-    const reservationData = {
-      userId: 1, // TODO: Obtener ID real del usuario autenticado
+    const reservationData: ReservationPayload = {
+      userId: userId,
       entityType: 'tour',
       entityId: id,
       quantity: attendees,
       subtotal: calculateTotal(),
-      startDate: selectedDate || new Date(),
-      endDate: getEndDate() || new Date(), 
+      startDate: selectedDate ? selectedDate.toISOString() : new Date().toISOString(),
+      endDate: getEndDate() ? getEndDate()!.toISOString() : new Date().toISOString(),
     };
 
     try {
