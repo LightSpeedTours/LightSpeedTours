@@ -76,9 +76,7 @@ class AuthService {
                 email: user.email,
                 role: user.rol,
             },
-
             process.env.JWT_SECRET || 'secretKey',
-
             { expiresIn: '24h' },
         );
     }

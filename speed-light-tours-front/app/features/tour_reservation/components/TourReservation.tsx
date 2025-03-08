@@ -28,7 +28,6 @@ const TourReservation: React.FC<TourProps> = ({
         {/* Columna izquierda: Información del tour y servicios */}
         <div className="space-y-4 md:w-3/4 lg:w-2/3">
           <TourInfo planet={planet} duration={duration} />
-          <ServicesList services={services} category="Tour" />
           <RecommendationsSection recommendations={recommendations} />
         </div>
 
