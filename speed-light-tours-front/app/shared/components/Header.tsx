@@ -94,22 +94,28 @@ export default function Header() {
         </div>
       )}
 
-      {/* Circular Navigators (planetas) */}
-      <div className="w-full bg-[#1A1A1A] py-4 flex justify-center border-y border-[#2C2C2C] overflow-x-auto px-4">
+         {/* Circular Navigators (planetas) */}
+         <div className="w-full bg-[#1A1A1A] py-4 flex justify-center border-y border-[#2C2C2C] overflow-x-auto px-4">
         <div className="flex gap-2">
-          {Object.entries(planetsImages).map(([planetName, imageUrl]) => (
-            <Link
-              key={planetName}
-              to={`/hotels?planet=${planetName.toLowerCase()}`}
-              aria-label={`Ver hospedajes en ${planetName}`}
-            >
-              <button className="w-10 h-10 rounded-full bg-[#2C2C2C] flex-shrink-0 overflow-hidden border-2 border-[#FFE81F] transition-transform hover:scale-110">
-                <img src={imageUrl} alt={planetName} className="w-full h-full object-cover" />
-              </button>
-            </Link>
-          ))}
+        {Object.entries(planetsImages).map(([planetName, imageUrl]) => (
+        <a
+          key={planetName}
+          href={`/hotels?planet=${planetName.toLowerCase()}`}
+          aria-label={`Ver hospedajes en ${planetName}`}
+        >
+          <button className="w-10 h-10 rounded-full bg-[#2C2C2C] flex-shrink-0 overflow-hidden border-2 border-[#FFE81F] transition-transform hover:scale-110">
+            <img
+              src={imageUrl}
+              alt={planetName}
+              className="w-full h-full object-cover"
+            />
+          </button>
+        </a>
+      ))}
         </div>
       </div>
+
+
       {/* Bottom Navigation */}
       <div className="w-full bg-[#1A1A1A] px-4 py-4 flex flex-col md:flex-row justify-between items-center">
         <div className="flex flex-wrap justify-center gap-4">
